@@ -2,6 +2,8 @@
 
 PHP Framework for hompages, blogs, middleware and microservices.
 
+![example image](etc/repo_images/example_01.png)
+
 ## CLI-Interface
 ```
 php cli.php
