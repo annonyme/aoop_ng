@@ -1,0 +1,8 @@
+<module>
+	<name>sitemap</name>
+	<version>0.2</version>
+	<hidden>true</hidden>
+	<nontextpages>
+	  	<nontextpage>index</nontextpage>
+	</nontextpages>
+</module>

@@ -1,0 +1,22 @@
+<h1>HOME - Dev-Install</h1>
+<p class="well">
+    AOOP-NG Homepage. Use Bootstrap 3.3 and Twig (or plain old HTML-files) to design your content-pages. Extend the system with modules.
+</p>
+<p class="well">
+    The following two pages are defined as subpages (via the parent-tag) of this page (home.html)
+ </p>  
+<fieldset>
+    <legend>AdminPanel-Login</legend>
+<form method="POST" class="well">
+    <input type="hidden" name="adminpage" value="1"/>
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" id="username" name="username" placeholder="e.g. admin">
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" name="userpassword" placeholder="">
+    </div>    
+    <input type="submit" class="btn btn-default" value="login"/>
+</form>
+</fieldset>  

@@ -1,0 +1,13 @@
+{
+  "folder": "servers",
+  "domains": [
+    {
+      "pattern": "/print=download/i",
+      "folder": "download"
+    },
+    {
+      "pattern": "/.+/i",
+      "folder": "default"
+    }
+  ]
+}

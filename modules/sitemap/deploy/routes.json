@@ -1,0 +1,16 @@
+{
+  "patterns": [
+    {
+      "pattern": "/sitemap\\.xml$/Ui",
+      "target": {
+        "type": "function",
+        "function": "getPageContent",
+        "args": [
+          {"type": "_request"},
+          {"type": "string", "staticvalue": "sitemap"},
+          {"type": "string", "staticvalue": "index"}
+        ]
+      }
+    }
+  ]
+}

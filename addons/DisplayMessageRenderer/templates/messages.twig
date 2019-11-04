@@ -1,0 +1,9 @@
+{% for message in messages %}
+    <div role="alter" class="alert alert-{{ message.type  }} alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>message.title</strong>
+        {% if message.message %}
+            {{ message.message }}
+        {% endif %}
+    </div>
+{% endfor %}

@@ -1,0 +1,362 @@
+.parallax {
+    /* The image used */
+    background-image: url("/assets/generic_temp/parallax.jpg");
+    /* Set a specific height */
+    height: 150px;
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.parallax-seperator{
+    height: 80px;
+}
+
+.parallax-seperator-sm{
+    height: 40px;
+}
+
+body {
+    background-color: {{env.style.colors.primarycolor2}};
+    /*color: #000000;*/
+    /*font-family:Arial,sans-serif;*/
+    /*font-family: 'Roboto', sans-serif;
+    font-size: 150%;*/
+    color: #505256;
+    font-family: "Quicksand", sans-serif;
+    font-size: 16px;
+    margin: 0px;
+}
+
+.borderedContainer {
+    border-top: 1px solid #444444;
+    border-left: 1px solid #444444;
+    color: #000000;
+}
+
+div.header-image {
+    background-image: url({{env.style.images.header}});
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #222;
+    position: relative;
+    height: 25vh;
+
+    /* lienar gradient */
+}
+
+div.header-overlay-image{
+    position: absolute;
+    left: 6vh;
+    top: 4vh;
+    width: 32vh;
+    height: 16vh;
+    background-image: url(assets/generic_temp/logo_cf.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+div#header {
+    position: relative;
+}
+
+div#header > h1 {
+    font-size: 1.4em;
+    text-align: center;
+    color: #007BFF;
+    font-weight: bold;
+    margin: 0px;
+    padding: 8px 0px 8px 0px;
+}
+
+#rightFooter {
+    position: relative;
+    width: 99%;
+    padding: 5px;
+    padding-bottom: 15px;
+}
+
+div#leftMenu {
+    margin-top: 1%;
+}
+
+#pageSubMenu {
+    position: relative;
+    width: 98%;
+    border-left: 1px solid #555555;
+    border-bottom: 2px solid #666666;
+    margin-bottom: 5px;
+}
+
+#pageSubMenu img {
+    display: none;
+}
+
+#leftMenu ul {
+    padding-left: 5px;
+    list-style-type: none;
+    margin-bottom: 0px;
+    margin-top: 5px;
+}
+
+div#pageContent {
+    padding: 10px;
+    margin-top: 5px;
+    min-height: 500px;
+}
+
+div.content-container {
+    position: relative;
+    background-color: white;
+}
+
+div#pageContent table {
+    border-collapse: collapse;
+}
+
+#rightFooterContainer {
+    background-color: {{env.style.colors.primarycolor2}};
+    color: #444;
+    min-height: 9rem;
+    margin-top:4rem;
+}
+
+/*---------------------------*/
+
+#pageContent a {
+    text-decoration: none;
+}
+
+.addonPrintForm a {
+    color: #0000FF;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.addonPrintForm a:visited {
+    color: #0000FF;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+div.borderedContainer > a {
+    color: #0000FF;
+    text-decoration: none;
+    border-bottom: 0px solid #FFFFFF;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+div.borderedContainer > a:visited {
+    color: #0000FF;
+    text-decoration: none;
+    border-bottom: 0px solid #FFFFFF;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+select {
+    border: 1px solid #333333;
+    background-color: #EEEEEE;
+    border-radius: 4px;
+}
+
+textarea {
+    border: 2px solid #333333;
+    background-color: #EEEEEE;
+}
+
+A.pageMenuLink > img {
+    display: none;
+}
+
+A.pageMenuLinkCurrent > img {
+    display: none;
+}
+
+#XWGallery td {
+    text-align: center;
+}
+
+td.photosBookUpdates {
+    vertical-align: bottom;
+}
+
+img.blogCommentIcon {
+    display: none;
+}
+
+table#photoBookList td {
+    vertical-align: top;
+}
+
+strong.XWGalleryImgName {
+    font-size: 0.7em;
+}
+
+span.bookDate {
+    font-size: 0.8em;
+}
+
+div.bcode {
+    color: #000000;
+}
+
+table.todo {
+    margin-top: 10px;
+}
+
+table.todo td.bbcodeTextFieldFullPadding {
+    padding: 4px;
+    color: #000000;
+    background-color: #FFFFFF;
+    border: 0px solid #000000;
+}
+
+div#dropbox {
+    padding: 10px;
+    border: 2px dotted #888888;
+    font-weight: bold;
+    text-align: center;
+    color: #666666;
+}
+
+div#dropbox:-moz-drag-over {
+    color: #000000;
+    border: 2px dotted #000000;
+    background-color: #DDDDDD;
+}
+
+div.media-preview > img {
+    max-width: 60px;
+    padding: 2px;
+}
+
+div.media-preview {
+    overflow-x: scroll;
+}
+
+nav.navbar {
+    border-radius: 0px;
+    border-color: {{env.style.colors.primarycolor1border}};
+}
+
+.header-sub-menu {
+    border-top: 5px solid {{env.style.colors.primarycolor1}};
+    border-bottom: 13px solid {{env.style.colors.primarycolor2}};
+}
+
+.navbar {
+    margin-bottom: 0px;
+    border: 0px;
+}
+
+.navbar-noninverse{
+    background-color: white;
+    border-bottom: 1px solid blue;
+}
+
+
+.scroll-top{
+    position:fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: blue;
+    color: white;
+    text-align:center;
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+.scroll-top > span{
+    margin-top: 10px;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    color: #444;
+    font-family: "Quicksand", sans-serif;
+    font-weight: 700;
+    line-height: 1.4;
+    text-transform: none;
+}
+
+.btn-primary{
+    background-color: #e05a26;
+    border-color: #b04319;
+    color: black;
+}
+
+.btn-default{
+    background-color: {{env.style.colors.primarycolor2}};
+    border-color: {{env.style.colors.primarycolor2border}};
+    color: black;
+}
+
+.btn-default:hover{
+    background-color: {{env.style.colors.primarycolor2}};
+    border-color: {{env.style.colors.primarycolor2border}};
+    color: black;
+}
+
+img[itemprop='image']{
+    max-width: 90%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 3px;
+}
+
+.fl-icon i {
+    color: #ffffff;
+    font-size: 30px;
+    background: #193d90;
+    border-radius: 100%;
+    line-height: 52.5px;
+    height: 52.5px;
+    width: 52.5px;
+    text-align: center;
+}
+
+.rechner-icon .fl-icon {
+    vertical-align: top !important;
+}
+
+h2{
+    font-size: 24px;
+}
+h3{
+    font-size: 24px;
+}
+h4{
+    font-size: 24px;
+}
+h5{
+    font-size: 24px;
+}
+h6{
+    font-size: 24px;
+}
+
+.sidebar-block {
+    text-align:center;
+    margin-bottom:3em;
+}
+
+.footer-cols a, .footer-cols h4{
+    color:white;
+}
+
+.footer-cols ul{
+    list-style-type: none;
+}
+
+span.fl-button-text {
+    color: white;
+}

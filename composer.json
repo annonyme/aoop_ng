@@ -1,0 +1,25 @@
+{
+    "config": {
+        "platform": {
+            "php": "7.1"
+        }
+    },
+    "repositories": [
+        {"type": "vcs", "url": "https://github.com/annonyme/events"}
+    ],
+    "require": {
+        "monolog/monolog": "^1.22",
+        "twig/twig": "^2.1",
+        "phpmailer/phpmailer": "^5.2",
+        "doctrine/orm": "2.6.*",
+        "symfony/http-foundation": "^3.4",
+        "symfony/console": "^3.4",
+        "ext-json": "*",
+        "ext-dom": "*",
+        "ext-pdo": "*",
+        "annonyme/events": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {"": "src/"}
+    }
+}

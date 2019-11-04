@@ -1,0 +1,6 @@
+<config>
+  <page>users</page>
+  <sub>registerForm</sub>
+  <enableinvisible>false</enableinvisible>
+  <_startup>true</_startup>
+</config>

@@ -1,0 +1,5 @@
+<config>
+	<destinationDS>public_assets</destinationDS>
+	<compression>75</compression>
+	<reportUserName>test</reportUserName>
+</config>

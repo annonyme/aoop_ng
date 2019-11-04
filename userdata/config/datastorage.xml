@@ -1,0 +1,42 @@
+<datastorage>
+  <store name="photoupload" type="filesystem">
+    <savepath>../filestores/upload/</savepath>
+    <loadfullpath>../filestores/upload/</loadfullpath>
+    <loadrelativepath>../filestores/upload/</loadrelativepath>
+    <host>filesystem</host>
+    <user></user>
+    <password></password>
+  </store>
+  <store name="upload" type="filesystem">
+    <savepath>../filestores/upload/</savepath>
+    <loadfullpath>../filestores/upload/</loadfullpath>
+    <loadrelativepath>../filestores/upload/</loadrelativepath>
+    <host>filesystem</host>
+    <user></user>
+    <password></password>
+  </store>
+  <store name="downloadbase" type="filesystem">
+    <savepath>../filestores/downloads/</savepath>
+    <loadfullpath>../filestores/downloads/</loadfullpath>
+    <loadrelativepath>../filestores/downloads/</loadrelativepath>
+    <host>filesystem</host>
+    <user></user>
+    <password></password>
+  </store>
+  <store name="temp" type="filesystem">
+    <savepath>../filestores/temp/</savepath>
+    <loadfullpath>../filestores/temp/</loadfullpath>
+    <loadrelativepath>../filestores/temp/</loadrelativepath>
+    <host>filesystem</host>
+    <user></user>
+    <password></password>
+  </store>
+  <store name="public_assets" type="filesystem">
+    <savepath>../public/assets/temp/</savepath>
+    <loadfullpath>../public/assets/temp/</loadfullpath>
+    <loadrelativepath>assets/temp/</loadrelativepath>
+    <host>filesystem</host>
+    <user></user>
+    <password></password>
+  </store>
+</datastorage>

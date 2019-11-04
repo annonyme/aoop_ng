@@ -1,0 +1,360 @@
+
+img{
+    border:0px;
+}
+
+/*----------------------------------------------------*/
+
+/* aoop */
+
+div.PresentationBoxHeader {
+    font-weight: bold;
+    color: #000000;
+    padding: 2px 2px 2px 10px;
+    border-left: 1px solid #888888;
+    border-bottom: 1px solid #888888;
+	background-color:#EEEEEE;
+}
+
+div.PresentationBoxHeader > a {
+	color: #FF0000;
+}	
+
+div.PresentationBox {
+        padding: 6px;
+        background:#FFFFFF;
+        border-left: 1px solid #888888;
+        color:#000000;
+}
+
+div.PresentationBoxHeader > h1 {
+	font-size:1.1em;
+	display:inline;
+}
+	
+
+div.ActionBoxHeader {
+        font-weight: bold;
+        color: #000000;
+        padding: 2px 2px 2px 10px;
+        border-left: 1px solid #888888;
+        border-bottom: 1px solid #888888;
+	background-color:#EEEEEE;
+}
+
+div.ActionBoxHeader > a {
+	color: #FF0000;
+}
+
+div.ActionBoxHeader > h1 {
+	font-size:1.1em;
+	display:inline;
+}
+
+div.ActionBox {
+        padding: 6px;
+        background:#FFFFFF;
+        border-left: 1px solid #888888;
+        color:#000000;
+}
+
+div.WarningBoxHeader {
+        font-weight: bold;
+        color: #DD0000;
+        padding: 2px 2px 2px 10px;
+        background-color: #440000;
+        border-left: 1px solid #888888;
+        border-bottom: 1px solid #888888;
+	background-color:#EEEEEE;
+}
+
+div.WarningBoxHeader > a {
+	color: #FF0000;
+}
+
+div.WarningBoxHeader > h1 {
+	font-size:1.1em;
+	display:inline;
+}
+
+
+div.WarningBox {
+        padding: 6px;
+        background:#FFFFFF;
+        border-left: 1px solid #888888;
+        color:#000000;
+}
+
+div.InfoBoxHeader {
+        font-weight: bold;
+        color: #000000;
+        padding: 2px 2px 2px 10px;
+        border-left: 1px solid #888888;
+        border-bottom: 1px solid #888888;
+	 background-color:#EEEEEE;
+}
+
+div.InfoBoxHeader > a {
+	color: #FF0000;
+}
+
+div.InfoBoxHeader > h1 {
+	font-size:1.1em;
+	display:inline;
+}
+
+div.InfoBox {
+        padding: 6px;
+        background:#FFFFFF;
+        border-left: 2px solid #888888;
+        color:#000000;
+}
+
+
+/*----------------------------------------------------*/
+
+
+.submit {
+        border: 1px solid #333333;
+	 border-radius:4px;	
+        background-color: #CCCCCC;
+        font-weight:bold;
+        margin:4px;
+}
+
+A.pageMenuLink{
+   margin-left:8px;
+   margin-right:4px;
+   background-color:#f5f5f5;
+   color:#111111;
+   text-decoration:none;
+   border:1px solid #DDD;
+   display:block;
+   margin-bottom:5px;
+   padding-left:2px;
+   font-size:1em;
+   font-weight:bold;
+   border-radius:5px;
+}
+
+A.pageMenuLinkCurrent{
+   margin-left:8px;
+   margin-right:4px;
+   background-color:#DDDDDD;
+   color:#FFFFFF;
+   text-decoration:none;
+   border:1px solid #555555;
+   display:block;
+   margin-bottom:5px;
+   padding-left:2px;
+   font-size:0.9em;
+   font-weight:bold;
+   border-radius:5px;
+}
+
+A.pageMenuLink:hover{
+	background-color:#3D3D42;
+	color:#FFFFFF;
+}
+
+A.pageMenuLinkInActive{
+   display:none;
+}
+
+A.pageMenuLinkInActive:hover{
+   display:none;
+}
+
+A.menu{
+   margin-left:4px;
+   margin-right:4px;
+   background-color:#f5f5f5;
+   color:#333333;
+   text-decoration:none;
+   border:1px solid #DDD;
+   border-bottom:1px solid #DDD;
+   display:block;
+   margin-bottom:5px;
+   padding-left:2px;
+   font-size:1em;
+   font-weight:bold;
+   border-radius:5px;
+}
+
+A.menu:first-letter{
+	color:#000000;
+}
+
+A.menu:hover{
+   background-color:#DDDDDD;
+   color:#FFFFFF;
+}
+
+A.menuCur{
+   font-weight:bold;
+   margin-left:4px;
+   margin-right:4px;
+   background-color:#f5f5f5;
+   color:#222222;
+   text-decoration:none;
+   border:1px solid #AAA;
+   display:block;
+   margin-bottom:3px;
+   padding-left:2px;
+   border-radius:5px;
+}
+
+A.menuCur:first-letter{
+	color:#000000;
+}
+
+
+/*----------------------------------------------------*/
+
+.unpublishedBlog{
+   font-style:italic;
+}
+
+.rndImage{
+   max-width:98%;
+}
+
+.forumPostText{
+        border:1px solid #000000;
+        background-color:#FFFFFF;
+}
+
+
+.profileText{
+        border:1px solid #000000;
+        background-color:#FFFFFF;
+}
+
+/*----------------------------------------------------*/
+
+.bbcodeTextField{
+    border:1px dotted #222222;
+    background-color:#EEEEEE;
+    color:#000000;
+    padding:2px;
+}
+
+*.bbcode{
+	border:1px dotted #222222;
+    background-color:#EEEEEE;
+    color:#000000;
+    padding:2px;
+}
+
+.bbcodeTextFieldFullPadding{
+  	width:99%;  	
+  	padding:2px 2px 2px 4px;
+  	border:1px dotted #222222;
+    background-color:#EEEEEE;
+    color:#000000;
+}
+
+/*----------------------------------------------------*/
+
+table.data-table{
+    border:1px solid #222222;
+    background-color:#111111;
+    border-collapse:collapse;
+}
+
+table.data-table td.marked, td.dataTableTdLeft{
+    border:1px solid #555555;
+    background-color:#DDDDDD;
+    font-weight:bold;
+    padding-left:3px;
+    padding-right:3px;
+    font-size:0.9em;
+}
+
+table.data-table td, table.data-table td.default, td.dataTableTdRight{
+    border:1px solid #555555;
+    background-color:#EEEEEE;
+    padding-left:3px;
+    padding-right:3px;
+}
+
+
+/*----------------------------------------------------*/
+
+#loginForm{   
+    border:1px solid #DDD;
+    margin-top:4px;
+    width:97%;
+    margin-left:1%;
+    font-size:1em;
+    color:#000000;
+	background-color:#f5f5f5;
+	border-radius:5px;
+	padding:3px;
+}
+
+.addonPrintForm{ 
+    border:1px solid #DDD;
+    margin-top:4px;
+    width:97%;
+    margin-left:1%;
+    font-size:1em;
+    color:#000000;
+	background-color:#f5f5f5;
+	border-radius:5px;
+	padding:3px;
+} 
+
+/*----------------------------------------------------*/
+
+#MessageReminderTable{
+    border:1px dotted #000000;
+    margin-top:4px;
+    width:97%;
+    margin-left:1%;
+    background-color:#FFFFFF;
+}
+
+/*----------------------------------------------------*/
+
+#onlineStatistic{   
+    border:1px dotted #000000;
+    margin-top:4px;
+    width:97%;
+    margin-left:1%;
+    background-color:#FFFFFF;
+}
+
+.onlineStatisticUser{
+    font-weight:bold;
+    margin-left:2px;  
+}
+
+/*----------------------------------------------------*/
+
+table#XWGallery > tr > td{
+	border:0px solid #04225E;
+	padding: 5px 3px 3px 5px;
+}
+
+table#XWGallery > tbody > tr > td{
+	border:0px solid #04225E;
+	padding: 5px 3px 3px 5px;
+}
+
+td.XWGalleryRecursive{
+	text-align:center;
+}	
+
+/*----------------------------------------------------*/
+
+h1.download{
+	font-size:1.1em;
+	display:inline;
+}
+
+h2.download{
+	font-size:1.0em;
+	display:inline;
+}
+

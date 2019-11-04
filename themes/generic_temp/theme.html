@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <meta name="robots" content="index, follow"/>
+    <meta name="viewport" content="user-scalable=no,width=device-width"/>
+    {% if page.metadescription %}
+        <meta name="description" content="{{ page.metadescription }}"/>
+    {% else %}
+        <meta name="description" content="{{ env.globalDescription }}"/>
+    {% endif %}
+
+    <title>{{ page.title }} - {{ env.globalTitle }}</title>
+    {% if env.canonical %}
+        <link rel="canonical" href="{{ env.canonical }}" />
+    {% endif %}
+
+    <meta property="og:locale" content="de_DE" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="{{ env.globalTitle }}" />
+    <meta property="og:description" content="" />
+    <meta property="og:url" content="{{ page.url }}" />
+    <meta property="og:site_name" content="{{ page.title }}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:description" content="{{ env.globalDescription }}" />
+    <meta name="twitter:title" content="{{ env.globalTitle }}" />
+    <meta name="twitter:image" content="/wp-content/uploads/2017/11/Rechteck-28-1.png" />
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand:300,400,700"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    {{ renderAddon('XWThemeStylesLoader')|raw }}
+
+    <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.0.47/jquery.fancybox.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.0.47/jquery.fancybox.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.8.0/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.8.0/highlight.min.js"></script>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
+          integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <link rel='stylesheet' id='foundation-icons-css'
+          href='https://creditfair.de/wp-content/plugins/bb-plugin/css/foundation-icons.css?ver=1.6.0.2' type='text/css'
+          media='all'/>
+</head>
+<body>
+<div class="header-sub-menu">
+    <h1 class="text-center">Homepage-Title <span class="small">your very catchy slogan</span></h1>
+</div>
+{{ renderAddon('XWMobileMenu')|raw }}
+
+
+{{ page.content|raw }}
+
+<div id="rightFooterContainer">
+    <div id="rightFooter" class="footer-cols">
+        <div class="container-fluid">
+            <div class="col-md-1 hidden-xs hidden-sm"></div>
+            <div class="col-md-2 col-sm-3 hidden-xs">
+                {% include 'footer_col0.twig' ignore missing %}
+            </div>
+            <div class="col-md-1 hidden-xs hidden-sm"></div>
+            <div class="col-md-2 col-sm-3 hidden-xs">
+                {% include 'footer_col1.twig' ignore missing %}
+            </div>
+            <div class="col-md-1 hidden-xs hidden-sm"></div>
+            <div class="col-md-2 col-sm-3 hidden-xs">
+                {% include 'footer_col2.twig' ignore missing %}
+            </div>
+            <div class="col-md-1 hidden-xs hidden-sm"></div>
+            <div class="col-md-2 col-sm-3 hidden-xs">
+                {% include 'footer_col3.twig' ignore missing %}
+            </div>
+            <div class="col-xs-12 hidden-sm hidden-md hidden-lg">
+                {% include 'footer_mobile.twig' ignore missing %}
+            </div>
+            <em class="col-md-12 italic text-center">
+                Demo-Theme-Skeleton
+            </em>
+        </div>
+    </div>
+</div>
+
+{{ renderAddon('BootstrapContactDialog||{"env":"contactData"}')|raw}}
+
+<div class="scroll-top hidden-md hidden-lg" onclick="window.scroll(0, 1)">
+    <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>
+</div>
+<script type="text/javascript">
+    hljs.configure({useBR: true});
+
+    $('div.bcode').each(function (i, block) {
+        hljs.highlightBlock(block);
+    });
+</script>
+</body>
+</html>

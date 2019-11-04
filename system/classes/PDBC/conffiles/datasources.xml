@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="datasources.xsl"?>
+<datasources>
+  <datasource name="embdoop" type="PDBC\dbclasses\DBMySQLi">
+    <host>localhost</host>
+    <port>blubb</port>
+    <sid>aoop</sid>
+    <username>root</username>
+    <userpassword>bitnami</userpassword>
+  </datasource>
+</datasources>

@@ -1,0 +1,134 @@
+<project name="build aoop" default="copy">
+	<target name="copy">
+		<mkdir dir="../../aoop_distribution"/>
+		<mkdir dir="../../aoop_distribution/filestores"/>
+		<mkdir dir="../../aoop_distribution/filestores/download"/>
+		<mkdir dir="../../aoop_distribution/filestores/upload"/>
+		<mkdir dir="../../aoop_distribution/filestores/cache"/>
+		<mkdir dir="../../aoop_distribution/filestores/tmp"/>
+		<mkdir dir="../../aoop_distribution/userdata"/>
+		<mkdir dir="../../aoop_distribution/addons"/>
+		<mkdir dir="../../aoop_distribution/modules"/>
+		<mkdir dir="../../aoop_distribution/public"/>
+		<mkdir dir="../../aoop_distribution/userdata/config"/>
+		<mkdir dir="../../aoop_distribution/userdata/instances"/>
+		
+		<copy todir="../../aoop_distribution/addons">
+			<fileset dir="../addons">
+				<exclude name="HouseDomainUser/*" />
+				<exclude name="HouseMenu/*" />
+				<exclude name="HouseTemplateSelector/*" />
+			</fileset>
+		</copy>
+		
+		<copy todir="../../aoop_distribution/userdata/config">
+			<fileset dir="../userdata/config">
+				<exclude name="**" />
+			</fileset>
+		</copy>
+		<copy todir="../../aoop_distribution/userdata/instances/default">
+			<fileset dir="../userdata/instances/default">
+				<include name="**" />
+				<exclude name="*.bkup" />
+				<exclude name="mail-config.json" />
+				<exclude name="*.page.json" />
+				<exclude name="*-config.xml" />
+				<exclude name="modules/*.xml" />
+			</fileset>
+		</copy>
+		<mkdir dir="../../aoop_distribution/filestores/userdata/instances/default/modules"/>
+		
+		<copy todir="../../aoop_distribution/utils">
+			<fileset dir="../utils">
+				<exclude name="build.bat" />
+				<exclude name="build.xml" />
+			</fileset>
+		</copy>
+		
+		<copy todir="../../aoop_distribution/public">
+			<fileset dir="../public">
+				<include name="reachableContent/**" />
+				<include name=".htaccess" />
+				<include name="index.php" />
+				<include name="patchHtaccess.php" />
+			</fileset>
+		</copy>
+		
+		<copy todir="../../aoop_distribution/public/images">
+			<fileset dir="../public/images">
+				<include name="antispam/*.*" />
+				<include name="*.png" />
+			</fileset>
+		</copy>
+		
+		<copy todir="../../aoop_distribution/etc">
+			<fileset dir="../etc">
+				<include name="**" />
+			</fileset>
+		</copy>
+		
+		<copy todir="../../aoop_distribution/modules">
+			<fileset dir="../modules">
+				<include name="Blogs/**" />
+				<include name="Downloads/**" />
+				<include name="Photos/**" />
+				<include name="sitemap/**" />
+				<include name="users/**" />		
+				<include name="system/**" />	
+			</fileset>
+		</copy>		
+		
+		<copy todir="../../aoop_distribution/system">
+			<fileset dir="../system">
+				<include name="**" />
+			</fileset>
+		</copy>
+		
+		<copy todir="../../aoop_distribution/themes">
+			<fileset dir="../themes">
+				<include name="bootblog_v1/**" />
+				<include name="collab_white/**" />
+			</fileset>
+		</copy>
+		
+		<copy todir="../../aoop_distribution">
+			<fileset dir="../.">
+				<include name="cli.php" />
+				<include name="composer.json" />
+				<include name="composer.lock" />
+				<include name="globalconfig-cli.json" />
+				<include name="globalconfig.json" />
+			</fileset>
+		</copy>
+		
+		<copy todir="../../aoop_distribution/vendor">
+			<fileset dir="../vendor">
+				<include name="**" />
+			</fileset>
+		</copy>
+		
+		<touch>
+			<fileset dir="../../aoop_distribution">
+				<include name="**" />
+			</fileset>
+		</touch>
+		
+		<antcall target="zip">
+		</antcall>		
+	</target>
+	
+	<target name="zip">
+		<tstamp>
+    		<format property="tstamped-file-name" pattern="yyyy_MM_dd" locale="en,UK"/>
+  		</tstamp> 
+		
+		<zip destfile="../../aoop_distribution_${tstamped-file-name}.zip" basedir="../../aoop_distribution"/>
+	</target> 
+	
+	<target name="buildPDBC">
+		<tstamp>
+		    <format property="tstamped-file-name" pattern="yyyy_MM_dd" locale="de,DE"/>
+		</tstamp>				
+		<zip destfile="../../pdbc_${tstamped-file-name}.zip" basedir="system/PDBC/"/>
+	</target>
+</project>	

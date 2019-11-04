@@ -1,0 +1,16 @@
+{
+  "style": {
+    "colors": {
+      "primarycolor1": "#AAAAAA",
+      "primarycolor1border": "#888888",
+      "primarycolor2": "#DDDDDD",
+      "primarycolor2border": "#BBBBBB"
+    },
+    "images": {
+      "header": ""
+    }
+  },
+  "globalTitle": "AOOP-NG CMS-Framework",
+  "globalDescription": "",
+  "canonical": null
+}

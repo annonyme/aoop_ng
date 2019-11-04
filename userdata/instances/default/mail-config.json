@@ -1,0 +1,6 @@
+{
+	"host":"mail.example.com",
+	"port":25,
+	"user":"test",
+	"password":"test"
+}

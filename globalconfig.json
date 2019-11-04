@@ -1,0 +1,23 @@
+{
+    "instancesfolder":"../userdata/instances/",
+	"configspath":"../userdata/config/",
+    "webfolder":"public/",
+    "modulesfolder":"../modules/",
+    "instancemodulefolder":"modules/",
+    "instancepagefolder":"pages/",
+    "composerautoloadfile":"vendor/autoload.php",
+    "addonfolder":"../addons/",
+    "instanceaddonfolder":"addons/",
+    "moduledeployfolder":"deploy/",
+    "moduledeployfile":"module.xml",
+    "globalconfigfile":"info.xml",
+    "themespath":"../themes/",
+    "thememainfile":"theme.html",
+    "mainclasspath":"system/classes/",
+    "filestoresfolder":"filestores/",
+    "pdbcclassesfolder":"../system/classes/PDBC",
+    "imagesfolder":"images/",
+    
+    "loadGlobalModulesWithoutCustomDescriptor": true,
+    "wysiwygEditor": true
+}

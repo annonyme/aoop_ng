@@ -1,0 +1,72 @@
+article.blog{
+    background:#FFFFFF;
+    border-left: 1px solid #888888;
+    color:#000000;
+}
+
+article.blog > header{
+	font-weight: bold;
+    color: #000000;
+    padding: 10px 2px 2px 10px;
+    border-bottom: 1px solid #888888;
+	background-color:#EEEEEE;
+}
+
+article.blog > header > h1{
+	font-size:1.1em;
+	display:inline;
+}
+
+article.blog > header > h1 > a{
+	color: #0000FF;
+}
+
+article.blog > header > h2{
+	font-size:1.1em;
+	display:inline;
+}
+
+article.blog > header > h2 > a{
+	color: #0000FF;
+}
+
+article.blog > section.bbcode{
+	border:0px dotted #222222;
+    background-color:#FFFFFF;
+    color:#000000;
+    padding:4px;
+    margin:4px;
+}
+
+article.blog > section.bbcode > footer.blogHeadline-link{
+	margin-top:5px;
+}
+
+article.blog > footer{
+	color: #000000;
+	border-top: 1px solid #888888;
+	background-color:#EEEEEE;
+}
+
+article.blog > footer table{
+	width:99%;
+}
+
+article.blog > footer td.dataTableTdRight{
+	border:0px;
+}
+
+article.blog > footer td.dataTableTdLeft{
+	border:0px;
+}
+
+section.blog-text {
+	padding-left: 20%;
+	padding-right: 20%;
+	padding-bottom: 3rem;
+}
+
+header.blog-header > h2 {
+	padding-left: 15%;
+}
+

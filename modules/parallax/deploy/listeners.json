@@ -1,0 +1,10 @@
+{
+  "listeners": [
+    {
+      "alias": "Dispatch_Page",
+      "scope": "on",
+      "class": "parallax\\Listener",
+      "method": "onPage"
+    }
+  ]
+}

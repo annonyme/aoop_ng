@@ -1,0 +1,40 @@
+version: '3.3'
+
+services:
+  aoop_mysql:
+    image: bitnami/mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: aoop
+      MYSQL_USER: app
+      MYSQL_PASSWORD: app
+    volumes:
+      - ./etc/install/seperate/:/docker-entrypoint-initdb.d
+
+  aoop_http:
+    image: geerlingguy/php-apache:latest
+    ports:
+    - 8081:80
+    volumes:
+    - ./containerData/apache/my_vhost.conf:/etc/apache2/sites-enabled/vhosts.conf:rw
+    - ./:/var/www/html:rw,delegated
+    command: ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
+#    command: >
+#      sh -c "php utils/composer.phar install && /usr/sbin/apache2ctl -D FOREGROUND"
+    restart: always
+    depends_on:
+      - adminer
+    environment:
+      db_host: aoop_mysql
+      db_sid: aoop
+      db_port: 3306
+      db_username: app
+      db_userpassword: app  
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+    - 8082:8080
+    depends_on:
+      - aoop_mysql

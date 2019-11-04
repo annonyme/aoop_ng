@@ -1,0 +1,12 @@
+{
+  "addons": [
+    {
+      "name": "editpage",
+      "clazz": "addons\\system\\XWPageEditButton"
+    },
+    {
+      "name": "restclient",
+      "clazz": "addons\\system\\RESTClient"
+    }
+  ]
+}

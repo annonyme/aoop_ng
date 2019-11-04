@@ -1,0 +1,45 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Distributions under the name "aoop" on this codebase by other than http://www.annonyme.de are not allowed !
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+aoop-core (system and addons) - MIT
+aoop sql-scripts - MIT
+aoop config-files - MIT
+aoop XWonline - doop
+aoop Forum - MIT
+aoop Users - MIT
+aoop Blogs - MIT
+aoop PicBook - MIT
+aoop Calendar - MIT
+aoop News - MIT
+aoop SimpleGuestBook - MIT
+aoop ECalendar - all rights by Hannes Pries (http://www.annonyme.de) (request for redestribution)
+aoop Chat - MIT
+aoop Downloads - MIT
+aoop services - all rights by Hannes Pries (http://www.annonyme.de) (request for redestribution)
+aoop CashBook - all rights by Hannes Pries (http://www.annonyme.de) (request for redestribution)
+
+aoop non-core addons (all with no other license) - MIT
+aoop example images - Creative Commons Attribution-ShareAlike 2.5
+aoop themes - all rights by Hannes Pries (http://www.annonyme.de) (request for redestribution)
+
+
+
+  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  ! That means:                                                                         !
+  ! Every part of aoop, that is download able, can be used and modified. But only the   !
+  ! Modules, Addons, Classes and Contents under MIT and CC-License can be redistrituted !
+  ! without a further request (contacts see http://www.annonyme.de).                    !
+  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+
+
+Tango Desktop Project icons - Creative Commons Attribution-ShareAlike 2.5
+Gaim theme icons - Artwork by Jacub Steiner (jimmac)
+tinyMCE - LGPL
+php_txt_db - BSD
+flowplayer - GPL
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Distributions under the name "aoop" on this codebase by other than http://www.annonyme.de are not allowed !
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

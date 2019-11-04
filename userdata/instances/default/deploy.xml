@@ -1,0 +1,16 @@
+<server>
+  <template>generic_temp</template>
+  <admintheme>generic_temp</admintheme>
+  <pages>pages/</pages>
+  <homepage>home</homepage>
+  <addons>addons/</addons>
+  <admins>testInstanceAdmins</admins>
+  <filecreatingdate>2010.10.22</filecreatingdate>
+  <header_title>aoop CMS Test-Installation</header_title>
+  <keywords>aoop, cms</keywords>
+  <description>this is a developer version of the aoop-cms</description>
+  <locale>DE</locale>
+  <dbname>embdoop</dbname>
+  <photobook_uselightbox>true</photobook_uselightbox>
+  <lowloginsecurity>true</lowloginsecurity>
+</server>

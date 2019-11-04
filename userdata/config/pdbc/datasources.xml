@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="datasources.xsl"?>
+<datasources>
+  <datasource name="embdoop" type="PDBC\dbclasses\DBMySQLPDO">
+    <host>_env_</host>
+    <sid>_env_</sid>
+    <username>_env_</username>
+    <userpassword>_env_</userpassword>
+  </datasource>
+</datasources>

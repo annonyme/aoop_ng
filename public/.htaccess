@@ -1,0 +1,21 @@
+RewriteEngine on
+RewriteBase /
+
+RewriteRule rest/(.*) index.php?_userestfront=1 [NC,L]
+RewriteRule ferien/(.+?)/((.+).html)? index.php
+RewriteRule readable/(.*) index.php [NC,L]
+RewriteRule idx-(.*).html index.php
+RewriteRule addons/(.*) index.php
+RewriteRule system/(.*) index.php
+RewriteRule modules/(.*) index.php
+RewriteRule servers/(.*) index.php
+RewriteRule adminpanel/(.*) index.php?adminpage=1&page=index
+RewriteRule install/(.*) index.php
+RewriteRule utils/(.*) index.php
+RewriteRule (.*).html index.php
+RewriteRule (.*).xml index.php
+RewriteRule (.*).htm index.php
+# RewriteRule ([a-zA-Z0-9\-_]+.html) index.php?page=$1
+# RewriteRule ([a-zA-Z0-9\-_]+/[a-zA-Z0-9\-_]+) index.php?page=$1&sub=$2
+
+

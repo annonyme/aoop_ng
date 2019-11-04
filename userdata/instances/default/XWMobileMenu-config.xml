@@ -1,0 +1,7 @@
+<config>
+    <searchEnabled>false</searchEnabled>
+    <searchTarget>/index.php?page=uberall</searchTarget>
+    <searchPlaceHolder>Ihre PLZ...</searchPlaceHolder>
+    <searchLabel></searchLabel>
+    <searchDatalistRenderService></searchDatalistRenderService>
+</config>

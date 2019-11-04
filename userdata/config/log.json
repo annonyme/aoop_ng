@@ -1,0 +1,36 @@
+{
+	"appenders":[
+		{
+			"name":"default",
+			"filename":"../system/log/aoop.log",
+			"dateformat":"H-m-y h:i:s",
+			"remoteip":"true"			
+		},
+		{
+			"name":"default_cli",
+			"filename":"system/log/aoop.log",
+			"dateformat":"H-m-y h:i:s",
+			"remoteip":"false"
+		}
+	],
+	"classes":[
+		{
+			"name":"core\\\\pages\\\\loaders\\\\XWFastPostProPageLoader",
+			"appenders":[
+				{
+					"name":"default",
+					"level":"warn"
+				}
+			]
+		},
+		{
+			"name":"xw\\\\cli",
+			"appenders":[
+				{
+					"name":"default_cli",
+					"level":"info"
+				}
+			]
+		}
+	]
+}

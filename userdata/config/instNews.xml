@@ -1,0 +1,5 @@
+<newsinstances>
+  <instance name="default">
+    <newscategory>TestNews</newscategory>
+  </instance>
+</newsinstances>

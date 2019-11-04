@@ -1,0 +1,289 @@
+<config>
+  <rules>
+    <![CDATA[
+    <rule>
+      <pattern>#+/\n/+#</pattern>
+      <value>#+<br/>+#</value>
+    </rule>
+    <rule>
+      <pattern>#+/\[videoplayer\]([^\[]+)\[\/videoplayer\]/+#</pattern>
+      <value>#+<video src="$1" alt="bbcode-video" class="bVideo" controls></video>+#</value>
+    </rule>
+    <rule>
+      <pattern>#+/\[video\]([^\[]+)\[\/video\]/+#</pattern>
+      <value>#+<video src="$1" alt="bbcode-video" class="bVideo" loop autoplay muted/></video>+#</value>
+    </rule>
+    <rule>
+      <pattern>#+/\[youtube\]([^\[]+)\[\/youtube\]/+#</pattern>
+      <value>#+<iframe width="420" height="315" src="$1" frameborder="0" allowfullscreen></iframe>+#</value>
+    </rule>
+    <rule>
+      <pattern>#+/\[mp3\]([^\[]+)\[\/mp3\]/+#</pattern>
+      <value>#+<audio alt="bbcode-audio" class="bAudio" controls><source src="$1" type="audio/mpeg"></audio>+#</value>
+    </rule>
+    <rule>
+      <pattern>#+/\[img\]([^\[]+)\[\/img\]/+#</pattern>
+      <value>#+<img src="$1" alt="bbcode-image" class="bImage"/>+#</value>
+    </rule>
+    <rule>
+      <pattern>#+/\[blogimg(\stitle='([^']+)')*\]([^\[]+)\[\/blogimg\]/+#</pattern>
+      <value>#+<div class="bBlogimg"><img src="$3" alt="bbcode-image" class="bImage"/><br/><span>$2</span></div>+#</value>
+    </rule>
+    <rule>
+      <pattern>#+/\[blogphoto(\stitle='(\w+)')*\](\d+)\[\/blogphoto\]/+#</pattern>
+      <value>#+<div class="bBlogimg"><img src="__blogphoto_load_url__$3" alt="bbcode-image" class="bImage"/><br/><span>$2</span></div>+#</value>
+      <varname>blogphoto_load_url</varname>
+    </rule>    
+    <rule>
+      <pattern>#+/\[code\](.+)\[\/code\]/Uis+#</pattern>
+      <value>#+<div class="bcode">$1</div>+#</value>
+    </rule>
+    <rule>
+      <pattern>#+/\[code style='(.+)'\](.+)\[\/code\]/Uis+#</pattern>
+      <value>#+<div class="bcode $1">$2</div>+#</value>
+    </rule>
+    <rule>
+      <pattern>#+/\[([iubs])\]/+#</pattern>
+      <value>#+<span class="b$1">+#</value>
+    </rule>
+    <rule>
+      <pattern>#+/\[\/([iubs])\]/+#</pattern>
+      <value>#+</span>+#</value>
+    </rule> 
+    <rule>
+      <pattern>#+/\[ul\]/+#</pattern>
+      <value>#+<ul class="bul">+#</value>
+    </rule>
+    <rule>
+      <pattern>#+/\[\/ul\]/+#</pattern>
+      <value>#+</ul>+#</value>
+    </rule> 
+    <rule>
+      <pattern>#+/\[li\]/+#</pattern>
+      <value>#+<li class="bli">+#</value>
+    </rule>
+    <rule>
+      <pattern>#+/\[\/li\]/+#</pattern>
+      <value>#+</li>+#</value>
+    </rule> 
+    <rule>
+      <pattern>#+/\[\*\]([^\[]+)/Uis+#</pattern>
+      <value>#+<li>($1)</li>+#</value>
+    </rule>
+    <rule>
+      <pattern>#+/\[(h\d)\]/+#</pattern>
+      <value>#+<$1 class="b$1">+#</value>
+    </rule>
+    <rule>
+      <pattern>#+/\[\/(h\d)\]/+#</pattern>
+      <value>#+</$1>+#</value>
+    </rule>      
+    <rule>
+      <pattern>#+/\[url\]([^\[]+)\[\/url\]/Uis+#</pattern>
+      <value>#+<a href="$1" target="_blank">$1</a>+#</value>
+    </rule>    
+    <rule>
+      <pattern>#+/\[url=([^\]]+)\]([^\[]+)\[\/url\]/Uis+#</pattern>
+      <value>#+<a href="$1" target="_blank">$2</a>+#</value>
+    </rule>  
+    <rule>
+      <pattern>#+/\[page=([\/a-zA-Z0-9_\-]+)\](.+)\[\/page\]/Uis+#</pattern>
+      <value>#+<a href="index.php?page=$1">$2</a>+#</value>
+    </rule>
+    <rule>
+      <pattern>#+/\[page\]([\/a-zA-Z0-9_\-]+)\[\/page\]/Uis+#</pattern>
+      <value>#+<a href="index.php?page=$1">$1</a>+#</value>
+    </rule>
+    <rule>
+      <pattern>#+/\[quote\]/+#</pattern>
+      <value>#+<div class="bquote">+#</value>
+    </rule>
+    <rule>
+      <pattern>#+/\[\/quote\]/+#</pattern>
+      <value>#+</div>+#</value>
+    </rule>
+    <rule>
+      <pattern>#+/\[spoiler\](.+)\[\/spoiler\]/Uis+#</pattern>
+      <value>#+<span class="bspoiler">$1</span>+#</value>
+    </rule>
+    <rule>
+      <pattern>#+/\[h\](.+)\[\/h\]/Uis+#</pattern>
+      <value>#+<h1 class="bh">$1</h1>+#</value>
+    </rule>
+    <rule>
+      <pattern>#+/\[center\](.+)\[\/center\]/Uis+#</pattern>
+      <value>#+<div class="bcenter">$1</div>+#</value>
+    </rule>
+    <rule>
+      <pattern>#+/\[border\](.+)\[\/border\]/Uis+#</pattern>
+      <value>#+<div class="bborder">$1</div>+#</value>
+    </rule>
+    <rule>
+      <pattern>#+/\[action\](.+)\[\/action\]/Uis+#</pattern>
+      <value>#+<span class="baction">*$1*</span>+#</value>
+    </rule>
+    <rule>
+      <pattern>#+/\[to\](.+)\[\/to\]/Uis+#</pattern>
+      <value>#+<span class="bto">@$1:</span>+#</value>
+    </rule>
+    <rule>
+      <pattern>#+/\[color=(.+)\](.+)\[\/color\]/Uis+#</pattern>
+      <value>#+<span style="color:$1;">$1</span>+#</value>
+    </rule>
+    <rule>
+      <pattern>#+/\[size=(.+)\](.+)\[\/size\]/Uis+#</pattern>
+      <value>#+<span style="font-size:$1;">$1</size>+#</value>
+    </rule>
+    <rule>
+      <pattern>#+/\[font=(.+)\](.+)\[\/font\]/Uis+#</pattern>
+      <value>#+<div style="font-family:$1;">$2</div>+#</value>
+    </rule>
+    <rule>
+      <pattern>#+/\[(hr)|(line)\]/Uis+#</pattern>
+      <value>#+<hr class="bbcode"/>+#</value>
+    </rule>
+    <rule>
+      <pattern>#+/\[table\]/Uis+#</pattern>
+      <value>#+<table class="bbcode">+#</value>
+    </rule>
+    <rule>
+      <pattern>#+/\[\/table\]/Uis+#</pattern>
+      <value>#+</table>+#</value>
+    </rule>
+    <rule>
+      <pattern>#+/\[(\/)?(tr|row)\]/Uis+#</pattern>
+      <value>#+<($1)tr>+#</value>
+    </rule>
+    <rule>
+      <pattern>#+/\[(\/)?(td|col)\]/Uis+#</pattern>
+      <value>#+<($1)td>+#</value>
+    </rule>
+    ]]>    
+  </rules>
+  <css>
+    <![CDATA[
+    <style type="text/css">
+		/* BBCode Parsing */
+
+		span.bb{
+		    font-weight:bold;
+		}
+		
+		span.bs{
+			text-decoration:line-through;
+		}
+
+		span.bi{
+		    font-style:italic;
+		}
+
+		span.bu{
+		    text-decoration:underline;
+		}
+		
+		h1.bh{
+			font-weight:bold;
+			text-decoration:underline;
+			font-size:1.2em;
+		}
+
+		.bspoiler{
+		    color:#000000;
+		    background-color:#000000;
+		}
+
+		.bcode{
+		    font-family: monospace;
+		    white-space:pre-wrap;
+
+		    position:relative;
+		    border:1px solid #000000;
+		    background-color:#FFFFFF;
+		    border-left-width:2px;
+		    padding-left:4px;
+		    width:95%;
+		    overflow:visible;
+		    margin-top:3px;
+		}
+
+		.bquote{
+ 		   position:relative;
+		    border:1px solid #0000FF;
+		    background-color:#A0A0FF;
+		    border-left-width:2px;
+		    padding-left:4px;
+		    width:95%;
+		    overflow:visible;
+		    margin-top:3px;
+		}
+
+		div.bcenter{
+		    text-align:center;
+		}
+
+		div.bborder{
+		    border:2px solid #000000;
+		    padding-left:4px;
+		    width:70%;
+		    margin-top:3px;
+		}
+
+		span.baction{
+		    color:#6699FF;
+		    font-weight:bold;
+		}
+
+		span.bto{
+		    color:#000000;
+		    font-weight:bold;
+		    font-decoration:underline;
+		}
+		
+		div.bBlogimg{
+			text-align:center;
+			font-style:italic;
+			padding-top:10px;
+			padding-bottom:10px;
+		}
+		
+		div.bBlogimg span{
+			font-size:0.8em;
+		}
+		
+		div.bBlogimg img{
+			max-width:100%;
+		}
+		
+		div.bbdialog{
+			position:fixed;
+			width:80%;
+			height:80%;
+			background-color:#888888;
+			text-align:center;
+			vertical-align:middle;
+			top:10%;
+			left:10%;
+			border:2px solid #000000;
+			border-radius:10px;
+			color:#000000;
+		}
+			
+		div.bbdialogheader{
+			border-radius:10px;
+			background:linear-gradient(#444444,#888888);
+			text-align:right;
+			padding-right:10px;
+		}
+		
+		div.bbdialogheader > a.bbdialogclose {
+			font-weight:bold;	
+			cursor:pointer;
+			border:2px solid #FF0000;
+			background-color:#FF0000;
+			background:linear-gradient(#FF0000,#FFFFFF);
+			border-radius:15px;		
+		}
+    </style>
+    ]]> 
+  </css>
+</config>

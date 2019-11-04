@@ -1,0 +1,14 @@
+[
+	"xw\\cli\\modules\\EnableModule",
+	"xw\\cli\\modules\\DisableModule",
+	"xw\\cli\\modules\\InstallModule",
+	"xw\\cli\\users\\AddToGroup",
+	"xw\\cli\\users\\ListGroups",
+	"xw\\cli\\users\\RemoveFromGroup",
+	"xw\\cli\\users\\ResetPassword",
+	"xw\\cli\\HelloWorld",
+	"xw\\cli\\LogTest",
+	"xw\\cli\\pages\\CSVImport",
+	"xw\\cli\\pages\\WPImport",
+	"xw\\cli\\InstallCore"
+]

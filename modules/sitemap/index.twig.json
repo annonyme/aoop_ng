@@ -1,0 +1,4 @@
+{
+  "controller":"sitemap\\controllers\\IndexController",
+  "template":"index.html.twig"
+}
