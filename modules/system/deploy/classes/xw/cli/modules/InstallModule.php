@@ -27,16 +27,23 @@ class InstallModule extends Command
         if(is_dir(GlobalConfig::instance()->getValue('instancesfolder') . $instance)){
             $moduleName = $input->getOption('module');
             $modules = XWModuleListFactory::getFullModuleList();
+            $found = false;
+
             /** @var XWModule $module */
-            foreach ($modules->toArrayList() as $module){
-                if($module->getCallName() == $moduleName && is_file($module->getPath() . 'deploy/install/install.sql')){
-                    $sql = file_get_contents($module->getPath() . 'deploy/install/install.sql');
+            foreach ($modules->toArrayList() as $module){                
+                if($module->getCallName() == $moduleName && is_file($module->getPath() . '/deploy/install/install.sql')){
+                    $sql = file_get_contents($module->getPath() . '/deploy/install/install.sql');
                     $dbName = XWServerInstanceToolKit::instance()->getServerSwitch()->getDbname();
                     $db = PDBCCache::getInstance()->getDB($dbName);
                     $pdo = $db->getNativeConnection();
 
                     $pdo->exec($sql);
+                    $found = true;
                 }
+            }
+
+            if(!$found) {
+                $output->writeln($moduleName . ' was not found');
             }
         }
         else{
