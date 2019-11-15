@@ -287,12 +287,6 @@ h1,h2,h3,h4,h5,h6 {
     text-transform: none;
 }
 
-.btn-primary{
-    background-color: #e05a26;
-    border-color: #b04319;
-    color: black;
-}
-
 .btn-default{
     background-color: {{env.style.colors.primarycolor2}};
     border-color: {{env.style.colors.primarycolor2border}};

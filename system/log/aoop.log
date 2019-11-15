@@ -18,3 +18,4 @@ WARNING [::1] [16-11-18 04:11:18]: Class xm\blog\controllers\ArchiveController d
 WARNING [172.24.0.1] [07-06-19 07:13:11]: Unknown "getLoadUrlOfMedia" function.
 WARNING [172.24.0.1] [07-06-19 07:14:35]: Unknown "getLoadUrlOfMedia" function.
 WARNING [172.24.0.1] [07-06-19 07:15:52]: Unknown "getLoadUrlOfMedia" function.
+WARNING [172.20.0.1] [12-11-19 12:20:52]: Unable to find template "login.html" (looked into: ../modules/timeRegister/templates).
