@@ -7,12 +7,12 @@
         {% if message.message %}
             {{ message.message }}
         {% endif %}
-    </div>
-    <script>
-        window.setTimeout(function() {
-            $(".alert").fadeTo(2000, 0).slideUp(2000, function(){
-                $(this).remove(); 
-            });
-        }, 2000);
-    </script>
+    </div>    
 {% endfor %}
+<script>
+    window.setTimeout(function() {
+        $(".alert").fadeTo(2000, 0).slideUp(2000, function(){
+            $(this).remove(); 
+        });
+    }, 2000);
+</script>
