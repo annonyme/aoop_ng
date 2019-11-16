@@ -3,6 +3,7 @@ namespace core\modules\controllers;
 
 use core\utils\XWLocalePropertiesReader;
 use core\modules\XWModule;
+use core\net\XWRequest;
 
 abstract class XWModulePageController{
 	private $dictionary = null;
@@ -43,6 +44,10 @@ abstract class XWModulePageController{
         $this->module = $module;
     }
  
-	
-	
+	/**
+	 * @return XWRequest
+	 */
+	public function getRequest(): XWRequest {
+		return XWRequest::instance();
+	}	
 }

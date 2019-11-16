@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2008/2009/2010/2011/2014/2015/2016/2017 Hannes Pries <http://www.hannespries.de>
+ * Copyright (c) 2008/2009/2010/2011/2014/2015/2016/2017/2019 Hannes Pries <http://www.hannespries.de>
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
  * to deal in the Software without restriction, including without limitation
@@ -95,22 +95,28 @@ Services::getContainer()->set('db',\PDBC\PDBCCache::getInstance()->getDB($dbName
  }
 
 //define locale
- //--------------------------------------------------------------------------- 
- if(Services::getContainer()->get("XWLocale")!=null){
-     $addon = Services::getContainer()->get("XWLocale");
-     if($addon instanceof XWLocale){
-         /** @var XWLocale $addon */
-         $addon->findLocale();
-     }
- }
+//--------------------------------------------------------------------------- 
+if(Services::getContainer()->get("XWLocale")!=null){
+    $addon = Services::getContainer()->get("XWLocale");
+    if($addon instanceof XWLocale){
+        /** @var XWLocale $addon */
+        $addon->findLocale();
+    }
+}
 
- //pre init system-services (from singletons to services)
- Services::getContainer()->set('events', \core\events\EventListenerFactory::getInstance());
- Services::getContainer()->set('systemLogger', \core\logging\XWLoggerFactory::getLogger(\core\utils\XWServerSwitch::class));
- Services::getContainer()->set('mailer', \core\mail\SMTPMailerFactory::instance());
- Services::getContainer()->set('instance', XWServerInstanceToolKit::instance());
- Services::getContainer()->set('autoloader', $autoloader);
- Services::getContainer()->set('pageDir', XWServerInstanceToolKit::instance()->getServerSwitch()->getPages());
+//pre init system-services (from singletons to services)
+Services::getContainer()->set('events', \core\events\EventListenerFactory::getInstance());
+Services::getContainer()->set('systemLogger', \core\logging\XWLoggerFactory::getLogger(\core\utils\XWServerSwitch::class));
+Services::getContainer()->set('mailer', \core\mail\SMTPMailerFactory::instance());
+Services::getContainer()->set('instance', XWServerInstanceToolKit::instance());
+Services::getContainer()->set('autoloader', $autoloader);
+Services::getContainer()->set('pageDir', XWServerInstanceToolKit::instance()->getServerSwitch()->getPages());
+
+//it is a default addon, so we can use it here
+if(class_exists('DisplayMessageFactory')) {
+    Services::getContainer()->set('messages', DisplayMessageFactory::instance());
+}
+
  
  //load content (order: resource, REST, include theme)
  //---------------------------------------------------------------------------
@@ -315,9 +321,9 @@ function cmsPageContent($directPrint=false){
     /** @var \core\pages\loaders\XWPageLoaderResult $pageLoadResult */
     global $pageLoadResult;
     if($pageLoadResult==null || $directPrint){ 
-      	echo getPageContent()->getPageContent();
+        echo getPageContent()->getPageContent();
     }
     else{
-      	echo $pageLoadResult->getPageContent();	
+        echo $pageLoadResult->getPageContent();	
     }
 }

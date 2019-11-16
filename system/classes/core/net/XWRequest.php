@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright (c) 2016 Hannes Pries <http://www.annonyme.de>
+ * Copyright (c) 2016/2019 Hannes Pries <http://www.annonyme.de>
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
  * to deal in the Software without restriction, including without limitation
@@ -93,23 +93,33 @@ class XWRequest{
 	 * @param string $name
 	 */
 	public function get($name){
-		return $this->request[$name];
+		return $this->getString($name);
 	}
 	
 	/**
-	 * @return string
 	 * @param string $name
+	 * @param mixed $default
+	 * @return null|string
 	 */
-	public function getString($name){
-		return $this->request[$name];
+	public function getString(string $name, $default = null): ?string {
+		$result = $default;
+		if(isset($this->request[$name])) {
+			$result = $this->request[$name];
+		}
+		return $result;
 	}
 	
 	/**
+	 * @param string $name
+	 * @param integer $default
 	 * @return int
-	 * @param string $name
 	 */
-	public function getInt($name){
-		return intval($this->request[$name]);
+	public function getInt(string $name, int $default = 0): int{
+		$result = $default;
+		if(isset($this->request[$name])) {
+			$result = (int) $this->request[$name];
+		}
+		return $result;
 	}
 	
 	/**
