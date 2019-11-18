@@ -76,7 +76,10 @@ class XWMBeansManager{
 	}
 	
 	private function generateGetterSetterMethodName($attr,$type="get"){
-    	$attr=preg_replace_callback("/(_|^)(\w)/",create_function('$a','return strtoupper($a[2]);'),$attr);
+		$func = function ($a) {
+			return strtoupper($a[2]);
+		};
+		$attr=preg_replace_callback("/(_|^)(\w)/", $func,$attr);
     	return $type.$attr;
 	}
 	

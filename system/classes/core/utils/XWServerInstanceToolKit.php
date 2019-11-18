@@ -101,7 +101,7 @@ class XWServerInstanceToolKit{
             $vars="?";
 
             reset($_REQUEST);
-            while (list($key, $value) = each($_REQUEST)) {
+            foreach($_REQUEST as $key => $value) {
                 if(preg_match("/(^page$)|(^sub$)|(^print$)|(^adminpage$)/i",$key)){
                     if(strlen($vars)==1){
                         $vars .= "".$key."=".$value."";
