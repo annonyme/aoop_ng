@@ -49,7 +49,7 @@ if($_SESSION["XWUSER"]->isInGroup("admins")){
     Active Users (<?=$userlist->getSize() ?>):
 </div>
 <div class="PresentationBox">
-<table>
+<table class="table">
   <?php
   $user=null;
   for($i=0;$i<$userlist->getSize();$i++){
@@ -57,12 +57,12 @@ if($_SESSION["XWUSER"]->isInGroup("admins")){
   	echo "  <tr>\n";
   	echo "    <td class=\"dataTableTdLeft\">".$user->getId()."</td>\n";
   	echo "    <td class=\"dataTableTdLeft\">".$user->getName()."</td>\n" .
-  		 "    <td class=\"dataTableTdRight\">[<img src=\"images/internet-mail.png\"/> <a href=\"mailto:".$user->getEmail()."\">".$user->getEmail()."</a>]</td>\n";
+  		 "    <td class=\"dataTableTdRight\">[<a href=\"mailto:".$user->getEmail()."\">".$user->getEmail()."</a>]</td>\n";
   	echo "    <td class=\"dataTableTdRight\">".$user->getRegistrationDate()."</td>\n";
   	
   	$sec=$addonManager->getAddonByName("XWUserSession")->getURLParameterWithSessionSecToken();
-  	echo "    <td class=\"dataTableTdLeft\">[<a href=\"index.php?page=".$request["page"]."&sub=activeUser&adminpage=1&state=inactive&sub=activeUser&".$sec."&userId=".$user->getId()."\">set inactive</a>]</td>\n";
-  	echo "    <td class=\"dataTableTdRight\">[<a href=\"index.php?adminpage=1&page=".$request["page"]."&sub=userPasswordEdit&userId=".$user->getId()."\">new password</a>]</td>\n";
+  	echo "    <td class=\"dataTableTdLeft\"><a class=\"btn btn-primary\" href=\"index.php?page=".$request["page"]."&sub=activeUser&adminpage=1&state=inactive&sub=activeUser&".$sec."&userId=".$user->getId()."\">set inactive</a></td>\n";
+  	echo "    <td class=\"dataTableTdRight\"><a class=\"btn btn-primary\" href=\"index.php?adminpage=1&page=".$request["page"]."&sub=userPasswordEdit&userId=".$user->getId()."\">new password</a></td>\n";
   	echo "  </tr>\n";
   }  
   ?>
@@ -84,12 +84,12 @@ if($_SESSION["XWUSER"]->isInGroup("admins")){
   	echo "  <tr>\n";
   	echo "    <td class=\"dataTableTdLeft\">".$user->getId()."</td>\n";
   	echo "    <td class=\"dataTableTdLeft\">".$user->getName()."</td>\n" .
-  		 "    <td class=\"dataTableTdRight\">[<img src=\"images/internet-mail.png\"/> <a href=\"mailto:".$user->getEmail()."\">".$user->getEmail()."</a>]</td>\n";
+  		 "    <td class=\"dataTableTdRight\">[<a href=\"mailto:".$user->getEmail()."\">".$user->getEmail()."</a>]</td>\n";
   	echo "    <td class=\"dataTableTdRight\">".$user->getRegistrationDate()."</td>\n";	
   	
   	$sec=$addonManager->getAddonByName("XWUserSession")->getURLParameterWithSessionSecToken(); 
-  	echo "    <td class=\"dataTableTdLeft\">[<a href=\"index.php?page=".$request["page"]."&sub=activeUser&adminpage=1&state=active&".$sec."&sub=activeUser&userId=".$user->getId()."\">set active</a>]</td>\n";
-  	echo "    <td class=\"dataTableTdRight\">[<a href=\"index.php?adminpage=1&page=".$request["page"]."&sub=userPasswordEdit&userId=".$user->getId()."\">new password</a>]</td>\n";
+  	echo "    <td class=\"dataTableTdLeft\"><a class=\"btn btn-primary\" href=\"index.php?page=".$request["page"]."&sub=activeUser&adminpage=1&state=active&".$sec."&sub=activeUser&userId=".$user->getId()."\">set active</a></td>\n";
+  	echo "    <td class=\"dataTableTdRight\"><a class=\"btn btn-primary\" href=\"index.php?adminpage=1&page=".$request["page"]."&sub=userPasswordEdit&userId=".$user->getId()."\">new password</a></td>\n";
   	echo "  </tr>\n";
   }  
   ?>

@@ -63,10 +63,10 @@ if($_SESSION["XWUSER"]->isInGroup("pagesAdmins") || $_SESSION["XWUSER"]->isInGro
     		    		$lastUser->load($page->getUserId());
     		    		
     		    		if($page->isHidden()){
-    		    			echo "      <td>".$img." <a href=\"index.php?page=".$page->getCallName()."\" target='_blank'>[View]</a></td>";
+    		    			echo "      <td>".$img." <a class=\"btn btn-primary\" href=\"index.php?page=".$page->getCallName()."\" target='_blank'>View</a></td>";
     		    		}
     		    		else{
-    		    			echo "      <td>".$img." <a href=\"index.php?page=".$page->getCallName()."\" target='_blank'>[View]</a></td>";
+    		    			echo "      <td>".$img." <a class=\"btn btn-primary\" href=\"index.php?page=".$page->getCallName()."\" target='_blank'>View</a></td>";
     		    				 
     		    		}
     		    		echo "      <td><strong>".$page->getCallName()."</strong></td>\n";
@@ -83,8 +83,8 @@ if($_SESSION["XWUSER"]->isInGroup("pagesAdmins") || $_SESSION["XWUSER"]->isInGro
     		    		//Tiny MCE Editor?    
     		    		if($wysiwygEditor){
     		    			echo "<td> Edit: ";
-    		    			echo "<a href=\"index.php?page=".$request["page"]."&sub=editPage&adminpage=1&pageName=".$callName."\">[HTML-Code]</a>" .
-    		    		         "<a href=\"index.php?page=".$request["page"]."&sub=editPage&adminpage=1&editor=1&pageName=".$callName."\"><small>[WYSIWYG]</small></a> ".$addLink."";
+    		    			echo "<a class=\"btn btn-primary\" href=\"index.php?page=".$request["page"]."&sub=editPage&adminpage=1&pageName=".$callName."\">HTML-Code</a> " .
+    		    		         "<a class=\"btn btn-primary btn-sm\" href=\"index.php?page=".$request["page"]."&sub=editPage&adminpage=1&editor=1&pageName=".$callName."\"><small>WYSIWYG</small></a> ".$addLink."";
     		                echo "</td>\n";
     		    		}
     		    		else{
@@ -95,7 +95,7 @@ if($_SESSION["XWUSER"]->isInGroup("pagesAdmins") || $_SESSION["XWUSER"]->isInGro
     		    		//     "[<a href=\"index.php?page=renameFile&adminpage=1&pageName=".$files->getFile($i)."\">rename</a>] ";
     		    		if($_SESSION["XWUSER"]->isInGroup("admins")) {
     		    		    echo "<td>";
-    		    		    echo "<a href=\"index.php?page=".$request["page"]."&sub=deleteFile&adminpage=1&pageName=".$callName."\">[delete]</a>";
+    		    		    echo "<a class=\"btn btn-primary\" href=\"index.php?page=".$request["page"]."&sub=deleteFile&adminpage=1&pageName=".$callName."\">delete</a>";
     		    		    echo "</td>\n"; 	
     		    		}
     		    		else{
@@ -122,11 +122,11 @@ if($_SESSION["XWUSER"]->isInGroup("pagesAdmins") || $_SESSION["XWUSER"]->isInGro
         <table class="table">
           <tr>
             <th>Title:</th>
-            <td><input type="text" name="newPage" required/></td>
+            <td><input class="form-control" type="text" name="newPage" required/></td>
           </tr>
           <tr>
             <th>Callname:</th>
-            <td><input type="text" name="newPageCallname" required/></td>
+            <td><input class="form-control" type="text" name="newPageCallname" required/></td>
           </tr>
           <tr>
             <th>Parent-Page:</th>
