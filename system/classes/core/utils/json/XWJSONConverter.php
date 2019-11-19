@@ -6,13 +6,8 @@ use ReflectionClass;
 
 class XWJSONConverter
 {
-    public function __construct()
-    {
-
-    }
-
     /**
-     * @param $value
+     * @param mixed $value
      * @param int $level
      * @param null $name
      * @param bool $firstInLine

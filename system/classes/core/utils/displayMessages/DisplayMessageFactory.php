@@ -25,14 +25,14 @@ class DisplayMessageFactory{
 	}
 	
 	private function persist(){
-		$_SESSION["xw_display_messages"] = $this->messages;
+		$_SESSION['xw_display_messages'] = $this->messages;
 	}
 	
-	public function addDisplayMessage($title, $message = '', $type = "info"){
+	public function addDisplayMessage($title, $message = '', $type = 'info'){
 		$msg = [
-				"title" => $title,
-				"message" => $message,
-				"type" => in_array(strtolower($type), ['info','warning','success','danger']) ? strtolower($type) : "info"
+				'title' => $title,
+				'message' => $message,
+				'type' => in_array(strtolower($type), ['info','warning','success','danger']) ? strtolower($type) : 'info'
 		];
 		
 		$this->messages[] = $msg;
@@ -47,10 +47,10 @@ class DisplayMessageFactory{
 	public function renderAll(){
 		foreach($this->messages as $msg){
 			?>
-			<div class="panel displaymessage displaymessage-<?=$msg["type"] ?>">
+			<div class="panel displaymessage displaymessage-<?=$msg['type'] ?>">
 				<div class="panel-body bg-info ">
-					<strong><?=$msg["title"] ?></strong><br>
-					<?=$msg["message"] ?>
+					<strong><?=$msg['title'] ?></strong><br>
+					<?=$msg['message'] ?>
 				</div>
 			</div>
 			<?php

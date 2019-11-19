@@ -27,92 +27,99 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
  * IN THE SOFTWARE.
  */
+
 namespace core\utils;
 
-class XWCodeGenerator {
+class XWCodeGenerator
+{
 	private static $instance = null;
-	
+
 	/**
 	 * @return XWCodeGenerator
 	 */
-	public static function instance(){
-		if(self::$instance === null){
-			self::$instance = new XWCodeGenerator();
+	public static function instance()
+	{
+		if (self::$instance === null) {
+			self::$instance = new self();
 		}
 		return self::$instance;
 	}
-	
-	private $codeTable = [ ];
-	public function __construct() {
-		$codeTable = [ ];
-		$codeTable [0] = "a";
-		$codeTable [1] = "b";
-		$codeTable [2] = "c";
-		$codeTable [3] = "d";
-		$codeTable [4] = "e";
-		$codeTable [5] = "f";
-		$codeTable [6] = "g";
-		$codeTable [7] = "h";
-		$codeTable [8] = "i";
-		$codeTable [9] = "0";
-		$codeTable [10] = "1";
-		$codeTable [11] = "2";
-		$codeTable [12] = "3";
-		$codeTable [13] = "4";
-		$codeTable [14] = "5";
-		$codeTable [15] = "6";
-		$codeTable [16] = "7";
-		$codeTable [17] = "_";
-		$codeTable [18] = "0";
-		$codeTable [19] = "-";
-		$codeTable [20] = "z";
-		$codeTable [21] = "x";
-		$codeTable [22] = "y";
-		$codeTable [23] = "u";
-		$codeTable [24] = "v";
-		$codeTable [25] = "w";
-		$codeTable [26] = "8";
-		$codeTable [27] = "9";
-		$codeTable [28] = "k";
-		$codeTable [29] = "l";
-		$codeTable [30] = "m";
-		$codeTable [31] = "n";
-		$codeTable [32] = "o";
-		$codeTable [33] = "j";
-		$codeTable [34] = "p";
-		$codeTable [35] = "q";
-		$codeTable [36] = "r";
-		$codeTable [37] = "s";
-		$codeTable [38] = "t";
-		
+
+	private $codeTable = [];
+	public function __construct()
+	{
+		$codeTable = [];
+		$codeTable[0] = "a";
+		$codeTable[1] = "b";
+		$codeTable[2] = "c";
+		$codeTable[3] = "d";
+		$codeTable[4] = "e";
+		$codeTable[5] = "f";
+		$codeTable[6] = "g";
+		$codeTable[7] = "h";
+		$codeTable[8] = "i";
+		$codeTable[9] = "0";
+		$codeTable[10] = "1";
+		$codeTable[11] = "2";
+		$codeTable[12] = "3";
+		$codeTable[13] = "4";
+		$codeTable[14] = "5";
+		$codeTable[15] = "6";
+		$codeTable[16] = "7";
+		$codeTable[17] = "_";
+		$codeTable[18] = "0";
+		$codeTable[19] = "-";
+		$codeTable[20] = "z";
+		$codeTable[21] = "x";
+		$codeTable[22] = "y";
+		$codeTable[23] = "u";
+		$codeTable[24] = "v";
+		$codeTable[25] = "w";
+		$codeTable[26] = "8";
+		$codeTable[27] = "9";
+		$codeTable[28] = "k";
+		$codeTable[29] = "l";
+		$codeTable[30] = "m";
+		$codeTable[31] = "n";
+		$codeTable[32] = "o";
+		$codeTable[33] = "j";
+		$codeTable[34] = "p";
+		$codeTable[35] = "q";
+		$codeTable[36] = "r";
+		$codeTable[37] = "s";
+		$codeTable[38] = "t";
+
 		$this->codeTable = $codeTable;
 	}
-	
+
 	/**
 	 * simple random code generation
 	 */
-	public function generate($length = 10) {
-		$code = "";
-		for($i = 0; $i < $length; $i ++) {
-			$code .= $this->codeTable [$this->getRandomNumber ()];
+	public function generate($length = 10)
+	{
+		$code = '';
+		for ($i = 0; $i < $length; $i++) {
+			$code .= $this->codeTable[$this->getRandomNumber()];
 		}
 		return $code;
 	}
-	private function getRandomNumber() {
-		return mt_rand ( 0, count ( $this->codeTable ) - 1 );
+	private function getRandomNumber()
+	{
+		return mt_rand(0, count($this->codeTable) - 1);
 	}
-	
+
 	/**
 	 * a more random as random code generation method
 	 */
-	public function generateWithInnerLoop($length = 10, $innerCount = 5) {
-		$code = "";
-		for($i = 0; $i < $length; $i ++) {
-			$codes = new XWArrayList ();
-			for($j = 0; $j < $innerCount; $j ++) {
-				$codes->add ( $this->codeTable [$this->getRandomNumber ()] );
+	public function generateWithInnerLoop($length = 10, $innerCount = 5)
+	{
+		$code = '';
+		for ($i = 0; $i < $length; $i++) {
+			$codes = new XWArrayList();
+			for ($j = 0; $j < $innerCount; $j++) {
+				$codes->add($this->codeTable[$this->getRandomNumber()]);
 			}
-			$code .= $codes->get ( mt_rand ( 0, $codes->getSize () - 1 ) );
+			$code .= $codes->get(mt_rand(0, $codes->getSize() - 1));
 		}
 		return $code;
 	}
