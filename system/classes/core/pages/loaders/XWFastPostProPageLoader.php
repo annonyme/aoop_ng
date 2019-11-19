@@ -218,9 +218,12 @@ class XWFastPostProPageLoader implements XWPageLoaderInterface{
                     $model = $page->getValues();
                     $model['env'] = XWServerInstanceToolKit::instance()->getEnvValues();
                     $model['request'] = XWRequest::instance()->getRequestAsArray();
-                    if(isset($_SESSION["XWUSER"])){
+					if(isset($_SESSION["XWUSER"])){
                         $model['user'] = $_SESSION["XWUSER"];
                     }
+					else {
+						$model['notLoggedIn'] = true;
+					}
 
                     $outputString = '';
                     try{

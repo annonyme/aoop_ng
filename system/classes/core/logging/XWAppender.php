@@ -7,5 +7,5 @@ interface XWAppender{
 	 * @param integer $timestamp
 	 * @param array $appenderConfig
 	 */
-	public function write($msg, \Exception $exception, $type, array $appenderConfig);
+	public function write($msg, ?\Exception $exception, $type, array $appenderConfig);
 }
