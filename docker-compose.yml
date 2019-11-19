@@ -18,7 +18,7 @@ services:
     volumes:
     - ./containerData/apache/my_vhost.conf:/etc/apache2/sites-enabled/000-default.conf:rw
     - ./:/var/www/html:rw,delegated
-    command: ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
+#    command: ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
     restart: always
     depends_on:
       - adminer

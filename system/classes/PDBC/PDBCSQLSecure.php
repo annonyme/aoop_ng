@@ -29,7 +29,7 @@ class PDBCSQLSecure{
 	
 	public function removeSemicolonsFromNonStringParts($sql,$replace=" xx "){
 		$func = function($a) {
-			return preg_replace("/;/", '__semicol__', $a[1]);
+			return "'" . preg_replace("/;/", '__semicol__', $a[1]) . "'";
 		};
 		
 		$sql=preg_replace("/__semicol__/","",$sql);
@@ -38,7 +38,7 @@ class PDBCSQLSecure{
 		$sql=preg_replace("/__semicol__/",";",$sql);
 		
 		$func2 = function($a) {
-			return preg_replace("/;/", '__comment__', $a[1]);
+			return "'" . preg_replace("/;/", '__comment__', $a[1]) . "'";
 		};
         
         $sql=preg_replace("/__comment__/","",$sql);

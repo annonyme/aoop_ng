@@ -10,6 +10,7 @@ RUN apt-get update &&\
     libjpeg62-turbo-dev \
     libpng-dev \
     libcurl4-gnutls-dev \
+    zlib1g-dev \
     && docker-php-ext-install -j$(nproc) iconv \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd
@@ -17,6 +18,7 @@ RUN docker-php-ext-install pdo_mysql \
     && docker-php-ext-install json \
     && docker-php-ext-install dom \
     && docker-php-ext-install curl \
+    && docker-php-ext-install zip \
     && docker-php-ext-install xml
 RUN rm -rf /var/lib/apt/lists/*
 
@@ -31,3 +33,6 @@ RUN echo 'xdebug.remote_host=host.docker.internal' >> /usr/local/etc/php/php.ini
 RUN a2enmod rewrite
 
 # copy conf-file to /etc/apache2/sites-enabled/000-default.conf
+RUN mkdir /files;
+COPY ./setup.sh /files/setup.sh
+ENTRYPOINT ["sh", "/files/setup.sh"]
