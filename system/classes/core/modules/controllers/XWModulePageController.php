@@ -17,7 +17,7 @@ abstract class XWModulePageController{
 	/**
 	 * @return XWLocalePropertiesReader
 	 */
-	public function getDictionary():XWLocalePropertiesReader{
+	public function getDictionary(): ?XWLocalePropertiesReader{
 		return $this->dictionary;
 	}
 	
@@ -31,7 +31,7 @@ abstract class XWModulePageController{
 	/**
 	 * @return XWModule
 	 */
-    public function getModule(): XWModule
+    public function getModule(): ?XWModule
     {
         return $this->module;
     }
