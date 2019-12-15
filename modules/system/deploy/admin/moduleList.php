@@ -15,7 +15,7 @@ if($_SESSION["XWUSER"]->isInGroup("admins")){
 ?>
 <div class="PresentationBoxHeader">Modules:</div>
 <div class="PresentationBox">
-  <table>
+  <table class="table">
     <?php        
     /** @var XWModuleList $list */    
     $list=XWModuleListFactory::getFullModuleList();

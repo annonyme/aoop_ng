@@ -20,7 +20,7 @@ if($_SESSION["XWUSER"]->isInGroup("admins")){
 ?>
 <div class="PresentationBoxHeader">Installed addons</div>
 <div class="PresentationBox">
-  <table style="width:60%;">
+  <table class="table">
     <?php
         for($i=0;$i<$subDirList->getSize();$i++){
         	$img="";
@@ -31,7 +31,7 @@ if($_SESSION["XWUSER"]->isInGroup("admins")){
         	echo "<tr>\n";
         	echo "  <td class=\"dataTableTdLeft\">".$subDirList->getSubDir($i)." ".$img."</td>\n";
         	//if($img!=""){
-        		echo "  <td class=\"dataTableTdRight\">[<a href=\"index.php?adminpage=1&page=".XWRequest::instance()->getString("page")."&sub=".XWRequest::instance()->getString("sub")."&module=".$subDirList->getSubDir($i)."\">view</a>]</td>\n";
+        		echo "  <td class=\"dataTableTdRight\"><a class=\"btn btn-primary btn-sm\" href=\"index.php?adminpage=1&page=".XWRequest::instance()->getString("page")."&sub=".XWRequest::instance()->getString("sub")."&module=".$subDirList->getSubDir($i)."\">view</a></td>\n";
         	//}
         	//else{
         	//	echo "  <td class=\"dataTableTdRight\">&nbsp;</td>\n";

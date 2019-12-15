@@ -28,13 +28,21 @@ class PDBCSQLSecure{
 	}
 	
 	public function removeSemicolonsFromNonStringParts($sql,$replace=" xx "){
+		$func = function($a) {
+			return "'" . preg_replace("/;/", '__semicol__', $a[1]) . "'";
+		};
+		
 		$sql=preg_replace("/__semicol__/","",$sql);
-		$sql=preg_replace_callback("/\'(.*)\'/Uis",create_function('$a','return "\'".preg_replace("/;/","__semicol__",$a[1])."\'";'),$sql);
+		$sql=preg_replace_callback("/\'(.*)\'/Uis", $func, $sql);
         $sql=preg_replace("/;/",$replace,$sql);
-        $sql=preg_replace("/__semicol__/",";",$sql);
+		$sql=preg_replace("/__semicol__/",";",$sql);
+		
+		$func2 = function($a) {
+			return "'" . preg_replace("/;/", '__comment__', $a[1]) . "'";
+		};
         
         $sql=preg_replace("/__comment__/","",$sql);
-        $sql=preg_replace_callback("/\'(.*)\'/Uis",create_function('$a','return "\'".preg_replace("/\-\-+/","__comment__",$a[1])."\'";'),$sql);
+        $sql=preg_replace_callback("/\'(.*)\'/Uis", $func2,$sql);
         $sql=preg_replace("/\-\-+/",$replace,$sql);
         $sql=preg_replace("/__comment__/","--",$sql);
         return $sql;

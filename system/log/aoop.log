@@ -19,3 +19,12 @@ WARNING [172.24.0.1] [07-06-19 07:13:11]: Unknown "getLoadUrlOfMedia" function.
 WARNING [172.24.0.1] [07-06-19 07:14:35]: Unknown "getLoadUrlOfMedia" function.
 WARNING [172.24.0.1] [07-06-19 07:15:52]: Unknown "getLoadUrlOfMedia" function.
 WARNING [172.20.0.1] [12-11-19 12:20:52]: Unable to find template "login.html" (looked into: ../modules/timeRegister/templates).
+WARNING [172.21.0.1] [20-11-19 08:32:56]: no admin-rights or not logged in [adminpage:system]
+WARNING [172.21.0.1] [20-11-19 08:33:03]: Unable to find template "login.html" (looked into: ../modules/timeRegister/templates).
+WARNING [172.21.0.1] [20-11-19 08:33:19]: no admin-rights or not logged in [adminpage:system]
+WARNING [172.21.0.1] [20-11-19 08:35:09]: no admin-rights or not logged in [adminpage:system]
+WARNING [172.21.0.1] [20-11-19 08:35:29]: no admin-rights or not logged in [adminpage:system]
+WARNING [172.21.0.1] [20-11-19 08:38:56]: no admin-rights or not logged in [adminpage:system]
+WARNING [172.21.0.1] [20-11-19 08:42:26]: no admin-rights or not logged in [adminpage:system]
+WARNING [172.21.0.1] [20-11-19 08:47:00]: no admin-rights or not logged in [adminpage:system]
+WARNING [172.21.0.1] [20-11-19 08:49:01]: no admin-rights or not logged in [adminpage:system]

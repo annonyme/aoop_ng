@@ -12,15 +12,13 @@ services:
       - ./etc/install/seperate/:/docker-entrypoint-initdb.d
 
   aoop_http:
-    image: geerlingguy/php-apache:latest
+    build: ./containerData/apache
     ports:
     - 8081:80
     volumes:
-    - ./containerData/apache/my_vhost.conf:/etc/apache2/sites-enabled/vhosts.conf:rw
+    - ./containerData/apache/my_vhost.conf:/etc/apache2/sites-enabled/000-default.conf:rw
     - ./:/var/www/html:rw,delegated
-    command: ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
-#    command: >
-#      sh -c "php utils/composer.phar install && /usr/sbin/apache2ctl -D FOREGROUND"
+#    command: ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
     restart: always
     depends_on:
       - adminer
@@ -38,3 +36,9 @@ services:
     - 8082:8080
     depends_on:
       - aoop_mysql
+
+  aoop_mail:
+    image: mailhog/mailhog
+    ports:
+    - 8025:8025
+    restart: unless-stopped

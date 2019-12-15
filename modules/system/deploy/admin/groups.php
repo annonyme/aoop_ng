@@ -29,10 +29,10 @@ if($_SESSION["XWUSER"]->isInGroup("admins")){
 
 ?>
 <div class="ActionBox">
-  [<a href="index.php?page=<?=$request["page"] ?>&sub=groupEdit&adminpage=1&groupId=0">new group</a>]
+  <a href="index.php?page=<?=$request["page"] ?>&sub=groupEdit&adminpage=1&groupId=0" class="btn btn-primary">new group</a>
 </div>
 <div class="PresentationBox">
-  <table>
+  <table class="table">
     <?php
         $list=new XWGroupList();
         $list->load();
@@ -40,12 +40,12 @@ if($_SESSION["XWUSER"]->isInGroup("admins")){
         for($i=0;$i<$list->getSize();$i++){
             $group=$list->getGroup($i);
             echo "<tr>\n";
-            echo "  <td class=\"dataTableTdLeft\"><img src=\"images/group.png\"/> <a href=\"index.php?page=".$request["page"]."&sub=groupUsers&adminpage=1&groupId=".$group->getId()."\">".$group->getName()."</a></td>\n";
+            echo "  <td class=\"dataTableTdLeft\"><a href=\"index.php?page=".$request["page"]."&sub=groupUsers&adminpage=1&groupId=".$group->getId()."\">".$group->getName()."</a></td>\n";
             echo "  <td class=\"dataTableTdRight\">".$group->getDescription()."</td>\n";
             if($group->getName()!="admins"){
-            	echo "  <td class=\"dataTableTdRight\">[<a href=\"index.php?page=".$request["page"]."&sub=groupEdit&adminpage=1&groupId=".$group->getId()."\">edit</a>]</td>\n";
+            	echo "  <td class=\"dataTableTdRight\"><a class=\"btn btn-primary\" href=\"index.php?page=".$request["page"]."&sub=groupEdit&adminpage=1&groupId=".$group->getId()."\">edit</a></td>\n";
             	$sec=XWAddonManager::instance()->getAddonByName("XWUserSession")->getURLParameterWithSessionSecToken(); 
-            	echo "  <td class=\"dataTableTdRight\">[<a href=\"index.php?page=".$request["page"]."&sub=groupDelete&adminpage=1&".$sec."&groupId=".$group->getId()."\">delete</a>]</td>\n"; 
+            	echo "  <td class=\"dataTableTdRight\"><a class=\"btn btn-primary\" href=\"index.php?page=".$request["page"]."&sub=groupDelete&adminpage=1&".$sec."&groupId=".$group->getId()."\">delete</a></td>\n"; 
             }
             else{
             	echo "  <td class=\"dataTableTdRight\">-</td>\n";

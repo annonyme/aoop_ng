@@ -27,7 +27,6 @@ $request = XWRequest::instance()->getRequestAsArray();
 	  	<a href="index.php?page=system&sub=installationXMLEdit&adminpage=1" class="hidden">Aoop-Installation-Administration</a><br/>
 	  	<a href="index.php?page=system&sub=instance&adminpage=1">Server-Instance</a> [<a href="index.php?page=instanceXMLEdit&adminpage=1">XML</a>]<br/>
 	  	<br/>
-		<a href="index.php?page=system&sub=addonList&adminpage=1">Addons</a><br/>
 		<a href="index.php?page=system&sub=moduleList&adminpage=1">Modules</a><br/>
 	  	<?php
 	  }

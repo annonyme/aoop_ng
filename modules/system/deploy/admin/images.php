@@ -148,10 +148,10 @@ $request = XWRequest::instance()->getRequestAsArray();
             echo "<tr>" .
                  "<td class=\"\">/" . $root . $images->getFile($i) . "</td>" .
                  "<td class=\"\"><a rel=\"prevImg\" class=\"prevImage\" href=\"".$root . $realPath.$images->getFile($i)."\" target=\"_blank\"><img style='max-height:150px;' src='" . $root . $images->getFile($i) . "'></a></td>";
-            echo "<td class=\"\">[<a href=\"".$root . $realPath.$images->getFile($i)."\" target=\"_blank\">link/view</a>]</td>\n";
+            echo "<td class=\"\"><a class=\"btn btn-primary\" href=\"".$root . $realPath.$images->getFile($i)."\" target=\"_blank\">link/view</a></td>\n";
 
             if($_SESSION["XWUSER"]->isInGroup("admins")){
-                echo "<td class=\"\">[<a href=\"index.php?adminpage=1&page=".$request["page"]."&sub=deleteImage&imageName=".$images->getFile($i)."&subdir=".$request["showFolder"]."&".$sec."\">delete</a>]</td>\n ";
+                echo "<td class=\"\"><a class=\"btn btn-primary\" href=\"index.php?adminpage=1&page=".$request["page"]."&sub=deleteImage&imageName=".$images->getFile($i)."&subdir=".$request["showFolder"]."&".$sec."\">delete</a></td>\n ";
             }
             echo "</tr>\n";
         }

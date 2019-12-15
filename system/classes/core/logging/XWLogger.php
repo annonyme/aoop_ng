@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright (c) 2016 Hannes Pries <http://www.annonyme.de>
+ * Copyright (c) 2016/2019 Hannes Pries <https://www.hannespries.de>
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the 'Software'),
  * to deal in the Software without restriction, including without limitation
@@ -21,6 +21,8 @@
  */
 
 namespace core\logging;
+
+use \Exception;
 
 class XWLogger
 {
@@ -47,16 +49,16 @@ class XWLogger
      *
      * @param string $type
      * @param string $msg
-     * @param \Exception $e
+     * @param Exception $e
      */
-    public function log($type, $msg, \Exception $e = null)
+    public function log($type, $msg, Exception $e = null)
     {
         foreach ($this->appenders as $key => $app) {
             XWLoggerFactory::write($msg, $e, $type, $app, $this->levels[$key]);
         }
     }
 
-    public function error(\Exception $e)
+    public function error(Exception $e)
     {
         $this->log(self::ERROR, $e->getMessage(), $e);
     }
