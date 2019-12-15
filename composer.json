@@ -1,4 +1,14 @@
 {
+    "name": "aoop/plattform",
+    "license": "MIT",
+    "version": "1.0.0",
+    "authors": [
+        {
+            "name": "Hannes Pries",
+            "email": "hp@hannespries.de",
+            "homepage": "https://www.hannespries.de"
+        }
+    ],
     "config": {
         "platform": {
             "php": "7.1"
@@ -8,6 +18,7 @@
         {"type": "vcs", "url": "https://github.com/annonyme/events"}
     ],
     "require": {
+        "php": ">=7.1",
         "monolog/monolog": "^1.22",
         "twig/twig": "^2.1",
         "phpmailer/phpmailer": "^5.2",
@@ -17,7 +28,8 @@
         "ext-json": "*",
         "ext-dom": "*",
         "ext-pdo": "*",
-        "annonyme/events": "dev-master"
+        "annonyme/events": "dev-master",
+        "swiftmailer/swiftmailer": "^6.0"
     },
     "autoload": {
         "psr-0": {"": "src/"}
