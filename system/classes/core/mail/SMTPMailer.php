@@ -9,19 +9,19 @@ use Swift_SmtpTransport;
 
 class SMTPMailer
 {
-    private $host = "";
-    private $port = 26;
-    private $user = "";
-    private $password = "";
+    private $host = '';
+    private $port = 25;
+    private $user = '';
+    private $password = '';
 
     private $useSwift = true;
 
-    public function __construct(string $host, int $port = 26, string $user = "", string $password = "")
+    public function __construct(string $host, int $port = 26, ?string $user = '', ?string $password = '')
     {
         $this->host = $host;
         $this->port = $port;
-        $this->user = $user;
-        $this->password = $password;
+        $this->user = $user ?? '';
+        $this->password = $password ?? '';
     }
 
     public function isValid()
@@ -41,9 +41,9 @@ class SMTPMailer
     private function sendSwift(string $from, $fromClearName = null, array $to = [], string $subject, string $text = '', bool $isHtml = false, $fallbackText = null)
     {
         $transport = new Swift_SmtpTransport($this->host, (int) $this->port);
-        if ($this->user) {
+        if ($this->user && $this->user != '') {
             $transport->setUsername($this->user);
-            if ($this->password) {
+            if ($this->password && $this->password != '') {
                 $transport->setPassword($this->password);
             }
         }
@@ -84,7 +84,7 @@ class SMTPMailer
         $mail->SMTPAuth = true;
         $mail->Host = $this->host;
         $mail->Port = $this->port;
-        if ($this->user) {
+        if ($this->user && $this->user != '') {
             $mail->Username = $this->user;
             $mail->Password = $this->password;
         }

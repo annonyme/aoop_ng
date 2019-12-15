@@ -27,8 +27,8 @@ class SMTPMailerFactory{
             $mailer = new SMTPMailer(
                 $this->config["host"],
                 (int) $this->config["port"],
-                $this->config["user"],
-                $this->config["password"]);
+                $this->config["user"] ?? '',
+                $this->config["password"]) ?? '';
         }        
         return $mailer;
     }
