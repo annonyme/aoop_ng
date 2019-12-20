@@ -8,7 +8,7 @@ class XWModulePageRenderingResult{
 	private $dict = null;
 	private $alternativeTemplate = null;
 	
-	private $title = "";
+	private $title = '';
 
 	private $noRendering = false;
 	private $contentType = 'text/html';
