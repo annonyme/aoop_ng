@@ -71,7 +71,12 @@ class XWPageList implements PageListInterface{
 		}
 		return $page;
 	}
-	
+
+	/**
+	 * @param XWPage $page
+	 *
+	 * @return bool
+	 */
 	public function existsIn($page){
 		$found=false;
 		$size=$this->getSize();
@@ -108,5 +113,4 @@ class XWPageList implements PageListInterface{
 		});
         $this->list=new XWArrayList($list);
 	}
-} 
-?>
+}

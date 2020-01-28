@@ -21,6 +21,11 @@
  * IN THE SOFTWARE.
  */
 
+use core\events\EventListenerFactory;
+use core\logging\XWLoggerFactory;
+use core\mail\SMTPMailerFactory;
+use core\net\XWRequest;
+use core\pages\loaders\XWPageLoaderResult;
 use core\twig\TwigFunctions;
 use core\utils\config\GlobalConfig;
 use core\router\XWURLGenericFunctionListener;
@@ -29,12 +34,13 @@ use core\modules\resources\XWModuleResourceLoader;
 use core\modules\factories\XWModuleListFactory;
 
 use core\utils\XWServerInstanceToolKit;
+use core\utils\XWServerSwitch;
+use hannespries\events\EventHandler;
+use PDBC\PDBCCache;
 use PDBC\PDBCDBFactory;
 use core\net\rest\XWRESTServiceLoader;
 
 use core\pages\loaders\XWFastPostProPageLoader;
-
-use core\pages\plain\XWPage;
 use core\modules\XWModuleClassLoader;
 
 use core\addons\Services;
@@ -73,7 +79,7 @@ $pdbcConfFolder = GlobalConfig::instance()->getValue("configspath") . "pdbc/";
 PDBCDBFactory::init($pdbcConfFolder);
 
 $dbName = XWServerInstanceToolKit::instance()->getServerSwitch()->getDbname();
-Services::getContainer()->set('db', \PDBC\PDBCCache::getInstance()->getDB($dbName));
+Services::getContainer()->set('db', PDBCCache::getInstance()->getDB($dbName));
 
 //TODO Fixing!!!!!!
 try {
@@ -106,9 +112,9 @@ if (Services::getContainer()->get("XWLocale") != null) {
 }
 
 //pre init system-services (from singletons to services)
-Services::getContainer()->set('events', \core\events\EventListenerFactory::getInstance());
-Services::getContainer()->set('systemLogger', \core\logging\XWLoggerFactory::getLogger(\core\utils\XWServerSwitch::class));
-Services::getContainer()->set('mailer', \core\mail\SMTPMailerFactory::instance());
+Services::getContainer()->set('events', EventListenerFactory::getInstance());
+Services::getContainer()->set('systemLogger', XWLoggerFactory::getLogger(XWServerSwitch::class));
+Services::getContainer()->set('mailer', SMTPMailerFactory::instance());
 Services::getContainer()->set('instance', XWServerInstanceToolKit::instance());
 Services::getContainer()->set('autoloader', $autoloader);
 Services::getContainer()->set('pageDir', XWServerInstanceToolKit::instance()->getServerSwitch()->getPages());
@@ -124,7 +130,7 @@ if (class_exists('DisplayMessageFactory')) {
 $pageLoadResult = null;
 if (isset($_REQUEST["_resource"]) && ($_REQUEST["_resource"] == "bypage" || $_REQUEST["_resource"] == "bymodule")) {
     if ($_REQUEST["_resource"] == "bypage") {
-        cmsPageContent($_REQUEST, "", "", true);
+        cmsPageContent(true);
     } else {
         $loader = new XWModuleResourceLoader();
         $loader->directOutputOfResource($_REQUEST["page"], $_REQUEST["resource"]);
@@ -174,28 +180,11 @@ if (isset($_REQUEST["_resource"]) && ($_REQUEST["_resource"] == "bypage" || $_RE
 
 
     $resolveResult = $router->resolve(null, $_REQUEST);
-    /** @var \core\pages\loaders\XWPageLoaderResult $pageLoadResult */
+    /** @var XWPageLoaderResult $pageLoadResult */
     $pageLoadResult = $resolveResult->getContent();
     if (intval($resolveResult->getCode()) > 0) {
         http_response_code($resolveResult->getCode());
     }
-
-    //prepared for twig-rendering
-    $pageModel = [
-        'content' => $pageLoadResult->getPageContent(),
-        'title' => $pageLoadResult->getTitleAdd(),
-        'metadescription' => $pageLoadResult->getMetaDescription(),
-        'url' => $_SERVER["REQUEST_URI"],
-    ];
- 	     try{
-             $loader = new FilesystemLoader(
-                 [
-                     $themeFullPath,
-                     XWServerInstanceToolKit::instance()->getCurrentInstanceDeploymentRootPath() . GlobalConfig::instance()->getValue("instancepagefolder"),
-                 ]
-             );
-             $twig = new Environment($loader);
-             $twig = TwigFunctions::decorateTwig($twig);
 
     /**
      * load theme from system or module
@@ -208,7 +197,7 @@ if (isset($_REQUEST["_resource"]) && ($_REQUEST["_resource"] == "bypage" || $_RE
         $themeFullPath = $themesPath . $theme;
     } else {
         $themeFullPath = $themesPath . $theme;
-        $result = \hannespries\events\EventHandler::getInstance()->fireFilterEvent('theme_load_by_name', ['path' => null], ['theme' => $theme, 'admin' => false]);
+        $result = EventHandler::getInstance()->fireFilterEvent('theme_load_by_name', ['path' => null], ['theme' => $theme, 'admin' => false]);
         if (isset($result['path']) && file_exists($result['path'])) {
             $themesPath = $result['path'];
         }
@@ -222,19 +211,23 @@ if (isset($_REQUEST["_resource"]) && ($_REQUEST["_resource"] == "bypage" || $_RE
     } else if (is_dir($themeFullPath)) {
 
         try {
-            $loader = new \Twig_Loader_Filesystem(
+            $loader = new FilesystemLoader(
                 [
                     $themeFullPath,
                     XWServerInstanceToolKit::instance()->getCurrentInstanceDeploymentRootPath() . GlobalConfig::instance()->getValue("instancepagefolder"),
                 ]
             );
-            $twig = new \Twig_Environment($loader);
-            $twig = \core\twig\TwigFunctions::decorateTwig($twig);
+            $twig = new Environment($loader);
+            $twig = TwigFunctions::decorateTwig($twig);
 
-
-            $model = ['request' => \core\net\XWRequest::instance()->getRequestAsArray()];
+            $model = ['request' => XWRequest::instance()->getRequestAsArray()];
             $model['env'] = XWServerInstanceToolKit::instance()->getEnvValues();
-            $model['page'] = $pageModel;
+            $model['page'] = [
+                'content' => $pageLoadResult->getPageContent(),
+                'title' => $pageLoadResult->getTitleAdd(),
+                'metadescription' => $pageLoadResult->getMetaDescription(),
+                'url' => $_SERVER["REQUEST_URI"],
+            ];
             if (isset($_SESSION["XWUSER"])) {
                 $model['user'] = $_SESSION["XWUSER"];
             }
@@ -242,7 +235,7 @@ if (isset($_REQUEST["_resource"]) && ($_REQUEST["_resource"] == "bypage" || $_RE
             $outputString = '';
             try {
                 $outputString = $twig->render(GlobalConfig::instance()->getValue("thememainfile"), $model);
-            } catch (\Exception $e) { }
+            } catch (Exception $e) { }
             echo $outputString;
         } catch (Exception $e) { }
     } else if (file_exists($themeFullPath)) {
@@ -260,7 +253,7 @@ if (isset($_REQUEST["_resource"]) && ($_REQUEST["_resource"] == "bypage" || $_RE
 //------------------------------------------------------------------------------
 
 /**
- * @return \core\pages\loaders\XWPageLoaderResult
+ * @return XWPageLoaderResult
  * @param null|array $request
  * @param string $page
  * @param string $sub
@@ -316,7 +309,7 @@ function getPageContent($request = null, $page = null, $sub = null)
 // load Page Content.. include page or module from pages-, global-module- or admin-folder
 function cmsPageContent($directPrint = false)
 {
-    /** @var \core\pages\loaders\XWPageLoaderResult $pageLoadResult */
+    /** @var XWPageLoaderResult $pageLoadResult */
     global $pageLoadResult;
     if ($pageLoadResult == null || $directPrint) {
         echo getPageContent()->getPageContent();

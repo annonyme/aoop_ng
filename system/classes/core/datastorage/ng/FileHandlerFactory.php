@@ -2,6 +2,8 @@
 namespace core\datastorage\ng;
 
 use core\logging\XWLoggerFactory;
+use Exception;
+use ReflectionClass;
 
 class FileHandlerFactory {
     public static function getHandlerByConfigFile($name, $file){
@@ -12,13 +14,13 @@ class FileHandlerFactory {
         $result = null;
         try{
             if(isset($config['name'])){
-                $refClass = new \ReflectionClass($config['class']);
+                $refClass = new ReflectionClass($config['class']);
                 if($refClass){
                     $result = $refClass->newInstance($config['root'], $config['publicURI'], $config['user'], $config['credentials'], $config);
                 }
             }
         }
-        catch(\Exception $e){
+        catch(Exception $e){
             XWLoggerFactory::getLogger(self::class)->error($e);
         }
         return $result;

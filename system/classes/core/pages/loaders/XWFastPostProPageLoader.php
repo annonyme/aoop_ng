@@ -5,8 +5,6 @@ use core\addons\Services;
 use core\events\EventListenerFactory;
 use core\modules\controllers\XWModulePageRenderingResult;
 use core\modules\factories\XWModuleListFactory;
-use core\pages\grid\GridPage;
-use core\pages\grid\GridPageRenderer;
 use core\pages\plain\XWPageListFactory;
 use core\twig\TwigFunctions;
 use core\utils\XWLocalePropertiesReader;
@@ -24,8 +22,6 @@ use core\net\XWRequest;
 use core\security\XWFormSecurity;
 use XWDictionaries;
 use XWLocale;
-
-require_once('IXWPageLoaderInterface.php');  
 
 /*
 * Copyright (c) 2013/2015/2016/2017/2018/2020 Hannes Pries <https://www.hannespries.de>
@@ -47,17 +43,15 @@ require_once('IXWPageLoaderInterface.php');
 * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 * IN THE SOFTWARE.
 */
- 
-require_once("IXWPageLoaderInterface.php");  
+
 class XWFastPostProPageLoader implements XWPageLoaderInterface{
-	
-	private $pageDir='';
-	private $moduleDir='';
-	private $adminDir='admin/';
-	
-	private $titleAdd='';
-	private $directOutput=false;
-	private $logger=null;
+
+    private $pageDir = '';
+    private $moduleDir = '';
+
+    private $titleAdd = '';
+    private $directOutput = false;
+    private $logger = null;
 	
 	public function __construct(){
 		$this->logger=XWLoggerFactory::getLogger(self::class);
@@ -130,7 +124,7 @@ class XWFastPostProPageLoader implements XWPageLoaderInterface{
 	 */
 	public function getLocale() {
 		/** @var XWLocale $locale */
-		$locale =Services::getContainer()->get('XWLocale');
+		$locale = Services::getContainer()->get('XWLocale');
 		return $locale->findLocale();
 	}
 	
@@ -174,6 +168,7 @@ class XWFastPostProPageLoader implements XWPageLoaderInterface{
                                     $dictionaries->addDictionary($adminMod->getCallName(), $dict);
                                 }
                                 else{
+                                    //used by include
                                     $dict = $dictionaries->getDictionary($adminMod->getCallName());
                                 }
                             }
@@ -285,10 +280,10 @@ class XWFastPostProPageLoader implements XWPageLoaderInterface{
 							header('Access-Control-Allow-Headers: Content-Type');
                     	}                    	
                     }
-                    ob_clean();    
-                    ob_start(); 
-                    include($module->getPath()."/".$sub.".php");
-                    $outputString=ob_get_contents();
+                    ob_clean();
+                    ob_start();
+                    include($module->getPath() . '/' . $sub . '.php');
+                    $outputString = ob_get_contents();
                     ob_end_clean();
                         
                     $res->setPageContent($this->parseAndPrintOutput($outputString,$module->getCallName(),$sub,$nonText));
@@ -337,12 +332,12 @@ class XWFastPostProPageLoader implements XWPageLoaderInterface{
                         $paths[] = XWServerInstanceToolKit::instance()->getCurrentInstanceDeploymentRootPath()."templates/".$module->getName()."/";
 
 
-                        /** @var \core\events\EventListenerFactory $events */
+                        /** @var EventListenerFactory $events */
                         $events = Services::getContainer()->get('events');
-                        $paths = $events->fireFilterEvent('Twig_Views_Collection_paths', $paths, ['subject' => $module]);
+                        $paths = $events->fireFilterEvent('Twig_Views_Collection_paths', $paths, ['subject' => $module, 'controller' => $controller]);
 
                         $pathCache = [];
-                        for($i = count($paths) -1; $i >= 0; $i++) {
+                        for($i = count($paths) -1; $i >= 0; $i--) {
                             if($i == 0) {
                                 $paths['base'] = $paths[$i];
                             }

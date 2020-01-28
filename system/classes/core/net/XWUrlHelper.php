@@ -24,6 +24,7 @@ namespace core\net;
 
 use core\logging\XWLoggerFactory;
 use core\logging\XWLogger;
+use Exception;
 
 class XWUrlHelper{
 	
@@ -65,18 +66,17 @@ class XWUrlHelper{
 	 * @return string
 	 */
 	private function createPagePart($module,$page){
-		$result="";
-		if($module!=null && strlen($module)>0){
-			if($page==null || strlen($page)==0){
-				$page="index";
-			}
-			
-			$result="page=".$module."&sub=".$page;
-		}
-		else{
-			$result="page=".$page;
-		}
-		return $result;
+        $result = '';
+        if ($module != null && strlen($module) > 0) {
+            if ($page == null || strlen($page) == 0) {
+                $page = 'index';
+            }
+
+            $result = 'page=' . $module . '&sub=' . $page;
+        } else {
+            $result = 'page=' . $page;
+        }
+        return $result;
 	}
 	
 	/**
@@ -129,7 +129,7 @@ class XWUrlHelper{
 			}
 			exit;
 		}
-		catch(\Exception $e){
+		catch(Exception $e){
 			XWLoggerFactory::getLogger(XWUrlHelper::class)->log(XWLogger::ERROR, $e->getMessage(), $e);
 		}		
 	}

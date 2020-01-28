@@ -40,12 +40,11 @@ class XWDataStorageFactory{
     /**
      * XWDataStorageFactory constructor.
      * @param string $configFilePath
-     * @param null $name @deprecated
      * @throws Exception
      */
-	public function __construct($configFilePath="",$name=null){
+	public function __construct($configFilePath=''){
 		if(!is_file($configFilePath)){
-			throw new \Exception("datastore config-file not found: " . $configFilePath);
+			throw new Exception("datastore config-file not found: " . $configFilePath);
 		}
 		$this->configFilePath=$configFilePath;
 		if($this->getSize()==0){
@@ -83,12 +82,12 @@ class XWDataStorageFactory{
 	}
 	
 	public function existsDataStoreInByName($name){
-		return $this->getDataStoreByName($name)->getName()!="";
+		return $this->getDataStoreByName($name)->getName()!='';
 	}
 	
 	//---
 	
-	private function loadStores($configFilePath="",$name=null){
+	private function loadStores($configFilePath=''){
 		if($configFilePath!=""){
 			$this->configFilePath=$configFilePath;
 		}

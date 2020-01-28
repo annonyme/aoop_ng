@@ -2,6 +2,8 @@
 
 namespace core\router;
 
+use Exception;
+
 /**
  * function [full qualified name of the function]
  * @author annonyme
@@ -31,7 +33,7 @@ class XWURLGenericFunctionListener implements XWURLRouterListener{
 			$result->setContent($content);
 			$result->setType(get_class($content));
 		}
-		catch(\Exception $e){
+		catch(Exception $e){
 			$result->setException($e);
 		}
 		return $result;

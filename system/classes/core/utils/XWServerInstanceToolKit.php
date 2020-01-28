@@ -30,6 +30,7 @@
 namespace core\utils;
  
 use core\utils\config\GlobalConfig;
+use Exception;
 
 class XWServerInstanceToolKit{
 	private $instanceName="";
@@ -143,7 +144,7 @@ class XWServerInstanceToolKit{
                 }
             }
         }
-        catch(\Exception $e){
+        catch(Exception $e){
 
         }
         return $result;

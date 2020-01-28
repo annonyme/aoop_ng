@@ -16,7 +16,14 @@ class XWDataMapper{
 		}
 		return $result;
 	}
-	
+
+    /**
+     * @param $obj
+     * @param $array
+     *
+     * @return mixed
+     * @throws Exception
+     */
 	public function mapData($obj,$array){
 		try{
 			$ref=new ReflectionClass(get_class($obj));

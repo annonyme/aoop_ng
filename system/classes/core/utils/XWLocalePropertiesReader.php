@@ -138,11 +138,13 @@ class XWLocalePropertiesReader{
 	public function getEntryUpperCaseFirst($key){
 		return ucfirst($this->getEntry($key));
 	}
-	
-	/**
-	 * @param string $key
-	 * @param array $inserts
-	 */
+
+    /**
+     * @param $key
+     * @param null $inserts
+     *
+     * @return mixed|string|string[]|null
+     */
 	public function getEntryAndReplace($key,$inserts=null){
 		$result=$this->getEntry($key);
 		if($inserts!=null && is_array($inserts)){

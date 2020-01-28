@@ -8,6 +8,7 @@ use Exception;
 use core\modules\XWModuleList;
 use hannespries\events\EventHandler;
 use PDBC\PDBCCache;
+use ReflectionClass;
 
 class EventListenerFactory extends EventHandler
 {
@@ -95,8 +96,10 @@ class EventListenerFactory extends EventHandler
      * @param string $alias name of the event on that the liseners are registered
      * @param string $method mehod that is called on the object
      * @param mixed $obj target object on that the method is called and the called is listened to
-     * @param string $args argument for the method call on the object
+     * @param array $args argument for the method call on the object
      * @param bool $usePDBCTransaction like an EJB
+     *
+     * @return mixed
      */
     public function perform(string $alias, string $method = null, $obj, array $args = [], bool $usePDBCTransaction = false, $getReturnValue = false)
     {
@@ -111,7 +114,7 @@ class EventListenerFactory extends EventHandler
                 }
 
                 //perform action
-                $ref = new \ReflectionClass($obj);
+                $ref = new ReflectionClass($obj);
                 $m = $ref->getMethod($method);
                 $returnValue = $m->invokeArgs($obj, $args);
                 $args['returnValue'] = $returnValue;

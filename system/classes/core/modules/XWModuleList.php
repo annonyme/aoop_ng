@@ -34,6 +34,7 @@ use core\utils\XWArrayList;
 use DirectoryIterator;
 use DOMDocument;
 use core\utils\config\GlobalConfig;
+use Exception;
 
 class XWModuleList{
 	
@@ -113,7 +114,7 @@ class XWModuleList{
                 $module->setCustomDescriptorPath($customDescriptor);
             }
         }
-        catch(\Exception $e){
+        catch(Exception $e){
 
         }
 		
