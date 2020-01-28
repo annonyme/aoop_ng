@@ -169,12 +169,15 @@ class XWUrlHelper{
 		}
 		return "index.php?".$this->createPagePart($module,$page)."&".$this->mapToString($params)."&_resource=bypage".$admin;
 	}
-	
-	/**
-	 * @param string $text
-	 */
+
+    /**
+     * @param string $text
+     *
+     * @return string
+     */
 	public static function buildBaseUrlForReadable($text){
-		return "idx-".preg_replace("/[^a-zA-Z0-9]/i", "-", strtolower($text)).".html";
+		$url = "idx-".preg_replace("/[^a-zA-Z0-9]/i", "-", strtolower($text)).".html";
+	    return preg_replace("/-{2,}/", '-', $url);
 	}
 
 	public static function simplyfyText($text, $id = '', $fileExt = '.html', $module = null){

@@ -1,31 +1,24 @@
 <?php
 /*
- * Created on 29.09.2008
- *
- * To change the template for this generated file go to
- * Window - Preferences - PHPeclipse - PHP - Code Templates
- */
- 
- /*
-  * Copyright (c) 2008/2010/2016/2018 Hannes Pries <http://www.hannespries.de>
-  * Permission is hereby granted, free of charge, to any person obtaining a 
-  * copy of this software and associated documentation files (the "Software"), 
-  * to deal in the Software without restriction, including without limitation 
-  * the rights to use, copy, modify, merge, publish, distribute, sublicense, 
-  * and/or sell copies of the Software, and to permit persons to whom the 
-  * Software is furnished to do so, subject to the following conditions:
-  * 
-  * The above copyright notice and this permission notice shall be included in 
-  * all copies or substantial portions of the Software.
-  * 
-  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
-  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
-  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING 
-  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS 
-  * IN THE SOFTWARE.
-  */
+* Copyright (c) 2008/2010/2016/2018 Hannes Pries <http://www.hannespries.de>
+* Permission is hereby granted, free of charge, to any person obtaining a
+* copy of this software and associated documentation files (the "Software"),
+* to deal in the Software without restriction, including without limitation
+* the rights to use, copy, modify, merge, publish, distribute, sublicense,
+* and/or sell copies of the Software, and to permit persons to whom the
+* Software is furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included in
+* all copies or substantial portions of the Software.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+* FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+* IN THE SOFTWARE.
+*/
 
 namespace core\addons;
 
@@ -35,8 +28,6 @@ use DirectoryIterator;
 use ReflectionClass;
  
 class XWMBeansManager{
-    private $addonInstances=[];
-	
 	public function __construct(){
 		
 	}
@@ -118,9 +109,15 @@ class XWMBeansManager{
         }
         return $addonInstances; //array mit instancen aller addons...
 	}
-	
+
 	/**
-	 * Für nicht aoop-addons und so
+	 * @param string $path
+	 * @param string $className
+	 * @param string $descriptorFileName
+	 * @param bool $checkForStartup
+	 *
+	 * @return object|null
+	 * @throws \ReflectionException
 	 */
 	public function createMBeanByPath($path="",$className="",$descriptorFileName="",$checkForStartup=false){
 		$object=null;

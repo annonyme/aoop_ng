@@ -7,53 +7,48 @@ use core\modules\controllers\XWModulePageRenderingResult;
 use core\modules\factories\XWModuleListFactory;
 use core\pages\grid\GridPage;
 use core\pages\grid\GridPageRenderer;
-use core\pages\plain\XWPage;
 use core\pages\plain\XWPageListFactory;
+use core\twig\TwigFunctions;
 use core\utils\XWLocalePropertiesReader;
 use core\utils\XWServerInstanceToolKit;
+use Exception;
 use ReflectionClass;
+use Twig\Environment;
+use Twig\Loader\ArrayLoader;
+use Twig\Loader\FilesystemLoader;
 use xw\entities\users\XWUser;
-
-/*
- * Created on 20.12.2013
- *
- * To change the template for this generated file go to
- * Window - Preferences - PHPeclipse - PHP - Code Templates
- */
- 
-  /*
-  * Copyright (c) 2013/2015/2016/2017/2018 Hannes Pries <https://www.hannespries.de>
-  * Permission is hereby granted, free of charge, to any person obtaining a 
-  * copy of this software and associated documentation files (the "Software"), 
-  * to deal in the Software without restriction, including without limitation 
-  * the rights to use, copy, modify, merge, publish, distribute, sublicense, 
-  * and/or sell copies of the Software, and to permit persons to whom the 
-  * Software is furnished to do so, subject to the following conditions:
-  * 
-  * The above copyright notice and this permission notice shall be included in 
-  * all copies or substantial portions of the Software.
-  * 
-  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
-  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
-  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING 
-  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS 
-  * IN THE SOFTWARE.
-  */
-
 use core\addons\XWAddonManager;
 use core\logging\XWLogger;
 use core\logging\XWLoggerFactory;
 use core\net\XWRequest;
 use core\security\XWFormSecurity;
+
+/*
+* Copyright (c) 2013/2015/2016/2017/2018/2020 Hannes Pries <https://www.hannespries.de>
+* Permission is hereby granted, free of charge, to any person obtaining a
+* copy of this software and associated documentation files (the "Software"),
+* to deal in the Software without restriction, including without limitation
+* the rights to use, copy, modify, merge, publish, distribute, sublicense,
+* and/or sell copies of the Software, and to permit persons to whom the
+* Software is furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included in
+* all copies or substantial portions of the Software.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+* FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+* IN THE SOFTWARE.
+*/
  
 require_once("IXWPageLoaderInterface.php");  
 class XWFastPostProPageLoader implements XWPageLoaderInterface{
 	
 	private $pageDir="";
 	private $moduleDir="";
-	private $adminDir="admin/";
 	
 	private $titleAdd="";
 	private $directOutput=false;
@@ -96,12 +91,12 @@ class XWFastPostProPageLoader implements XWPageLoaderInterface{
 	private function parseAndPrintOutput($outputString, $page, $sub="", $noContainerDiv=true, $parserName=""){
         if($parserName == 'twig'){
             try{
-                $loader = new \Twig_Loader_Array(['template' => $outputString]);
-                $twig = new \Twig_Environment($loader);
-                $twig = \core\twig\TwigFunctions::decorateTwig($twig);
+                $loader = new ArrayLoader(['template' => $outputString]);
+                $twig = new Environment($loader);
+                $twig = TwigFunctions::decorateTwig($twig);
                 $outputString = $twig->render('template', $this->getTwigEnvModel());
             }
-            catch(\Exception $e){
+            catch(Exception $e){
 
             }
         }
@@ -211,9 +206,9 @@ class XWFastPostProPageLoader implements XWPageLoaderInterface{
 				//simple page (standard)... simple include
 				if($page->getPath()!=""){
 				    $paths = [XWServerInstanceToolKit::instance()->getCurrentInstanceDeploymentRootPath() . 'pages'];
-                    $loader = new \Twig_Loader_Filesystem($paths);
-                    $twig = new \Twig_Environment($loader);
-                    $twig = \core\twig\TwigFunctions::decorateTwig($twig);
+                    $loader = new FilesystemLoader($paths);
+                    $twig = new Environment($loader);
+                    $twig = TwigFunctions::decorateTwig($twig);
 
                     $model = $page->getValues();
                     $model['env'] = XWServerInstanceToolKit::instance()->getEnvValues();
@@ -229,7 +224,7 @@ class XWFastPostProPageLoader implements XWPageLoaderInterface{
                     try{
                         $outputString = $twig->render($page->getCallName() . '.html', $model);
                     }
-                    catch(\Exception $e){
+                    catch(Exception $e){
 
                     }
 
@@ -289,7 +284,7 @@ class XWFastPostProPageLoader implements XWPageLoaderInterface{
                 else if(is_file($module->getPath()."/".$sub.".twig.json")){
                 	try{
                 		$pageData = json_decode(file_get_contents($module->getPath()."/".$sub.".twig.json"), true);
-                		$controllerClazz = new \ReflectionClass($pageData['controller']);
+                		$controllerClazz = new ReflectionClass($pageData['controller']);
                 		$controller = $controllerClazz->newInstance();
                 		$controller->setDictionary($dict);
                         $controller->setModule($module);
@@ -325,30 +320,35 @@ class XWFastPostProPageLoader implements XWPageLoaderInterface{
                 		}
                 		
                 		$paths = [];
-                		//check instance override
-                		if(is_dir(XWServerInstanceToolKit::instance()->getCurrentInstanceDeploymentRootPath()."templates/".$module->getName()."/")){
-                			$paths[] = XWServerInstanceToolKit::instance()->getCurrentInstanceDeploymentRootPath()."templates/".$module->getName()."/";
-                		}
-                		//check theme override
-                		if(is_dir(XWServerInstanceToolKit::instance()->getCurrentThemePath()."templates/".$module->getName()."/")){
-                			$paths[] = XWServerInstanceToolKit::instance()->getCurrentThemePath()."templates/".$module->getName()."/";
-                		}	
-                		$paths[] = $module->getPath()."/templates/";
+                        $paths[] = $module->getPath()."/templates/";
+                        $paths[] = XWServerInstanceToolKit::instance()->getCurrentThemePath()."templates/".$module->getName()."/";
+                        $paths[] = XWServerInstanceToolKit::instance()->getCurrentInstanceDeploymentRootPath()."templates/".$module->getName()."/";
+
 
                         /** @var \core\events\EventListenerFactory $events */
-                        $events = \core\addons\Services::getContainer()->get('events');
-                        $paths = $events->fireFilterEvent('Twig_Module_' . $module->getCallName() . '_paths', $paths, []);
-                		
-                		$loader = new \Twig_Loader_Filesystem($paths);
-                		$twig = new \Twig_Environment($loader);
-                        $twig = \core\twig\TwigFunctions::decorateTwig($twig);
+                        $events = Services::getContainer()->get('events');
+                        $paths = $events->fireFilterEvent('Twig_Views_Collection_paths', $paths, ['subject' => $module]);
+
+                        $pathCache = [];
+                        for($i = count($paths) -1; $i >= 0; $i++) {
+                            if($i == 0) {
+                                $paths['base'] = $paths[$i];
+                            }
+                            else {
+                                $paths['pathRef' . $i] = $paths[$i];
+                            }
+                        }
+
+                		$loader = new FilesystemLoader($paths);
+                		$twig = new Environment($loader);
+                        $twig = TwigFunctions::decorateTwig($twig, $pathCache);
                 		
                 		$outputString = $twig->render($pageData['template'], $model);
                 		$res->setTitleAdd(strlen($modelResult->getTitle()) > 0 ? $modelResult->getTitle() : $module->getName());
                 		$res->setNoRendering($modelResult->isNoRendering());
                 		$res->setPageContent($this->parseAndPrintOutput($outputString,$module->getCallName(), $sub, $module->existsInNonTextPages($sub)));
                 	}
-                	catch(\Exception $e){
+                	catch(Exception $e){
                 		$this->logger->log(XWLogger::WARNING,$e->getMessage(), $e);
                 	}                	
                 }

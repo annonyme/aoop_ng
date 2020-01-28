@@ -4,6 +4,7 @@ namespace parallax;
 use core\pages\loaders\XWPageLoaderResult;
 use core\pages\plain\XWPage;
 use core\pages\plain\XWPageListFactory;
+use Twig\Environment;
 
 class Listener{
     /**
@@ -14,7 +15,7 @@ class Listener{
         /** @var XWPage $page */
         $page = $args['page'];
         $model = $args['model'];
-        /** @var \Twig_Environment $twig */
+        /** @var Environment $twig */
         $twig = $args['twig'];
 
         $sep = ''; //'<div class="parallax"></div>';

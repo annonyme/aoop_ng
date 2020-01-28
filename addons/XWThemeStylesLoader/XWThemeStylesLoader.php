@@ -18,8 +18,8 @@ class XWThemeStylesLoader extends \core\addons\XWAddonImplementation {
 
 	private function parseTwig($template){
         try{
-            $loader = new \Twig_Loader_Array(['template' => $template]);
-            $twig = new \Twig_Environment($loader);
+            $loader = new \Twig\Loader\ArrayLoader(['template' => $template]);
+            $twig = new \Twig\Environment($loader);
             $twig = \core\twig\TwigFunctions::decorateTwig($twig);
             $template = $twig->render('template', $this->config);
         }

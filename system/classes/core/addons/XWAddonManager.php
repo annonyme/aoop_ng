@@ -29,6 +29,7 @@
 
 namespace core\addons;
 
+use core\logging\XWLoggerFactory;
 use core\modules\addons\ModuleAddonManager;
 use core\utils\XWServerInstanceToolKit;
 use core\utils\XWLocalePropertiesReader;
@@ -117,7 +118,7 @@ class XWAddonManager{
                     $addon->setPath($this->path."/".$name);
                 }
                 if(method_exists($addon, 'setLogger')){
-        		    $addon->setLogger(\core\logging\XWLoggerFactory::getLogger(get_class($addon)));
+        		    $addon->setLogger(XWLoggerFactory::getLogger(get_class($addon)));
                 }
         		$this->addons[$name]=$addon;
         	}
@@ -150,7 +151,7 @@ class XWAddonManager{
                 $addon->setPath($this->path."/".$name);
             }
             if(method_exists($addon, 'setLogger')){
-                $addon->setLogger(\core\logging\XWLoggerFactory::getLogger(get_class($addon)));
+                $addon->setLogger(XWLoggerFactory::getLogger(get_class($addon)));
             }
             $this->addons[$name]=$addon;
         }
@@ -169,22 +170,4 @@ class XWAddonManager{
         }
         return $result;
     }
-	
-	/**
-	 * @return XWLocalePropertiesReader
-	 * @param string $name
-	 */
-	public function getDictionaryForAddon(string $name):XWLocalePropertiesReader{
-		$dict=new XWLocalePropertiesReader();
-		if(!$this->getAddonByName("XWDictionaries")->existsIn($name)){
-		 	if(is_file($this->path."/".$name."/dict.props")){
-		 		$dict->importPropertiesBundle($this->path."/".$name."/dict.props",XWAddonManager::instance()->getAddonByName("XWLocale")->findLocale());
-		 		$this->getAddonByName("XWDictionaries")->addDictionary($name,$dict);
-		 	}
-		}
-		else{
-		 	$dict=$this->getAddonByName("XWDictionaries")->getDictionary($name);
-		}
-		return $dict;
-	}
 } 

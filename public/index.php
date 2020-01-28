@@ -21,6 +21,7 @@
  * IN THE SOFTWARE.
  */
 
+use core\twig\TwigFunctions;
 use core\utils\config\GlobalConfig;
 use core\router\XWURLGenericFunctionListener;
 use core\router\XWURLGenericControllerListener;
@@ -37,6 +38,8 @@ use core\pages\plain\XWPage;
 use core\modules\XWModuleClassLoader;
 
 use core\addons\Services;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
 
 //include composer autoloader
 $autoloader = require_once ("../vendor/autoload.php");
@@ -214,14 +217,14 @@ if(class_exists('DisplayMessageFactory')) {
  	 else if(is_dir($themeFullPath)){
 
  	     try{
-             $loader = new \Twig_Loader_Filesystem(
+             $loader = new FilesystemLoader(
                  [
                      $themeFullPath,
                      XWServerInstanceToolKit::instance()->getCurrentInstanceDeploymentRootPath() . GlobalConfig::instance()->getValue("instancepagefolder"),
                  ]
              );
-             $twig = new \Twig_Environment($loader);
-             $twig = \core\twig\TwigFunctions::decorateTwig($twig);
+             $twig = new Environment($loader);
+             $twig = TwigFunctions::decorateTwig($twig);
 
 
              $model = ['request' => \core\net\XWRequest::instance()->getRequestAsArray()];

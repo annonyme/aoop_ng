@@ -1,6 +1,11 @@
 <?php
 namespace core\addons;
 
+use core\twig\TwigFunctions;
+use Exception;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
+
 class XWRenderingAddon{
     private $templatePath = '';
     private $overrideInstancePath = '';
@@ -9,17 +14,19 @@ class XWRenderingAddon{
         $result = '';
         if(is_dir($this->templatePath)){            
             try{
-                $pathes = [$this->templatePath];
+                $paths = [];
+                //TODO event + collection
                 if(is_dir($this->overrideInstancePath)){
-                    $pathes[] = $this->overrideInstancePath;
+                    $paths['addonRef1'] = $this->overrideInstancePath;
                 }
+                $paths['base'] = $this->templatePath;
 
-                $loader = new \Twig_Loader_Filesystem($pathes);
-                $twig = new \Twig_Environment($loader);
-                $twig = \core\twig\TwigFunctions::decorateTwig($twig);
+                $loader = new FilesystemLoader($paths);
+                $twig = new Environment($loader);
+                $twig = TwigFunctions::decorateTwig($twig, $paths);
                 $result = $twig->render($templateName, $model);
             }
-            catch(\Exception $e){
+            catch(Exception $e){
 
             }
         }

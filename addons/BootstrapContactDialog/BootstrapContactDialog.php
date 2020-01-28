@@ -1,4 +1,10 @@
 <?php
+
+use core\twig\TwigFunctions;
+use core\utils\XWServerInstanceToolKit;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
+
 class BootstrapContactDialog extends \core\addons\XWAddonImplementation{
     /**
      * {{ renderAddon('BootstrapContactDialog||["link":"","title":"","text":""]')|raw}}
@@ -11,24 +17,24 @@ class BootstrapContactDialog extends \core\addons\XWAddonImplementation{
         $title = isset($vars['title']) ? $vars['title'] : '';
         $text = isset($vars['text']) ? $vars['text'] : '';
         if(isset($vars['env'])){
-            if(isset(\core\utils\XWServerInstanceToolKit::instance()->getEnvValues()[$vars['env']]['link'])){
-                $imageLink = \core\utils\XWServerInstanceToolKit::instance()->getEnvValues()[$vars['env']]['link'];
+            if(isset(XWServerInstanceToolKit::instance()->getEnvValues()[$vars['env']]['link'])){
+                $imageLink = XWServerInstanceToolKit::instance()->getEnvValues()[$vars['env']]['link'];
             }
-            if(isset(\core\utils\XWServerInstanceToolKit::instance()->getEnvValues()[$vars['env']]['title'])){
-                $title = \core\utils\XWServerInstanceToolKit::instance()->getEnvValues()[$vars['env']]['title'];
+            if(isset(XWServerInstanceToolKit::instance()->getEnvValues()[$vars['env']]['title'])){
+                $title = XWServerInstanceToolKit::instance()->getEnvValues()[$vars['env']]['title'];
             }
-            if(isset(\core\utils\XWServerInstanceToolKit::instance()->getEnvValues()[$vars['env']]['text'])){
-                $text = \core\utils\XWServerInstanceToolKit::instance()->getEnvValues()[$vars['env']]['text'];
+            if(isset(XWServerInstanceToolKit::instance()->getEnvValues()[$vars['env']]['text'])){
+                $text = XWServerInstanceToolKit::instance()->getEnvValues()[$vars['env']]['text'];
             }
 
-            if(isset(\core\utils\XWServerInstanceToolKit::instance()->getEnvValues()[$vars['env']]['page'])){
+            if(isset(XWServerInstanceToolKit::instance()->getEnvValues()[$vars['env']]['page'])){
                 try{
-                    $paths = [\core\utils\XWServerInstanceToolKit::instance()->getCurrentInstanceDeploymentRootPath() . 'pages'];
-                    $loader = new \Twig_Loader_Filesystem($paths);
-                    $twig = new \Twig_Environment($loader);
-                    $twig = \core\twig\TwigFunctions::decorateTwig($twig);
+                    $paths = [XWServerInstanceToolKit::instance()->getCurrentInstanceDeploymentRootPath() . 'pages'];
+                    $loader = new FilesystemLoader($paths);
+                    $twig = new Environment($loader);
+                    $twig = TwigFunctions::decorateTwig($twig);
 
-                    $text = $twig->render(\core\utils\XWServerInstanceToolKit::instance()->getEnvValues()[$vars['env']]['page'], []);
+                    $text = $twig->render(XWServerInstanceToolKit::instance()->getEnvValues()[$vars['env']]['page'], []);
                 }
                 catch(Exception $e){
 
