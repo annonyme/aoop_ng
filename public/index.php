@@ -47,6 +47,7 @@ use core\addons\Services;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 use core\utils\displayMessages\DisplayMessageFactory;
+use xw\entities\users\XWUser;
 
 //include composer autoloader
 $autoloader = require_once("../vendor/autoload.php");
@@ -229,7 +230,10 @@ if (isset($_REQUEST["_resource"]) && ($_REQUEST["_resource"] == "bypage" || $_RE
                 'url' => $_SERVER["REQUEST_URI"],
             ];
             if (isset($_SESSION["XWUSER"])) {
-                $model['user'] = $_SESSION["XWUSER"];
+                /** @var XWUser $currentUser  */
+                $currentUser = $_SESSION["XWUSER"];
+                $model['user'] = $currentUser;
+                $model['userIsAdmin'] = $currentUser->isInGroup('admin');
             }
 
             $outputString = '';
