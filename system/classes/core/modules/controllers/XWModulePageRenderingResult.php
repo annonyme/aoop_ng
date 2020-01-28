@@ -8,9 +8,10 @@ class XWModulePageRenderingResult{
 	private $dict = null;
 	private $alternativeTemplate = null;
 	
-	private $title = "";
+	private $title = '';
 
 	private $noRendering = false;
+	private $contentType = 'text/html';
 	
 	/**
 	 * @return array
@@ -78,5 +79,21 @@ class XWModulePageRenderingResult{
     public function setNoRendering(bool $noRendering)
     {
         $this->noRendering = $noRendering;
+	}
+	
+	/**
+     * @return string
+     */
+    public function getContentType(): string
+    {
+        return $this->contentType;
+    }
+
+    /**
+     * @param string $contentType
+     */
+    public function setContentType(string $contentType)
+    {
+        $this->contentType = $contentType;
     }
 }

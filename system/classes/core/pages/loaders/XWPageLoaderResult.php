@@ -6,7 +6,8 @@ class XWPageLoaderResult{
 	private $titleAdd = '';
 	private $metaDescription = '';
 
-	private $noRendering = false;
+    private $noRendering = false;
+    private $contentType = '';
 	
 	public function __construct(){
 		
@@ -60,5 +61,21 @@ class XWPageLoaderResult{
     public function setNoRendering(bool $noRendering)
     {
         $this->noRendering = $noRendering;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContentType(): string
+    {
+        return $this->contentType;
+    }
+
+    /**
+     * @param string $contentType
+     */
+    public function setContentType(string $contentType)
+    {
+        $this->contentType = $contentType;
     }
 }

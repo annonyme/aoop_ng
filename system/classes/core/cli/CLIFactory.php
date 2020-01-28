@@ -1,15 +1,14 @@
 <?php
 namespace core\cli;
 
-use core\events\EventListenerFactory;
 use core\utils\config\GlobalConfig;
 use hannespries\events\EventHandler;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
 /**
- * ['calss1','class2'] in module/deploy/cli.json
+ * ['class1','class2'] in module/deploy/cli.json
  * 
- * @author annonyme
+ * @author Hannes Pries
  *
  */
 class CLIFactory{
