@@ -29,6 +29,7 @@
 
 namespace xw\entities\users;
  
+use core\user\UserInterface;
 use core\utils\XWArrayList;
 
  class XWUserList{
@@ -75,7 +76,12 @@ use core\utils\XWArrayList;
  		}
  		return $found;
  	}
- 	
+
+     /**
+      * @param UserInterface $user
+      *
+      * @return bool
+      */
  	public function existsIn($user){
  		$found=false;
  		$dummy=null;

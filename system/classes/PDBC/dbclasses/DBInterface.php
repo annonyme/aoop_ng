@@ -29,10 +29,13 @@
 
 namespace PDBC\dbclasses;
 
+use Exception;
+use PDO;
+
 interface DBInterface{
 	function executeQuery(string $sql);
 	function getCount():int;
-	function getLastException():\Exception;
+	function getLastException(): Exception;
 	function getResult(int $row=0, string $column);
 	function getRow(int $row=0);
 	function executeInsert(string $sql):int;
@@ -44,6 +47,5 @@ interface DBInterface{
 	function commit();
 	function rollback();
 
-	//TODO also nullable
-	function getNativeConnection(): ?\PDO;
+	function getNativeConnection(): ?PDO;
 }

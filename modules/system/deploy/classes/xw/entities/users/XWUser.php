@@ -106,7 +106,13 @@ use core\utils\XWArrayList;
          $dao=XWUserManagmentDAO::instance();
          return $dao->changePasswordUser($this,$old,$new);
      }
-     
+
+     /**
+      * @param $newPassword
+      * @param UserInterface $adminUser
+      *
+      * @return bool
+      */
      public function changePasswordByAdmin($newPassword,$adminUser){
      	 $admin=new XWUser();
      	 $admin->load($adminUser->getId()); //to get an role-list direkt by the database

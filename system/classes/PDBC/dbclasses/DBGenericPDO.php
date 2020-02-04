@@ -37,7 +37,8 @@ abstract class DBGenericPDO implements DBInterface {
         $this->conn = new PDO($this->host, $this->user, $this->password);
     }
 
-    public function getNativeConnection(): ?\PDO {
+    public function getNativeConnection(): ?PDO
+    {
         return $this->conn;
     }
     
@@ -49,7 +50,7 @@ abstract class DBGenericPDO implements DBInterface {
             $sql=$this->secureSQL($sql);
             $stmt = $this->conn->prepare($sql);
             $stmt->execute();
-            $this->result=$stmt->fetchAll(\PDO::FETCH_ASSOC);
+            $this->result=$stmt->fetchAll(PDO::FETCH_ASSOC);
             $this->rsetRowCount = count($this->result);
         } catch (PDOException $e) {
             $this->lastException = $e;

@@ -4,12 +4,15 @@ namespace parallax;
 use core\pages\loaders\XWPageLoaderResult;
 use core\pages\plain\XWPage;
 use core\pages\plain\XWPageListFactory;
+use Exception;
 use Twig\Environment;
 
 class Listener{
     /**
      * @param XWPageLoaderResult $result
      * @param array $args
+     *
+     * @throws Exception
      */
     public function onPage($result, $args = []){
         /** @var XWPage $page */

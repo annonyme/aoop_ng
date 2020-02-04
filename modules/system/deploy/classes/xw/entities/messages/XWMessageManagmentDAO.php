@@ -30,6 +30,7 @@
 namespace xw\entities\messages;
 
 use core\events\EventListenerFactory;
+use core\user\UserInterface;
 use core\utils\XWServerInstanceToolKit;
 use PDBC\PDBCCache;
 use core\database\XWSQLStatement; 
@@ -71,7 +72,10 @@ use core\database\XWSearchStringParser;
         }
         return $msg;
  	}
- 	
+
+	 /**
+	  * @param XWMessage $msg
+	  */
  	public function saveMessage($msg){
  		//nur insert 		
  		if($msg->getId()==0){
@@ -103,14 +107,20 @@ use core\database\XWSearchStringParser;
 			EventListenerFactory::getInstance()->fireFilterEvent('System_Messages_Saved', $msg, []);
  		} 		 
  	}
- 	
+
+	 /**
+	  * @param XWMessage $msg
+	  */
  	public function deleteMessage($msg){
  		$sql="UPDATE XW_MSGS SET MSG_DELETED=1 WHERE MSG_ID=".intval($msg->getId());
  		$db=$this->db; 
         $db->execute($sql);
  	}
- 	
- 	public function setViewedForMessage($msg){
+
+	 /**
+	  * @param XWMessage $msg
+	  */
+ 	function setViewedForMessage($msg){
  		$sql="UPDATE XW_MSGS SET " .
  			 " MSG_VIEWED=1 " .
  			 "WHERE MSG_ID=".intval($msg->getId());
@@ -119,7 +129,12 @@ use core\database\XWSearchStringParser;
  	}
  	
  	//------ lists
- 	
+
+	 /**
+	  * @param UserInterface $user
+	  *
+	  * @return XWMessageList
+	  */
  	public function loadMessageListByUser($user){
  		$sql="SELECT MSG_ID, " .
  			 "       MSG_TO, " .
@@ -154,7 +169,14 @@ use core\database\XWSearchStringParser;
         }
         return $msgList;
  	}
- 	
+
+	 /**
+	  * @param UserInterface $user
+	  * @param int $page
+	  * @param int $count
+	  *
+	  * @return XWMessageList
+	  */
  	public function loadMessageListByUserAndPage($user,$page=0,$count=20){
  		$sql="SELECT MSG_ID, " .
  			 "       MSG_TO, " .
@@ -190,7 +212,15 @@ use core\database\XWSearchStringParser;
         }
         return $msgList;
  	}
- 	
+
+	 /**
+	  * @param UserInterface $user
+	  * @param $pattern
+	  * @param int $page
+	  * @param int $count
+	  *
+	  * @return XWMessageList
+	  */
  	public function loadMessageListByUserAndPatternAndPage($user,$pattern,$page=0,$count=20){
  		if(trim($pattern)==""){
  			return $this->loadMessageListByUserAndPage($user,$page,$count);
@@ -239,8 +269,13 @@ use core\database\XWSearchStringParser;
 	        return $msgList;
  		} 		
  	}
- 	
- 	
+
+	 /**
+	  * @param UserInterface $user
+	  * @param bool $readed
+	  *
+	  * @return XWMessageList
+	  */
  	public function loadMessageListByUserAndUnread($user,$readed=false){
  		$readedInt=0;
  		if($readed){
@@ -279,7 +314,13 @@ use core\database\XWSearchStringParser;
         }
         return $msgList;
  	}
- 	
+
+	 /**
+	  * @param UserInterface $user
+	  * @param string $pattern
+	  *
+	  * @return XWMessageList
+	  */
  	public function loadMessageListByUserAndPattern($user,$pattern=""){
  		$parser=new XWSearchStringParser();
 		$pattern=$parser->simpleStringCleaning($pattern);
@@ -322,7 +363,12 @@ use core\database\XWSearchStringParser;
         }
         return $msgList;
  	}
- 	
+
+	 /**
+	  * @param UserInterface $user
+	  *
+	  * @return XWMessageList
+	  */
  	public function loadMessageListBySender($user){
  		$sql="SELECT MSG_ID, " .
  			 "       MSG_TO, " .
@@ -356,7 +402,14 @@ use core\database\XWSearchStringParser;
         }
         return $msgList;
  	}
- 	
+
+	 /**
+	  * @param UserInterface $user
+	  * @param int $page
+	  * @param int $count
+	  *
+	  * @return XWMessageList
+	  */
  	public function loadMessageListBySenderAndPage($user,$page=0,$count=20){
  		$sql="SELECT MSG_ID, " .
  			 "       MSG_TO, " .
@@ -391,7 +444,13 @@ use core\database\XWSearchStringParser;
         }
         return $msgList;
  	}
- 	
+
+	 /**
+	  * @param UserInterface $me
+	  * @param UserInterface $theOther
+	  *
+	  * @return XWMessageList
+	  */
  	public function loadMessageListByConversationUsers($me,$theOther){
  		$sql="SELECT MSG_ID, " .
  			 "       MSG_TO, " .
@@ -427,4 +486,4 @@ use core\database\XWSearchStringParser;
         return $msgList;
  	}
  }
-?>
+

@@ -32,7 +32,8 @@ namespace addons\system;
 use core\addons\XWAddonImplementation;
 use core\addons\XWAddonManager;
 use core\utils\XWServerInstanceToolKit;
- 
+use XWServerInstanceInfos;
+
 class XWPageEditButton extends XWAddonImplementation {
 	
 	private $editPage="editPage";
@@ -47,18 +48,14 @@ class XWPageEditButton extends XWAddonImplementation {
 	    $addonManager=XWAddonManager::instance();
 		if(isset($_SESSION["XWUSER"]) && !isset($_REQUEST["adminpage"])){
 			$instanceAdmins="";
-			if($addonManager->getAddonByName("XWServerInstanceInfos")->existsInfo("admins")){
-				$instanceAdmins=$addonManager->getAddonByName("XWServerInstanceInfos")->getInfo("admins");
+			/** @var XWServerInstanceInfos $serverInstance */
+			$serverInstance = $addonManager->getAddonByName("XWServerInstanceInfos");
+			if($serverInstance->existsInfo("admins")){
+				$instanceAdmins=$serverInstance->getInfoByName("admins");
 			}
 			if($_SESSION["XWUSER"]->isInGroup($instanceAdmins) || $_SESSION["XWUSER"]->isInGroup("admins")){
 				if($_SESSION["XWUSER"]->isInGroup("pageAdmins") || $_SESSION["XWUSER"]->isInGroup("admins")){
-					$page="";
-					if(isset($_REQUEST["page"])){
-						$page=$_REQUEST["page"];
-					}
-					else{
-						$page=$addonManager->getAddonByName("XWServerInstanceInfos")->getInfo("homepage");
-					}					
+					$page=$_REQUEST["page"] ?? $serverInstance->getInfoByName("homepage");
 					
 					$pageDir=XWServerInstanceToolKit::instance()->getCurrentInstanceDeploymentRootPath() . "pages";
 					

@@ -34,7 +34,9 @@ use core\modules\addons\ModuleAddonManager;
 use core\utils\XWServerInstanceToolKit;
 use core\utils\XWLocalePropertiesReader;
 use core\utils\config\GlobalConfig;
- 
+use Exception;
+use ReflectionException;
+
 class XWAddonManager{
 	
 	private $addons=[];
@@ -56,10 +58,12 @@ class XWAddonManager{
 	public function __construct(){
 		$this->path=GlobalConfig::instance()->getValue("addonfolder");
 	}
-	
-	/**
-	 * @param string $path
-	 */
+
+    /**
+     * @param string $path
+     *
+     * @throws ReflectionException
+     */
 	public function loadAddonsByPathForStartup(string $path = "../addons"){
 		$files=[];
 		if(!isset($_SESSION["XW_ADDON_FOLDERLIST"])){
@@ -94,11 +98,13 @@ class XWAddonManager{
         	}        	
         }
 	}
-	
-	/**
-	 * @return XWAddon|null
-	 * @param string $name
-	 */
+
+    /**
+     * @param string $name
+     *
+     * @return mixed|null
+     * @throws ReflectionException
+     */
 	public function getAddonByName(string $name){		
 		//TODO check path exists.. before search for config file
 		if(!isset($this->addons[$name])){
@@ -138,6 +144,12 @@ class XWAddonManager{
 		}
 	}
 
+    /**
+     * @param $name
+     *
+     * @return mixed|null
+     * @throws ReflectionException
+     */
 	public function get($name){
 	    return $this->getAddonByName($name);
     }
@@ -165,7 +177,7 @@ class XWAddonManager{
                 $result = $this->path."/".$name;
             }
         }
-        catch(\Exception $e){
+        catch(Exception $e){
 
         }
         return $result;

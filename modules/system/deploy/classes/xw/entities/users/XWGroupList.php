@@ -67,7 +67,12 @@ class XWGroupList{
         	$this->addGroup($groups->getGroup($i));
         }  
     }
-    
+
+    /**
+     * @param XWGroup $group
+     *
+     * @return bool
+     */
     public function existsIn($group){
     	$dummy=null;
         $found=false;

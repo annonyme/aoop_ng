@@ -8,6 +8,7 @@
 
 namespace xw\entities\users;
 
+use core\user\UserInterface;
 use core\utils\XWArrayList;
  
 class XWUserDefinedGroup{
@@ -79,7 +80,12 @@ class XWUserDefinedGroup{
 	public function getUser($index){
 		return $this->users->get($index);
 	}
-	
+
+    /**
+     * @param UserInterface $user
+     *
+     * @return bool
+     */
 	public function existsIn($user){
 		$found=false;
 		$dummy=null;

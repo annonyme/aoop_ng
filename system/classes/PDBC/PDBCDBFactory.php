@@ -22,23 +22,43 @@
  
 namespace PDBC;
 
+use Exception;
 use ReflectionClass;
- 
+use ReflectionException;
+
 class PDBCDBFactory {
 	private $confPath = "conffiles/";
-	
+
+    /**
+     * PDBCDBFactory constructor.
+     *
+     * @param string $confPath
+     *
+     * @throws Exception
+     */
 	public function __construct($confPath = "conffiles/") {
 		$this->confPath = $confPath;
 		if(!is_dir($confPath)){
-			throw new \Exception("pdbs config folder not found: ".$confPath);
+			throw new Exception("pdbs config folder not found: ".$confPath);
 		}		
 		PDBCCache::init($this);
 	}
-	
+
+    /**
+     * @param string $confPath
+     *
+     * @throws Exception
+     */
 	public static function init($confPath = "conffiles/"){
 		new PDBCDBFactory($confPath);
 	}
-	
+
+    /**
+     * @param $dsName
+     *
+     * @return object|null
+     * @throws ReflectionException
+     */
 	public function getDB($dsName) {
 		$ds = new PDBCDataSource($dsName, $this->confPath."datasources.xml");
 		if (class_exists($ds->getClassName(), true)) {

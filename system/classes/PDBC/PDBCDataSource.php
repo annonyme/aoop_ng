@@ -24,6 +24,8 @@
 namespace PDBC;
 
 
+use DOMDocument;
+
 class PDBCDataSource{
 	
 	private $host="";
@@ -43,7 +45,7 @@ class PDBCDataSource{
 	public function __construct($dsName,$file){
 		$this->name=$dsName;
 		
-		$doc = new \DOMDocument(); 
+		$doc = new DOMDocument();
 		$doc->load($file);
 		$sources=$doc->getElementsByTagName("datasource");
 		foreach($sources as $source){

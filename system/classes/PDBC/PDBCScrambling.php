@@ -32,8 +32,6 @@ class PDBCScrambling{
 	}
 	
 	public function simpleScrambling($text){
-		$result="";
-		 
 		$firstPart=[];
 		$secondPart=[];
 		
