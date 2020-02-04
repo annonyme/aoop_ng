@@ -22,7 +22,12 @@
 
 namespace PDBC;
 
+use Exception;
+use PDBC\dbclasses\DBInterface;
 use ReflectionClass;
+use ReflectionException;
+use ReflectionMethod;
+use ReflectionProperty;
 
 class PDBCObjectMapper{
 	private static $cache=[];
@@ -34,17 +39,27 @@ class PDBCObjectMapper{
 	public function __contruct(){
 		 
 	}
-	
+
+    /**
+     * @param ReflectionClass $ref
+     *
+     * @return array
+     */
 	private function analyzeClass($ref){
 		if(isset(self::$fullCache[$ref->getName()])){
 			return self::$fullCache[$ref->getName()];
 		}
 		else{
-			$cla=array(
+			$cla=[
 				"name" => $ref->getName(),
 				"table" => $this->getTableName($ref),
-				"reflection" => $ref,	
-			);
+				"reflection" => $ref,
+                'prePersistMethod' => $this->getMethodByMarker($ref, 'PrePersist'),
+                'postPersistMethod' => $this->getMethodByMarker($ref, 'PostPersist'),
+                'postLoadMethod' => $this->getMethodByMarker($ref, 'PostLoad'),
+                'preDeleteMethod' => $this->getMethodByMarker($ref, 'PreDelete'),
+                'postDeleteMethod' => $this->getMethodByMarker($ref, 'PosDelete'),
+			];
 			
 			$props=$ref->getProperties();
 			$map=[];
@@ -70,7 +85,12 @@ class PDBCObjectMapper{
 			return $cla;
 		}
 	}
-	 
+
+    /**
+     * @param ReflectionClass $ref
+     *
+     * @return array
+     */
 	private function loadProperties($ref){
 		if(isset(self::$cache[$ref->getName()])){
 			return self::$cache[$ref->getName()];
@@ -86,7 +106,12 @@ class PDBCObjectMapper{
 			return self::$cache[$ref->getName()];
 		}
 	}
-	 
+
+    /**
+     * @param ReflectionProperty $prop
+     *
+     * @return string|null
+     */
 	private function getColumnName($prop){
 		$result=null;
 		$doc=$prop->getDocComment();
@@ -95,7 +120,12 @@ class PDBCObjectMapper{
 		}
 		return $result;
 	}
-	
+
+    /**
+     * @param ReflectionProperty $prop
+     *
+     * @return string|null
+     */
 	private function getColumnType($prop){
 		$result=null;
 		$doc=$prop->getDocComment();
@@ -104,12 +134,38 @@ class PDBCObjectMapper{
 		}
 		return $result;
 	}
-	
+
+    /**
+     * @param ReflectionProperty $prop
+     *
+     * @return bool
+     */
 	private function isPrimary($prop){
 		$doc=$prop->getDocComment();
 		return preg_match("/@dbprimary/",$doc);
 	}
-	
+
+    /**
+     * @param ReflectionClass $clazz
+     * @param $marker
+     *
+     * @return ReflectionMethod|null
+     */
+	private function getMethodByMarker(ReflectionClass $clazz , $marker) {
+	    $result = null;
+	    foreach ($clazz->getMethods() as $method) {
+	        if(preg_match("/@" . $marker . "/", $method->getDocComment())) {
+	            $result = $method;
+            }
+        }
+	    return $result;
+    }
+
+    /**
+     * @param ReflectionClass $clazz
+     *
+     * @return string|string[]|null
+     */
 	private function getTableName($clazz){
 		$result=null;
 		$doc=$clazz->getDocComment();
@@ -118,7 +174,36 @@ class PDBCObjectMapper{
 		}
 		return $result;
 	}
-	 
+
+    /**
+     * @param string $name
+     * @param ReflectionClass $ref
+     * @param $obj
+     *
+     * @throws Exception
+     */
+	private function callCallbackMethod($name, $ref, $obj) {
+        try{
+            $cla = $this->analyzeClass($ref);
+            if($cla['postLoadMethod']) {
+                /** @var ReflectionMethod $method */
+                $method = $cla[$name];
+                $method->invoke($obj);
+            }
+        }
+        catch (Exception $e) {
+            throw new  Exception('Error in PostLoad-method', 1, $e);
+        }
+    }
+
+    /**
+     * @param $row
+     * @param ReflectionClass $ref
+     *
+     * @throws Exception
+     *
+     * @return mixed
+     */
 	private function fillObject($row, $ref){
 		$obj=$ref->newInstance();
 		$props=$this->loadProperties($ref);
@@ -127,9 +212,21 @@ class PDBCObjectMapper{
 				$props[$key]->setValue($obj,$value);
 			}
 		}
+
+		$this->callCallbackMethod('postLoadMethod', $ref, $obj);
+
 		return $obj;
 	}
-	 
+
+    /**
+     * @param DBInterface $db
+     * @param string $sql
+     * @param string $className
+     *
+     * @return array
+     * @throws ReflectionException
+     * @throws Exception
+     */
 	public function queryList($db, $sql, $className){
 		if(is_object($className)){
 			$className=get_class($className);
@@ -143,7 +240,16 @@ class PDBCObjectMapper{
 		}
 		return $result;		 
 	}
-	 
+
+    /**
+     * @param DBInterface $db
+     * @param string $sql
+     * @param string $className
+     *
+     * @return mixed|object|null
+     * @throws ReflectionException
+     * @throws Exception
+     */
 	public function querySingle($db, $sql, $className){
 		$db->executeQuery($sql);
 		$ref=new ReflectionClass($className);
@@ -156,7 +262,15 @@ class PDBCObjectMapper{
 		}
 		return $result;
 	}
-	
+
+    /**
+     * @param DBInterface $db
+     * @param $primaryValue
+     * @param string $className
+     *
+     * @return mixed|object|null
+     * @throws ReflectionException
+     */
 	public function load($db,$primaryValue, $className){
 		$ref=new ReflectionClass($className);
 		$cla=$this->analyzeClass($ref);
@@ -167,15 +281,15 @@ class PDBCObjectMapper{
 	}
 
     /**
-     * @param $db
+     * @param DBInterface $db
      * @param $column
      * @param $value
      * @param string $type
-     * @param $className
+     * @param string $className
      * @param null $orderby
      * @param string $orderbytype
      * @return array
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
 	public function loadListByColumn($db, $column, $value, $type="int", $className, $orderby=null, $orderbytype="ASC"){
 		$ref=new ReflectionClass($className);
@@ -188,7 +302,16 @@ class PDBCObjectMapper{
 		$stmt->set("value", $value, $type);
 		return $this->queryList($db, $stmt->getSQL(), $className);
 	}
-	
+
+    /**
+     * @param DBInterface $db
+     * @param string $className
+     * @param null $orderby
+     * @param string $orderbytype
+     *
+     * @return array
+     * @throws ReflectionException
+     */
 	public function loadList($db, $className, $orderby=null, $orderbytype="ASC"){
 		$ref=new ReflectionClass($className);
 		$cla=$this->analyzeClass($ref);
@@ -199,7 +322,14 @@ class PDBCObjectMapper{
 		$stmt=new PDBCSQLStatement($sql);
 		return $this->queryList($db, $stmt->getSQL(), $className);
 	}
-	
+
+    /**
+     * @param DBInterface $db
+     * @param $entity
+     *
+     * @throws ReflectionException
+     * @throws Exception
+     */
 	public function delete($db, $entity){
 		$ref=new ReflectionClass(get_class($entity));
 		$cla=$this->analyzeClass($ref);
@@ -210,13 +340,25 @@ class PDBCObjectMapper{
 		}
 		
 		if($id){
-			$sql="DELETE FROM ".$cla["table"]." WHERE ".$cla["primary"]["columnName"]."=#{primaryValue}";
+            $this->callCallbackMethod('preDeleteMethod', $ref, $entity);
+
+		    $sql="DELETE FROM ".$cla["table"]." WHERE ".$cla["primary"]["columnName"]."=#{primaryValue}";
 			$stmt=new PDBCSQLStatement($sql);
 			$stmt->set("primaryValue", $cla["primary"]["reflection"]->getValue($entity), $cla["primary"]["type"]);
 			$db->execute($stmt->getSQL());
+
+            $this->callCallbackMethod('postDeleteMethod', $ref, $entity);
 		}
 	}
-	
+
+    /**
+     * @param DBInterface $db
+     * @param $entity
+     *
+     * @return mixed
+     * @throws ReflectionException
+     * @throws Exception
+     */
 	public function merge($db, $entity){
 		$ref=new ReflectionClass(get_class($entity));
 		$cla=$this->analyzeClass($ref);
@@ -225,7 +367,9 @@ class PDBCObjectMapper{
 		if(isset($cla["primary"])){
 			$id=$cla["primary"]["reflection"]->getValue($entity);
 		}
-		
+
+        $this->callCallbackMethod('prePersistMethod', $ref, $entity);
+
 		$sql="";
 		$isInsert=false;
 		if($id){
@@ -269,6 +413,8 @@ class PDBCObjectMapper{
 				$cla["primary"]["reflection"]->setValue($entity, $result);
 			}			
 		}
+
+        $this->callCallbackMethod('postPersistMethod', $ref, $entity);
 		
 		return $entity;
 	}
