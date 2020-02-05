@@ -1,5 +1,6 @@
 <?php
 
+use core\addons\XWAddonImplementation;
 use core\modules\factories\XWModuleListFactory;
 use core\modules\XWModule;
 use core\modules\XWModuleDeployer;
@@ -13,7 +14,7 @@ use xw\entities\users\XWUserDAO;
 use core\pages\plain\XWPage;
 use core\utils\config\GlobalConfig;
 
-class XWMobileMenu extends \core\addons\XWAddonImplementation {
+class XWMobileMenu extends XWAddonImplementation {
     private $inverseStyle = false;
     private $pageFactoryClassName = "core\pages\plain\XWPageListFactory";
     private $useSEO = true;
@@ -277,7 +278,7 @@ class XWMobileMenu extends \core\addons\XWAddonImplementation {
             $datalist = '<datalist id="mobilemenu_suggestions"></datalist>';
             if(strlen($this->searchDatalistRenderService) > 0){
                 $addon = \core\addons\Services::getContainer()->get($this->searchDatalistRenderService);
-                if($addon && $addon instanceof \core\addons\XWAddonImplementation){
+                if($addon && $addon instanceof XWAddonImplementation){
                     $datalist = $addon->render();
                 }
             }

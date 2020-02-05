@@ -11,6 +11,7 @@ use core\utils\XWLocalePropertiesReader;
 use core\utils\XWServerInstanceToolKit;
 use Exception;
 use ReflectionClass;
+use ReflectionException;
 use Twig\Environment;
 use Twig\Loader\ArrayLoader;
 use Twig\Loader\FilesystemLoader;
@@ -114,20 +115,36 @@ class XWFastPostProPageLoader implements XWPageLoaderInterface{
 	public function setTitleAdd($text){
 		$this->titleAdd = $text;
 	}
-	
+
+    /**
+     * @param $pageName
+     * @param array $request
+     *
+     * @throws ReflectionException
+     */
 	public function load($pageName,$request = []){
 		$this->loadPage($pageName, null ,$request, isset($request['adminpage']) ? $request['adminpage'] == 1 : false);
 	}
 
-	/**
-	 * @return string
-	 */
+    /**
+     * @return mixed|string
+     * @throws ReflectionException
+     */
 	public function getLocale() {
 		/** @var XWLocale $locale */
 		$locale = Services::getContainer()->get('XWLocale');
 		return $locale->findLocale();
 	}
-	
+
+    /**
+     * @param string $pageName
+     * @param null $sub
+     * @param array $request
+     * @param bool $adminPage
+     *
+     * @return XWPageLoaderResult|mixed
+     * @throws ReflectionException
+     */
 	public function loadPage($pageName, $sub=null, $request=[], $adminPage=false){
         $res=new XWPageLoaderResult();
 

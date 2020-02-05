@@ -32,7 +32,6 @@ namespace core\addons;
 use core\logging\XWLoggerFactory;
 use core\modules\addons\ModuleAddonManager;
 use core\utils\XWServerInstanceToolKit;
-use core\utils\XWLocalePropertiesReader;
 use core\utils\config\GlobalConfig;
 use Exception;
 use ReflectionException;
@@ -43,10 +42,11 @@ class XWAddonManager{
 	private $path="";
 	
 	static private $instance=null;
-	
-	/**
-	 * @return XWAddonManager
-	 */
+
+    /**
+     * @return XWAddonManager
+     * @throws ReflectionException
+     */
 	static public function instance():XWAddonManager {
 		if(self::$instance==null){
 			self::$instance=new self();			

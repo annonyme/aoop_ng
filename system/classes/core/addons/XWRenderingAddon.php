@@ -58,6 +58,4 @@ class XWRenderingAddon{
     {
         $this->overrideInstancePath = $overrideInstancePath;
     }
-
-
 }

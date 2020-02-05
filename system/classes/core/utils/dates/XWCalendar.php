@@ -135,6 +135,7 @@ class XWCalendar{
 			default:
 				break;
 		}
+		return null;
 	}
 	
 	public function sub($field,$amount){
@@ -274,7 +275,7 @@ class XWCalendar{
 		return $this;
 	}
 	
-	public function getDifferenceAsNewCalendar($date){
+	public function getDifferenceAsNewCalendar(XWCalendar $date){
 		return new XWCalendar($date->getTime()-$this->currentDate);
 	} 
 	

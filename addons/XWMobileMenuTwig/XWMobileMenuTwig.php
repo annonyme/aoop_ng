@@ -1,5 +1,6 @@
 <?php
 
+use core\addons\XWAddonImplementation;
 use core\modules\factories\XWModuleListFactory;
 use core\modules\XWModule;
 use core\modules\XWModuleDeployer;
@@ -13,10 +14,16 @@ use xw\entities\users\XWUserDAO;
 use core\pages\plain\XWPage;
 use core\logging\XWLogger;
 
-class XWMobileMenuTwig extends \core\addons\XWAddonImplementation {
+class XWMobileMenuTwig extends XWAddonImplementation {
     private $inverseStyle = false;
     private $pageFactoryClassName = "core\pages\plain\XWPageListFactory";
     private $useSEO = true;
+
+    private $searchEnabled = false;
+    private $searchTarget = '';
+    private $searchFieldname = 'mobilemenu_search';
+    private $searchLabel = 'Search';
+    private $searchPlaceholder = '';
     
     private function getPageFolder():string {
         return XWServerInstanceToolKit::instance()->getServerSwitch()->getPages();
@@ -220,6 +227,14 @@ class XWMobileMenuTwig extends \core\addons\XWAddonImplementation {
         $model['items'] = $this->loadPagesStructure();
         $model['env'] = XWServerInstanceToolKit::instance()->getEnvValues();
 
+        $model['search'] = [
+            'enabled' => $this->searchEnabled,
+            'target' => $this->searchTarget,
+            'fieldname' => $this->searchFieldname,
+            'placeholder' => $this->searchPlaceholder,
+            'buttonLabel' => $this->searchLabel,
+        ];
+
         $result = '';
 
         try{
@@ -245,5 +260,95 @@ class XWMobileMenuTwig extends \core\addons\XWAddonImplementation {
         $result .= '</script>'."\n\n";
         
         return $result;
+    }
+
+    public function render($vars = []): string
+    {
+        if($vars['fixed']) {
+            return $this->getMenu(true);
+        }
+        else {
+            return $this->getToogleMenu();
+        }
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSearchEnabled(): bool
+    {
+        return $this->searchEnabled;
+    }
+
+    /**
+     * @param bool $searchEnabled
+     */
+    public function setSearchEnabled(bool $searchEnabled): void
+    {
+        $this->searchEnabled = $searchEnabled;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSearchTarget(): string
+    {
+        return $this->searchTarget;
+    }
+
+    /**
+     * @param string $searchTarget
+     */
+    public function setSearchTarget(string $searchTarget): void
+    {
+        $this->searchTarget = $searchTarget;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSearchFieldname(): string
+    {
+        return $this->searchFieldname;
+    }
+
+    /**
+     * @param string $searchFieldname
+     */
+    public function setSearchFieldname(string $searchFieldname): void
+    {
+        $this->searchFieldname = $searchFieldname;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSearchLabel(): string
+    {
+        return $this->searchLabel;
+    }
+
+    /**
+     * @param string $searchLabel
+     */
+    public function setSearchLabel(string $searchLabel): void
+    {
+        $this->searchLabel = $searchLabel;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSearchPlaceholder(): string
+    {
+        return $this->searchPlaceholder;
+    }
+
+    /**
+     * @param string $searchPlaceholder
+     */
+    public function setSearchPlaceholder(string $searchPlaceholder): void
+    {
+        $this->searchPlaceholder = $searchPlaceholder;
     }
 }

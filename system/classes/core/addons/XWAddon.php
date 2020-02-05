@@ -31,6 +31,7 @@ namespace core\addons;
 
 use core\utils\XWServerInstanceToolKit;
 use DOMDocument;
+use DOMNode;
 use ReflectionClass;
 use Exception;
  
@@ -74,8 +75,9 @@ class XWAddon{
 				$doc = new DOMDocument(); 
 				$doc->load($this->path."/config.xml");
 				$actives=$doc->getElementsByTagName("active");
-				foreach ($actives as $active){
-					if($active->nodeValue()=="false"){
+                /** @var DOMNode $active */
+                foreach ($actives as $active){
+                    if($active->nodeValue == "false"){
 						$this->setActive(false);
 					}
 				}
@@ -135,6 +137,24 @@ class XWAddon{
 		}		
 		return $object;
 	}
+
+    /**
+     * @param $class
+     * @param $method
+     *
+     * @return bool
+     */
+    private function hasClassMethod($class,$method){
+        $methods=get_class_methods($class);
+        $found=false;
+        $methodCount=count($methods);
+        for($i=0;$i<$methodCount;$i++){
+            if($methods[$i]==$method){
+                $found=true;
+            }
+        }
+        return $found;
+    }
 	
 	private function generateGetterSetterMethodName(string $attr, string $type="get"): string{
     	$attr=preg_replace_callback("/(_|^)(\w)/",create_function('$a','return strtoupper($a[2]);'),$attr);

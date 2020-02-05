@@ -7,6 +7,7 @@ use core\events\EventListenerFactory;
 use core\net\XWUrlHelper;
 use core\pages\plain\XWPageListFactory;
 use core\utils\XWServerInstanceToolKit;
+use Exception;
 use Twig\Environment;
 use Twig\TwigFunction;
 
@@ -28,7 +29,7 @@ class TwigFunctions{
                         $result = $addon->render($vars);
                     }
                 }
-                catch(\Exception $e){
+                catch(Exception $e){
 
                 }
                 return $result;
@@ -89,7 +90,7 @@ class TwigFunctions{
                 $twig = $tmp;
             }
         }
-        catch(\Exception $e){
+        catch(Exception $e){
 
         }
 
