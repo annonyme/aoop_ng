@@ -7,10 +7,13 @@ use core\events\EventListenerFactory;
 use core\net\XWUrlHelper;
 use core\pages\plain\XWPageListFactory;
 use core\utils\XWServerInstanceToolKit;
+use Exception;
+use Twig\Environment;
+use Twig\TwigFunction;
 
 class TwigFunctions{
-    public static function decorateTwig(\Twig_Environment $twig):\Twig_Environment {
-        $addonRendering = new \Twig_Function('renderAddon',
+    public static function decorateTwig(Environment $twig, $paths = []): Environment {
+        $addonRendering = new TwigFunction('renderAddon',
             function($name){
                 $result = '';
                 try{
@@ -21,20 +24,19 @@ class TwigFunctions{
                         $vars = json_decode($parts[1], true);
                     }
 
-
                     $addon = Services::getContainer()->get($name);
                     if($addon && $addon instanceof XWAddonImplementation){
                         $result = $addon->render($vars);
                     }
                 }
-                catch(\Exception $e){
+                catch(Exception $e){
 
                 }
                 return $result;
             }
         );
 
-        $pagelink = new \Twig_Function('pagelink',
+        $pagelink = new TwigFunction('pagelink',
             function($page){
                 $result = '';
                 $baseUrl = XWServerInstanceToolKit::instance()->getCurrentInstanceURL();
@@ -48,13 +50,11 @@ class TwigFunctions{
                     $result = $baseUrl . $page . '.html';
                 }
 
-//                $result = $baseUrl . $page . '.html';
-
                 return $result;
             }
         );
 
-        $modulelink = new \Twig_Function('modulelink',
+        $modulelink = new TwigFunction('modulelink',
             function($page){
                 $baseUrl = XWServerInstanceToolKit::instance()->getCurrentInstanceURL();
                 $parts = preg_split("/\//", $page);
@@ -65,7 +65,7 @@ class TwigFunctions{
             }
         );
 
-        $random = new \Twig_Function('random',
+        $random = new TwigFunction('random',
             function($values){
                 $valuesArray = preg_split("/[,;]/", $values);
                 return $valuesArray[rand(0, count($valuesArray) -1)];
@@ -77,15 +77,20 @@ class TwigFunctions{
         $twig->addFunction($modulelink);
         $twig->addFunction($random);
 
+        if($paths && count($paths) > 0) {
+            $twig->addTokenParser(new ExtTokenParser($paths));
+            $twig->addTokenParser(new IncTokenParser($paths));
+        }
+
         try{
             /** @var EventListenerFactory $events */
             $events = Services::getContainer()->get('events');
             $tmp = $events->fireFilterEvent('twig_functions_extend', $twig);
-            if($tmp instanceof \Twig_Environment){
+            if($tmp instanceof Environment){
                 $twig = $tmp;
             }
         }
-        catch(\Exception $e){
+        catch(Exception $e){
 
         }
 

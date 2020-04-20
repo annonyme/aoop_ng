@@ -55,7 +55,7 @@ class XWRESTMethod{
 		return $result;
 	}
 	
-	private function resolveArgument($arg,$url,$request){
+	private function resolveArgument(XWRESTArgument $arg,$url,$request){
 		$result=null;
 		$checkVarType=false;
 		if($arg->getType()=="request"){

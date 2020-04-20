@@ -32,7 +32,8 @@ namespace xw\entities\images;
 use core\utils\XWServerInstanceToolKit;
 use PDBC\PDBCCache;
 use core\database\XWSQLStatement;
- 
+use xw\entities\users\XWUser;
+
 class XWImageManagmentDAO{
 	private $db=null;
 	
@@ -75,7 +76,12 @@ class XWImageManagmentDAO{
         }
         return $image;
 	}
-	
+
+    /**
+     * @param XWImage $image
+     *
+     * @return XWImage
+     */
 	public function saveImage($image){
 		$db=$this->db;
 		
@@ -132,7 +138,10 @@ class XWImageManagmentDAO{
         }
         return $image;
 	}
-	
+
+    /**
+     * @param XWImage $image
+     */
 	public function deleteImage($image){
 		$db=$this->db;
 		$sql="DELETE FROM XW_PHOTOS WHERE PHOTO_ID=".intval($image->getId());
@@ -140,7 +149,12 @@ class XWImageManagmentDAO{
         $sql="DELETE FROM XW_USERS_PHOTOS WHERE PHOTO_ID=".intval($image->getId());
         $db->execute($sql);
 	}
-	
+
+    /**
+     * @param XWUser $user
+     *
+     * @return XWImageList
+     */
 	public function loadListByUser($user){
 		$db=$this->db;
              

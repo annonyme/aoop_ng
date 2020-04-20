@@ -30,6 +30,7 @@
 namespace xw\entities\users;
 
 use core\security\XWScramblingToolKit;
+use core\user\UserInterface;
 use core\utils\XWServerInstanceToolKit;
 use PDBC\PDBCCache;
 use core\database\XWSQLStatement;
@@ -77,7 +78,10 @@ class XWUserDAO{
     	}	
     	return $item; 
     }
-    
+
+    /**
+     * @param XWUserProfileItem $item
+     */
     public function saveUserProfileItem($item){
     	$onlyFriends=0;
     	if($item->isOnlyFriends()){
@@ -146,7 +150,10 @@ class XWUserDAO{
     	    $db->execute($stmt->getSQL());
     	}
     }
-    
+
+    /**
+     * @param XWUserProfileItem $item
+     */
     public function deleteUserProfileItem($item){
     	$sql="DELETE FROM XW_USERPROFILEITEMS WHERE USERPROFILEITEM_ID=".intval($item->getId());
     	$db=$this->db;
@@ -154,7 +161,10 @@ class XWUserDAO{
     	$sql="DELETE FROM XW_USERS_USERPROFILEITEMS WHERE USERPROFILEITEM_ID=".intval($item->getId());
     	$db->execute($sql);
     }
-    
+
+    /**
+     * @return XWUserProfileItemList
+     */
     public function loadUserProfileItemList(){
     	$sql="SELECT UP.USERPROFILEITEM_ID, " .
     		 "       UP.USERPROFILEITEM_NAME, " .
@@ -183,7 +193,12 @@ class XWUserDAO{
     	}	
     	return $list; 
     }
-    
+
+    /**
+     * @param UserInterface $user
+     *
+     * @return XWUserProfileItemList
+     */
     public function loadUserProfileItemListByUser($user){
     	$sql="SELECT UP.USERPROFILEITEM_ID, " .
     		 "       UP.USERPROFILEITEM_NAME, " .
@@ -214,7 +229,13 @@ class XWUserDAO{
     	}	
     	return $list;
     }
-    
+
+    /**
+     * @param UserInterface $user
+     * @param $name
+     *
+     * @return XWUserProfileItemList
+     */
     public function loadUserProfileItemListByUserAndName($user,$name){
     	$sql="SELECT UP.USERPROFILEITEM_ID, " .
     			"       UP.USERPROFILEITEM_NAME, " .
@@ -290,7 +311,12 @@ class XWUserDAO{
     	}	
     	return $list;
     }
-    
+
+    /**
+     * @param UserInterface $user
+     *
+     * @return XWUserProfileItemNameList
+     */
     public function loadUserProfileItemNameListByUser($user){
     	$sql="SELECT UP.USERPROFILEITEM_ID, " .
     		 "       UP.USERPROFILEITEM_NAME, " .
@@ -338,7 +364,12 @@ class XWUserDAO{
     	
     	return $group;
     }
-    
+
+    /**
+     * @param XWUserDefinedGroup $group
+     *
+     * @return XWUserList
+     */
     private function loadUserListByUserDefinedGroup($group){
     	$sql="SELECT U.USER_ID, " .
     		 "       U.USER_NAME, " .
@@ -364,7 +395,13 @@ class XWUserDAO{
         }
         return $userList;
     }
-    
+
+    /**
+     * @param $name
+     * @param UserInterface $user
+     *
+     * @return XWUserDefinedGroup
+     */
     public function loadUserDefinedGroupByNameAndUser($name,$user){
     	$sql="SELECT UDG.USERDEFINEDGROUP_ID, " .
     		 "       UDG.USERDEFINEDGROUP_NAME, " .
@@ -395,7 +432,10 @@ class XWUserDAO{
     	
     	return $group;
     }
-    
+
+    /**
+     * @param XWUserDefinedGroup $group
+     */
     public function saveUserDefinedGroup($group){
     	if($group->getId()==0){
     		$sql="INSERT INTO XW_USERDEFINEDGROUPS(USERDEFINEDGROUP_NAME) " .
@@ -435,7 +475,10 @@ class XWUserDAO{
     		$db->execute($stmt->getSQL());
     	}
     }
-    
+
+    /**
+     * @param XWUserDefinedGroup $group
+     */
     public function deleteUserDefinedGroup($group){
     	$sql="DELETE FROM XW_USERS_USERDEFINEDGROUPS WHERE USERDEFINEDGROUP_ID=".$group->getId();
     	$db=$this->db;
@@ -445,21 +488,34 @@ class XWUserDAO{
     	$sql="DELETE FROM XW_USERDEFINEDGROUPS WHERE USERDEFINEDGROUP_ID=".$group->getId();
     	$db->execute($sql);
     }
-    
+
+    /**
+     * @param UserInterface $user
+     * @param XWUserDefinedGroup $group
+     */
     public function saveUserToUserDefinedGroup($user,$group){
     	$sql="INSERT INTO XW_USERS_USERDEFINEDGROUPS(USER_ID,USERDEFINEDGROUP_ID) " .
     		 "VALUES (".intval($user->getId()).",".intval($group->getId()).")";
     	$db=$this->db;
     	$db->execute($sql);	 
     }
-    
+
+    /**
+     * @param UserInterface$user
+     * @param XWUserDefinedGroup $group
+     */
     public function removeUserFromUserDefinedGroup($user,$group){
     	$sql="DELETE FROM XW_USERS_USERDEFINEDGROUPS WHERE USER_ID=".$user->getId()."  " .
     		 "   AND USERDEFINEDGROUP_ID=".intval($group->getId());	 
     	$db=$this->db;
     	$db->execute($sql);		 
     }
-    
+
+    /**
+     * @param UserInterface $user
+     *
+     * @return XWUserDefinedGroupList
+     */
     public function loadUserDefinedGroupListByUser($user){
     	$sql="SELECT UDG.USERDEFINEDGROUP_ID, " .
     		 "       UDG.USERDEFINEDGROUP_NAME, " .
@@ -505,7 +561,10 @@ class XWUserDAO{
     	}
     	return $ll;	 
     }
-    
+
+    /**
+     * @param XWLoginLog $ll
+     */
     public function saveLoginLog($ll){
     	if($ll->getId()==0){
     		$sql="INSERT INTO XW_LOGINLOGS(" .
@@ -537,7 +596,12 @@ class XWUserDAO{
     		}
     	}
     }
-    
+
+    /**
+     * @param UserInterface $user
+     *
+     * @return XWLoginLogList
+     */
     public function loadLoginLogListByUser($user){
     	$sql="SELECT LL.LOGINLOG_ID, " .
     		 "       LL.LOGINLOG_IP, " .
@@ -603,4 +667,4 @@ class XWUserDAO{
     	return isset($_SESSION["XWUSER"]) && is_object($_SESSION["XWUSER"]) && $_SESSION["XWUSER"]->getId() > 0;
     }
 } 
-?>
+

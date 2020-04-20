@@ -2,6 +2,7 @@
 namespace  core\menu;
 
 use core\user\UserInterface;
+use Exception;
 
 class MenuBuilder{
 	/**
@@ -73,16 +74,17 @@ class MenuBuilder{
 	}
 	
 	/**
-	 * @return string
+	 * @return array
 	 * @param MenuItem[] $items
 	 * @param UserInterface|null $user
 	 */
+	//FIXME
 	private function filterForUser($items = [], $user = null){
 		$tmp = [];
 		foreach ($this->items as $item){
 			if((count($item->getUserGroups()) == 0 && !$item->isOnlyLoggedIn()) 
 					|| ($item->isOnlyLoggedIn() && $user !== null)
-					|| ($user !==null && $this->checkUserGroups($user, $items->getUserGroups()))){
+					|| ($user !==null && $this->checkUserGroups($user, $item->getUserGroups()))){
 				$item->setSubItems($this->filterForUser($item->getSubItems(), $user));
 				$tmp[] = $item;
 			}
@@ -104,23 +106,22 @@ class MenuBuilder{
 		}
 		return $result;
 	}
-	
-	/**
-	 * @return string
-	 * @param bool $sortItems
-	 * @param UserInterface|null $user
-	 */
+
+    /**
+     * @param bool $sortItems
+     * @param null $user
+     *
+     * @return string
+     * @throws Exception
+     */
 	public function render($sortItems = false, $user = null){
 		if($sortItems){
 			$this->items = $this->sortItems($this->items);
 		}
 		$this->items = $this->filterForUser($this->items, $user);
 		$result = "";
-		if($this->renderer !== null){
-			
-		}
-		else{
-			throw new \Exception("no menu renderer setted");
+		if($this->renderer === null){
+			throw new Exception("no menu renderer setted");
 		}
 		return $result;
 	}	

@@ -31,6 +31,7 @@ namespace core\utils\filesystem;
 
 use core\utils\XWArrayList;
 use DirectoryIterator;
+use Exception;
 
 class XWFileList{
 	private $list=null;
@@ -61,7 +62,7 @@ class XWFileList{
             	}
             }
  		}
- 		catch(\Exception $e){
+ 		catch(Exception $e){
  			
  		}
  	}

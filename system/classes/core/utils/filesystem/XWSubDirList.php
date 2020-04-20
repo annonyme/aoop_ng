@@ -29,6 +29,8 @@
 
 namespace core\utils\filesystem;
 
+use DirectoryIterator;
+
 class XWSubDirList{
 	private $list=[];
 
@@ -41,7 +43,7 @@ class XWSubDirList{
 	 */
 	public function load($root){
 		$this->list=[];
-		$di=new \DirectoryIterator($root);
+		$di=new DirectoryIterator($root);
 		foreach($di as $file){
 			if(!$file->isDot() && $file->isDir()){
 				$this->addSubDir($file->getFilename());

@@ -1,6 +1,11 @@
 <?php
 namespace xw\cli\modules;
 
+use core\modules\factories\XWModuleListFactory;
+use core\modules\XWModule;
+use core\utils\XWServerInstanceToolKit;
+use Exception;
+use PDBC\PDBCCache;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
@@ -18,15 +23,15 @@ class DisableModule extends Command{
     protected function execute(InputInterface $input, OutputInterface $output){
         $instance = $input->getOption('instance');
         if(is_dir(GlobalConfig::instance()->getValue('instancesfolder') . $instance)){
-            $module = $input->getOption('module');
-            if(is_dir(GlobalConfig::instance()->getValue('modulesfolder') . $module)){
-                if(is_file(GlobalConfig::instance()->getValue('instancesfolder') . $instance . '/modules/' . $module . '.xml')){
-                    unlink(GlobalConfig::instance()->getValue('instancesfolder') . $instance . '/modules/' . $module . '.xml');
+            $moduleName = $input->getOption('module');
+            if(is_dir(GlobalConfig::instance()->getValue('modulesfolder') . $moduleName)){
+                if(is_file(GlobalConfig::instance()->getValue('instancesfolder') . $instance . '/modules/' . $moduleName . '.xml')){
+                    unlink(GlobalConfig::instance()->getValue('instancesfolder') . $instance . '/modules/' . $moduleName . '.xml');
                 }
-                $output->writeln($module . ' is inactive in ' . $instance);
+                $output->writeln($moduleName . ' is inactive in ' . $instance);
             }
             else{
-                $output->writeln($module . " is not a valid module");
+                $output->writeln($moduleName . " is not a valid module");
             }
         }
         else{

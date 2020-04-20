@@ -1,20 +1,23 @@
 <?php 
 namespace core\router;
 
+use Exception;
+use ReflectionClass;
+
 /**
  * {
-		pattern:
-		target:{
-			type:
-			_specificvalue_:
-			args:[{pattern:,type:,group:,requestvalue:,onnull:}]
-		}
-		subroutes:[]
-	}
-	
-	if subroutes are set, the target is optional
-	
-	use patterns:[{...},{....}] to use more than one route in json-files
+ * pattern:
+		* target:{
+			* type:
+			* _specificvalue_:
+			* args:[{pattern:,type:,group:,requestvalue:,onnull:}]
+		* }
+		* subroutes:[]
+	* }
+ *
+* if subroutes are set, the target is optional
+ *
+* use patterns:[{...},{....}] to use more than one route in json-files
  * @author annonyme
  *
  */
@@ -46,13 +49,12 @@ class XWURLRouter{
 				if(isset($json['listeners'])){
 				    foreach ($json['listeners'] as $listener){
 				        try{
-                            $clazz = new \ReflectionClass($listener);
+                            $clazz = new ReflectionClass($listener);
                             $obj = $clazz->newInstance();
                             if($obj instanceof XWURLRouterListener){
                                 $this->addListener($obj);
                             }
-                        }
-                        catch(\Exception $e){
+                        } catch(Exception $e){
 
                         }
                     }
@@ -87,7 +89,7 @@ class XWURLRouter{
 	
 	/**
 	 * @return XWURLResolveResult
-	 * @param string $pattern
+	 * @param array $pattern
 	 * @param string $url
 	 * @param array $request
 	 */
@@ -119,9 +121,9 @@ class XWURLRouter{
 						}
 					}
 				}
-			}			
+            }
 		}
-		catch(\Exception $e){
+		catch(Exception $e){
 			
 		}
 		return $result;

@@ -1,6 +1,8 @@
 <?php
 namespace core\logging;
 
+use Exception;
+
 class XWFileAppender implements XWAppender {
 	
 	/**
@@ -9,7 +11,7 @@ class XWFileAppender implements XWAppender {
 	 *
 	 * @see XWAppender::write()
 	 */
-	public function write($msg, ?\Exception $e, $type, array $appenderConfig) {
+	public function write($msg, ?Exception $e, $type, array $appenderConfig) {
 		$dateFormat="Y-m-d h:i:s";
         if(isset($appenderConfig["dateformat"])){
            	$dateFormat=$appenderConfig["dateformat"];

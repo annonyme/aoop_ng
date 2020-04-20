@@ -31,8 +31,9 @@ namespace core\menu\admin;
 
 use core\modules\factories\XWModuleListFactory;
 use DirectoryIterator;
-     
- class XWAdminMenuBuilder{
+use xw\entities\users\XWUser;
+
+class XWAdminMenuBuilder{
  	private $fileContentList=[];
  	
  	public function __construct(){
@@ -57,7 +58,7 @@ use DirectoryIterator;
  		}
  	}
  	
- 	public function buildFromModules($user){
+ 	public function buildFromModules(XWUser $user){
  		$this->fileContentList=[];
  		
  		$modules=XWModuleListFactory::getFullModuleList();

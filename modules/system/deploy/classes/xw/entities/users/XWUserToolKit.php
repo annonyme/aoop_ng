@@ -43,10 +43,13 @@ class XWUserToolKit{
 	public function findUserNamesInText($text){
 		return $this->findUserNamesInTextByValidCheck($text);
 	}
-	
-	/**
-	 * find @userName tokens in text and check the name against a userlist (XWUserList!).
-	 */
+
+    /**
+     * @param $text
+     * @param null|XWUserList $checkAgainstValidUserList
+     *
+     * @return XWArrayList
+     */
 	public function findUserNamesInTextByValidCheck($text,$checkAgainstValidUserList=null){
 		$userNames=new XWArrayList();
 		

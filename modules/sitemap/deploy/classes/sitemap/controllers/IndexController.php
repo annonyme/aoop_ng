@@ -1,6 +1,8 @@
 <?php
 namespace sitemap\controllers;
 
+use core\addons\Services;
+use core\events\EventListenerFactory;
 use core\modules\controllers\XWModulePageController;
 use core\modules\controllers\XWModulePageRenderingResult;
 use core\modules\factories\XWModuleListFactory;
@@ -8,6 +10,7 @@ use core\modules\XWModuleDeployer;
 use core\net\XWRequest;
 use core\pages\plain\XWPageListFactory;
 use core\utils\XWServerInstanceToolKit;
+use Exception;
 use xw\entities\users\XWUser;
 
 class IndexController extends XWModulePageController{
@@ -60,8 +63,8 @@ class IndexController extends XWModulePageController{
                         }
                     }
 
-                    /** @var \core\events\EventListenerFactory $events */
-                    $events = \core\addons\Services::getContainer()->get('events');
+                    /** @var EventListenerFactory $events */
+                    $events = Services::getContainer()->get('events');
                     $moduleItemUrls = $events->fireFilterEvent('Sitemap_Module_Collection_' . $module->getCallName(), $moduleItemUrls, ['mainurl' => $url]);
 
                     foreach ($moduleItemUrls as $itemUrl){
@@ -82,7 +85,7 @@ class IndexController extends XWModulePageController{
 
             $result->setModel($model);
         }
-        catch(\Exception $e){
+        catch(Exception $e){
 
         }
         $result->setNoRendering(true);

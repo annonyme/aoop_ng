@@ -1,6 +1,9 @@
 <?php
 namespace core\router;
 
+use Exception;
+use ReflectionClass;
+
 /**
  * class [full qualified classname]
  * method [method-name]
@@ -33,7 +36,7 @@ class XWURLGenericControllerListener implements XWURLRouterListener{
 			$singleton = strtolower($data["singleton"]) == "true";
 			
 			$obj = null;
-			$ref = new \ReflectionClass($clazz);
+			$ref = new ReflectionClass($clazz);
 			if($singleton){
 				if(isset(self::$singletons[$clazz])){					
 					$obj = $ref->newInstance();
@@ -52,7 +55,7 @@ class XWURLGenericControllerListener implements XWURLRouterListener{
 			$result->setContent($content);
 			$result->setType(get_class($content));
 		}
-		catch(\Exception $e){
+		catch(Exception $e){
 			$result->setException($e);
 		}
 		return $result;

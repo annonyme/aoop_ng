@@ -119,7 +119,7 @@ class XWCodeGenerator
 			for ($j = 0; $j < $innerCount; $j++) {
 				$codes->add($this->codeTable[$this->getRandomNumber()]);
 			}
-			$code .= $codes->get(mt_rand(0, $codes->getSize() - 1));
+			$code .= $codes->get(mt_rand(0, $codes->size() - 1));
 		}
 		return $code;
 	}

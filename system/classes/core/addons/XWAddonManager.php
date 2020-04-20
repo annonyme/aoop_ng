@@ -29,21 +29,24 @@
 
 namespace core\addons;
 
+use core\logging\XWLoggerFactory;
 use core\modules\addons\ModuleAddonManager;
 use core\utils\XWServerInstanceToolKit;
-use core\utils\XWLocalePropertiesReader;
 use core\utils\config\GlobalConfig;
- 
+use Exception;
+use ReflectionException;
+
 class XWAddonManager{
 	
 	private $addons=[];
 	private $path="";
 	
 	static private $instance=null;
-	
-	/**
-	 * @return XWAddonManager
-	 */
+
+    /**
+     * @return XWAddonManager
+     * @throws ReflectionException
+     */
 	static public function instance():XWAddonManager {
 		if(self::$instance==null){
 			self::$instance=new self();			
@@ -55,10 +58,12 @@ class XWAddonManager{
 	public function __construct(){
 		$this->path=GlobalConfig::instance()->getValue("addonfolder");
 	}
-	
-	/**
-	 * @param string $path
-	 */
+
+    /**
+     * @param string $path
+     *
+     * @throws ReflectionException
+     */
 	public function loadAddonsByPathForStartup(string $path = "../addons"){
 		$files=[];
 		if(!isset($_SESSION["XW_ADDON_FOLDERLIST"])){
@@ -93,11 +98,13 @@ class XWAddonManager{
         	}        	
         }
 	}
-	
-	/**
-	 * @return XWAddon|null
-	 * @param string $name
-	 */
+
+    /**
+     * @param string $name
+     *
+     * @return mixed|null
+     * @throws ReflectionException
+     */
 	public function getAddonByName(string $name){		
 		//TODO check path exists.. before search for config file
 		if(!isset($this->addons[$name])){
@@ -117,7 +124,7 @@ class XWAddonManager{
                     $addon->setPath($this->path."/".$name);
                 }
                 if(method_exists($addon, 'setLogger')){
-        		    $addon->setLogger(\core\logging\XWLoggerFactory::getLogger(get_class($addon)));
+        		    $addon->setLogger(XWLoggerFactory::getLogger(get_class($addon)));
                 }
         		$this->addons[$name]=$addon;
         	}
@@ -137,6 +144,12 @@ class XWAddonManager{
 		}
 	}
 
+    /**
+     * @param $name
+     *
+     * @return mixed|null
+     * @throws ReflectionException
+     */
 	public function get($name){
 	    return $this->getAddonByName($name);
     }
@@ -150,7 +163,7 @@ class XWAddonManager{
                 $addon->setPath($this->path."/".$name);
             }
             if(method_exists($addon, 'setLogger')){
-                $addon->setLogger(\core\logging\XWLoggerFactory::getLogger(get_class($addon)));
+                $addon->setLogger(XWLoggerFactory::getLogger(get_class($addon)));
             }
             $this->addons[$name]=$addon;
         }
@@ -164,27 +177,9 @@ class XWAddonManager{
                 $result = $this->path."/".$name;
             }
         }
-        catch(\Exception $e){
+        catch(Exception $e){
 
         }
         return $result;
     }
-	
-	/**
-	 * @return XWLocalePropertiesReader
-	 * @param string $name
-	 */
-	public function getDictionaryForAddon(string $name):XWLocalePropertiesReader{
-		$dict=new XWLocalePropertiesReader();
-		if(!$this->getAddonByName("XWDictionaries")->existsIn($name)){
-		 	if(is_file($this->path."/".$name."/dict.props")){
-		 		$dict->importPropertiesBundle($this->path."/".$name."/dict.props",XWAddonManager::instance()->getAddonByName("XWLocale")->findLocale());
-		 		$this->getAddonByName("XWDictionaries")->addDictionary($name,$dict);
-		 	}
-		}
-		else{
-		 	$dict=$this->getAddonByName("XWDictionaries")->getDictionary($name);
-		}
-		return $dict;
-	}
 } 

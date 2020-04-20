@@ -24,6 +24,7 @@ namespace core\net;
 
 use core\logging\XWLoggerFactory;
 use core\logging\XWLogger;
+use Exception;
 
 class XWUrlHelper{
 	
@@ -65,18 +66,17 @@ class XWUrlHelper{
 	 * @return string
 	 */
 	private function createPagePart($module,$page){
-		$result="";
-		if($module!=null && strlen($module)>0){
-			if($page==null || strlen($page)==0){
-				$page="index";
-			}
-			
-			$result="page=".$module."&sub=".$page;
-		}
-		else{
-			$result="page=".$page;
-		}
-		return $result;
+        $result = '';
+        if ($module != null && strlen($module) > 0) {
+            if ($page == null || strlen($page) == 0) {
+                $page = 'index';
+            }
+
+            $result = 'page=' . $module . '&sub=' . $page;
+        } else {
+            $result = 'page=' . $page;
+        }
+        return $result;
 	}
 	
 	/**
@@ -129,7 +129,7 @@ class XWUrlHelper{
 			}
 			exit;
 		}
-		catch(\Exception $e){
+		catch(Exception $e){
 			XWLoggerFactory::getLogger(XWUrlHelper::class)->log(XWLogger::ERROR, $e->getMessage(), $e);
 		}		
 	}
@@ -169,12 +169,15 @@ class XWUrlHelper{
 		}
 		return "index.php?".$this->createPagePart($module,$page)."&".$this->mapToString($params)."&_resource=bypage".$admin;
 	}
-	
-	/**
-	 * @param string $text
-	 */
+
+    /**
+     * @param string $text
+     *
+     * @return string
+     */
 	public static function buildBaseUrlForReadable($text){
-		return "idx-".preg_replace("/[^a-zA-Z0-9]/i", "-", strtolower($text)).".html";
+		$url = "idx-".preg_replace("/[^a-zA-Z0-9]/i", "-", strtolower($text)).".html";
+	    return preg_replace("/-{2,}/", '-', $url);
 	}
 
 	public static function simplyfyText($text, $id = '', $fileExt = '.html', $module = null){

@@ -1,30 +1,21 @@
 PDBC_V1.5 (2015/10/09)
 ======================
 
-Unterstützte Datenbanken:
+UnterstÃ¼tzte Datenbanken:
 -------------------------
-
-- Oracle
-- Interbase
-- Firebird (=Interbase)
-- MySQL
-- MySQLi
-
-Java-Bridge JDBC-Connection:
-
-- Oracle
-- MySQL
 
 PDO:
 
 - Oracle
 - MySQL
+- Firebird
+- Generic
 
 
 PHP:
 ----
 
-PHP ab Version 5.
+PHP ab Version 7.
 
 
 Verwendung (Beispiel):

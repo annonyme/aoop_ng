@@ -2,6 +2,7 @@
 namespace core\modules\addons;
 
 use core\utils\XWServerInstanceToolKit;
+use Exception;
 use ReflectionClass;
 use DOMDocument;
 use core\modules\factories\XWModuleListFactory;
@@ -117,7 +118,7 @@ class ModuleAddonManager{
 				}
 			};
 		}
-		catch(\Exception $e){
+		catch(Exception $e){
 
 		}
 		return $result;
@@ -155,7 +156,7 @@ class ModuleAddonManager{
 						$ref->getMethod("startup")->invoke($obj);
 					}
 				}
-				catch(\Exception $e){
+				catch(Exception $e){
 
 				}
 			}

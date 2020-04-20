@@ -1,10 +1,11 @@
 <?php
 namespace core\router;
 
-use core\router\XWURLRouterListener;
+use Exception;
 
 class XWURLGenericIncludeListener implements XWURLRouterListener{
-	
+	
+
 	/**
 	 * {@inheritDoc}
 	 * @see \core\router\XWURLRouterListener::checkType()
@@ -38,7 +39,7 @@ class XWURLGenericIncludeListener implements XWURLRouterListener{
 			
 			$result->setContent(["success" => true]);
 		}
-		catch(\Exception $e){
+		catch(Exception $e){
 			$result->setContent(["success" => false]);
 		}
 		return $result;

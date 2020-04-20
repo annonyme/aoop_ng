@@ -73,30 +73,28 @@ class XWHashCreator{
 	 * a final hash from endhash from recursive runs and rounds.
 	 */
 	public function multiSaltEncode($password,$hash="",$tokenLength=2,$rounds=0){
-		$toHash="";
-		if(strlen($password)>$tokenLength){
-			/*
-			for($i=0;$i<$tokenLength;$i++){
-				$toHash.=substr($password,$i,1);						
-			}
-			*/
-			$toHash=substr($password,0,$tokenLength);
-			//$password=preg_replace("/^".$toHash."/","",$password);
-			$password=substr($password,$tokenLength,strlen($password));
-		}
-		else{
-			$toHash=$password;
-			$password="";
-		}
-						
-		if($toHash==""){
-			return md5($rounds.$hash); //rounds to check that length of password is correct and no collision for this hash is used
-		}
-		else{
-			//echo "to hash: <strong>".$toHash."</strong>| cutted password: ".$password."| result will be (of '".$hash."<strong>".$toHash."</strong>'): ".md5($hash.$toHash)."<br/>";
-			$rounds++;
-			return $this->multiSaltEncode($password,md5($hash.$toHash),$tokenLength,$rounds);
-		}
+        $toHash = '';
+        if (strlen($password) > $tokenLength) {
+            /*
+            for($i=0;$i<$tokenLength;$i++){
+                $toHash.=substr($password,$i,1);
+            }
+            */
+            $toHash = substr($password, 0, $tokenLength);
+            //$password=preg_replace("/^".$toHash."/","",$password);
+            $password = substr($password, $tokenLength, strlen($password));
+        } else {
+            $toHash = $password;
+            $password = '';
+        }
+
+        if ($toHash == '') {
+            return md5($rounds . $hash); //rounds to check that length of password is correct and no collision for this hash is used
+        } else {
+            //echo "to hash: <strong>".$toHash."</strong>| cutted password: ".$password."| result will be (of '".$hash."<strong>".$toHash."</strong>'): ".md5($hash.$toHash)."<br/>";
+            $rounds++;
+            return $this->multiSaltEncode($password, md5($hash . $toHash), $tokenLength, $rounds);
+        }
 	}
 	
 	/**
@@ -152,4 +150,3 @@ class XWHashCreator{
 		return sha1($check);
 	}
 } 
-?>

@@ -83,7 +83,7 @@ class XWPageSaver{
 		$fileList=new XWFileList();
 		$fileList->load($this->path);
 		for($i=0;$i<$fileList->getSize();$i++){
-			if(preg_match("/^".$this-file.".+\.bkup$/Uis",$fileList->getFile($i))){
+			if(preg_match("/^".$this->file.".+\.bkup$/Uis",$fileList->getFile($i))){
 				$this->addOldVersion($fileList->getFile($i));
 			}
 		}

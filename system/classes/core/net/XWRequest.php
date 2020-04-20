@@ -23,6 +23,7 @@
 namespace core\net;
 
 use core\utils\XWServerInstanceToolKit;
+use Exception;
 use Symfony\Component\HttpFoundation\Request;
 
 class XWRequest{	
@@ -64,7 +65,7 @@ class XWRequest{
                 $_SERVER
             );
         }
-        catch(\Exception $e){
+        catch(Exception $e){
 
         }
 	}

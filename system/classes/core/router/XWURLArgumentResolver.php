@@ -1,6 +1,8 @@
 <?php 
 namespace core\router;
 
+use Exception;
+
 class XWURLArgumentResolver{
 	public static function resolve($args = [], $globalPattern, $url, $request = []){
 		$result = [];
@@ -69,7 +71,7 @@ class XWURLArgumentResolver{
 				$result = json_decode(urldecode($value));
 			}
 		}
-		catch(\Exception $e){
+		catch(Exception $e){
 			
 		}		
 		return $result;

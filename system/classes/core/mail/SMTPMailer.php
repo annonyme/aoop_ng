@@ -3,6 +3,7 @@
 namespace core\mail;
 
 use PHPMailer;
+use phpmailerException;
 use Swift_Mailer;
 use Swift_Message;
 use Swift_SmtpTransport;
@@ -67,6 +68,17 @@ class SMTPMailer
         $mailer->send($mail);
     }
 
+    /**
+     * @param string $from
+     * @param null $fromClearName
+     * @param array $to
+     * @param string $subject
+     * @param string $text
+     * @param bool $isHtml
+     * @param null $fallbackText
+     *
+     * @throws phpmailerException
+     */
     private function sendPHPMailer(string $from, $fromClearName = null, array $to = [], string $subject, string $text = '', bool $isHtml = false, $fallbackText = null)
     {
         $mail = new PHPMailer();

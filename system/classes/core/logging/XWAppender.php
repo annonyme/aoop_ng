@@ -1,11 +1,16 @@
 <?php
 namespace core\logging;
 
+use Exception;
+
 interface XWAppender{
-	/**
-	 * @param string $msg
-	 * @param integer $timestamp
-	 * @param array $appenderConfig
-	 */
-	public function write($msg, ?\Exception $exception, $type, array $appenderConfig);
+    /**
+     * @param $msg
+     * @param Exception|null $exception
+     * @param $type
+     * @param array $appenderConfig
+     *
+     * @return mixed
+     */
+	public function write($msg, ?Exception $exception, $type, array $appenderConfig);
 }
