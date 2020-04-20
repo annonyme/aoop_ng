@@ -28,3 +28,9 @@ Change the default **admin**-password!
 ## Modules
 - copy the module folder to the module-folder
 - install via **aoop:modules:install**, if there is a SQL install-file
+
+## Docker-Compose
+* HTTP 8081
+* Mailhog 8025
+* Adminer 8082
+* MySql: aoop_mysql/aoop, app:app (no outside port)

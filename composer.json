@@ -29,7 +29,8 @@
         "ext-dom": "*",
         "ext-pdo": "*",
         "annonyme/events": "dev-master",
-        "swiftmailer/swiftmailer": "^6.0"
+        "swiftmailer/swiftmailer": "^6.0",
+        "ext-yaml": "*"
     },
     "autoload": {
         "psr-0": {"": "src/"}
