@@ -30,16 +30,16 @@ class SMTPMailer
         return strlen($this->host) > 0 && strlen($this->user) > 0;
     }
 
-    public function send(string $from, $fromClearName = null, array $to = [], string $subject, string $text = '', bool $isHtml = false, $fallbackText = null)
+    public function send(string $from, $fromClearName = null, array $to = [], string $subject, string $text = '', bool $isHtml = false, $fallbackText = null, $bcc = null)
     {
         if ($this->useSwift) {
-            $this->sendSwift($from, $fromClearName, $to, $subject, $text, $isHtml, $fallbackText);
+            $this->sendSwift($from, $fromClearName, $to, $subject, $text, $isHtml, $fallbackText, $bcc);
         } else {
-            $this->sendPHPMailer($from, $fromClearName, $to, $subject, $text, $isHtml, $fallbackText);
+            $this->sendPHPMailer($from, $fromClearName, $to, $subject, $text, $isHtml, $fallbackText, $bcc);
         }
     }
 
-    private function sendSwift(string $from, $fromClearName = null, array $to = [], string $subject, string $text = '', bool $isHtml = false, $fallbackText = null)
+    private function sendSwift(string $from, $fromClearName = null, array $to = [], string $subject, string $text = '', bool $isHtml = false, $fallbackText = null, $bcc = null)
     {
         $transport = new Swift_SmtpTransport($this->host, (int) $this->port);
         if ($this->user && $this->user != '') {
@@ -59,6 +59,9 @@ class SMTPMailer
         }
 
         $mail->setTo($to);
+        if($bcc) {
+            $mail->setBcc($bcc);
+        }
         $mail->setBody($text);
         if ($isHtml) {
             $mail->setContentType('text/html');
@@ -79,7 +82,7 @@ class SMTPMailer
      *
      * @throws phpmailerException
      */
-    private function sendPHPMailer(string $from, $fromClearName = null, array $to = [], string $subject, string $text = '', bool $isHtml = false, $fallbackText = null)
+    private function sendPHPMailer(string $from, $fromClearName = null, array $to = [], string $subject, string $text = '', bool $isHtml = false, $fallbackText = null, $bcc = null)
     {
         $mail = new PHPMailer();
         //$text = preg_replace("/\\/", "", $text);
@@ -114,6 +117,11 @@ class SMTPMailer
 
         foreach ($to as $name => $address) {
             $mail->AddAddress($address, !preg_match("/^\d+$/", $name) ? $name : null);
+        }
+        if($bcc) {
+            foreach ($bcc as $name => $address) {
+                $mail->addBCC($address, !preg_match("/^\d+$/", $name) ? $name : null);
+            }
         }
 
         $mail->Send();
