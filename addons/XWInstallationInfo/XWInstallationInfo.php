@@ -75,13 +75,11 @@ use core\utils\config\DoopSysEnvVarsXML;
  	 	
  	 }
  	 
- 	 public function getInfoByName($name){
+ 	 public function getInfoByName($name, $default = ''){
  	 	if($this->existsInfo($name)){
-			return $this->cache[$name];
+			$default = $this->cache[$name];
 		}
-		else{
-			return "";
-		}
+		return $default;
  	 }
  	 
  	 public function printInfoByName($name){

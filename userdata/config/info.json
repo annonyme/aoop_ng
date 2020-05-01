@@ -1,9 +1,8 @@
 {
 	"name":"AOOP-NG",
-	"version":"1.0",
-	"builddate":"04.11.2019",
+	"version":"2.0.0",
+	"builddate":"2020-05-01",
 	"versionstatus":"release",
 	"aoophomepage":"http://www.hannespries.de",
-	"developer":"Hannes Pries",
-	"createoldaddonarray":"false"
+	"developer":"Hannes Pries"
 }
