@@ -17,7 +17,7 @@ $request = XWRequest::instance()->getRequestAsArray();
 	Core-System (current instance '<?=XWAddonManager::instance()->getAddonByName("XWServerInstanceInfos")->getInstanceName() ?>')
 </div>
 <div class="panel-body">
-  aoop <?=XWAddonManager::instance()->getAddonByName("XWInstallationInfo")->getInfoByName("version") ?> <?=XWAddonManager::instance()->getAddonByName("XWInstallationInfo")->getInfoByName("versionstatus") ?> [<?=XWAddonManager::instance()->getAddonByName("XWInstallationInfo")->getInfoByName("builddate") ?>] - PHP: <?=phpversion() ?>
+  aoop <?=XWAddonManager::instance()->getAddonByName("XWInstallationInfo")->getInfoByName("version", 'not setted') ?> <?=XWAddonManager::instance()->getAddonByName("XWInstallationInfo")->getInfoByName("versionstatus") ?> [<?=XWAddonManager::instance()->getAddonByName("XWInstallationInfo")->getInfoByName("builddate", '0000-00-00') ?>] - PHP: <?=phpversion() ?>
 </div>
 <div class="panel-body" id="systemAdminPanel">
 	<?php
