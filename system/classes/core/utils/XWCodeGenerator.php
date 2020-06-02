@@ -8,7 +8,7 @@
  */
 
 /*
- * Copyright (c) 2008/2011/2016 Hannes Pries <http://www.annonyme.de>
+ * Copyright (c) 2008/2011/2016/2020 Hannes Pries <http://www.annonyme.de>
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
  * to deal in the Software without restriction, including without limitation
@@ -29,6 +29,8 @@
  */
 
 namespace core\utils;
+
+use Exception;
 
 class XWCodeGenerator
 {
@@ -92,25 +94,28 @@ class XWCodeGenerator
 		$this->codeTable = $codeTable;
 	}
 
-	/**
-	 * simple random code generation
-	 */
+    /**
+     * simple random code generation
+     * @param int $length
+     * @return string
+     * @throws Exception
+     */
 	public function generate($length = 10)
 	{
-		$code = '';
-		for ($i = 0; $i < $length; $i++) {
-			$code .= $this->codeTable[$this->getRandomNumber()];
-		}
-		return $code;
+		return bin2hex(random_bytes($length));
 	}
+
 	private function getRandomNumber()
 	{
 		return mt_rand(0, count($this->codeTable) - 1);
 	}
 
-	/**
-	 * a more random as random code generation method
-	 */
+    /**
+     * a more random as random code generation method
+     * @param int $length
+     * @param int $innerCount
+     * @return string
+     */
 	public function generateWithInnerLoop($length = 10, $innerCount = 5)
 	{
 		$code = '';

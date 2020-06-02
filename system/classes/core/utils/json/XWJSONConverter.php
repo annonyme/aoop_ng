@@ -3,6 +3,7 @@
 namespace core\utils\json;
 
 use ReflectionClass;
+use ReflectionException;
 
 class XWJSONConverter
 {
@@ -13,9 +14,9 @@ class XWJSONConverter
      * @param bool $firstInLine
      * @param string $result
      * @return string
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
-    public function convert($value, $level = 0, $name = null, $firstInLine = true, $result = '')
+    public function encode($value, $level = 0, $name = null, $firstInLine = true, $result = '')
     {
         $opening = false;
         if ($level == 0 && $name != null) {
@@ -43,7 +44,7 @@ class XWJSONConverter
             */
             $i = 0;
             foreach ($value as $val) {
-                $result = $this->convert($val, $level + 1, null, $i == 0, $result);
+                $result = $this->encode($val, $level + 1, null, $i == 0, $result);
                 $i++;
             }
             $result .= ']';
@@ -68,9 +69,13 @@ class XWJSONConverter
                     if ($prop->isPrivate() || $prop->isProtected()) {
                         $name = preg_replace("/^_/", '', $name);
                     }
-                    $result = $this->convert($prop->getValue($value), $level + 1, $name, $i == 0, $result);
+                    $result = $this->encode($prop->getValue($value), $level + 1, $name, $i == 0, $result);
                 }
             }
+            if(count($props) > 0) {
+                $result .= ',';
+            }
+            $result .= '"$class":"' . get_class($value) . '"';
             $result .= '}';
         } else if (is_null($value)) {
             if (!$firstInLine) {
