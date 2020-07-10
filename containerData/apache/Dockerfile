@@ -19,7 +19,6 @@ RUN docker-php-ext-install pdo_mysql \
     && docker-php-ext-install dom \
     && docker-php-ext-install curl \
     && docker-php-ext-install zip \
-    && docker-php-ext-install yaml \
     && docker-php-ext-install xml
 RUN rm -rf /var/lib/apt/lists/*
 
