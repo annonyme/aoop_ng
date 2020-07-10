@@ -1,4 +1,5 @@
 {
+	"type": "smtp",
 	"host": "aoop_mail",
 	"port": 1025
 }

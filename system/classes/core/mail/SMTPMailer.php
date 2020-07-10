@@ -2,11 +2,10 @@
 
 namespace core\mail;
 
+use core\mail\v2\MailerFactory;
 use PHPMailer;
 use phpmailerException;
-use Swift_Mailer;
 use Swift_Message;
-use Swift_SmtpTransport;
 
 class SMTPMailer
 {
@@ -41,15 +40,7 @@ class SMTPMailer
 
     private function sendSwift(string $from, $fromClearName = null, array $to = [], string $subject, string $text = '', bool $isHtml = false, $fallbackText = null, $bcc = null)
     {
-        $transport = new Swift_SmtpTransport($this->host, (int) $this->port);
-        if ($this->user && $this->user != '') {
-            $transport->setUsername($this->user);
-            if ($this->password && $this->password != '') {
-                $transport->setPassword($this->password);
-            }
-        }
-
-        $mailer = new Swift_Mailer($transport);
+        $mailer = MailerFactory::getMailer();
         $mail = new Swift_Message($subject);
 
         if ($fromClearName) {
