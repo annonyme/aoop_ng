@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
   aoop_mysql:
-    image: bitnami/mysql:latest
+    image: bitnami/mysql:5.7.32
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: aoop
@@ -19,7 +19,6 @@ services:
     - ./containerData/apache/my_vhost.conf:/etc/apache2/sites-enabled/000-default.conf:rw
     - ./:/var/www/html:rw,delegated
 #    command: ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
-    restart: always
     depends_on:
       - adminer
     environment:
@@ -31,7 +30,6 @@ services:
 
   adminer:
     image: adminer
-    restart: always
     ports:
     - 8082:8080
     depends_on:
@@ -41,4 +39,3 @@ services:
     image: mailhog/mailhog
     ports:
     - 8025:8025
-    restart: unless-stopped
